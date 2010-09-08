@@ -67,6 +67,23 @@ let charset = [
     \ 'KOI7-switched', 'BRF', 'TSCII', 'windows-1250', 'windows-1251', 'windows-1252', 'windows-1253', 'windows-1254', 'windows-1255', 
     \ 'windows-1256', 'windows-1257', 'windows-1258', 'TIS-620', ]
 
+let widget_role = ['alert', 'alertdialog', 'button', 'checkbox', 'combobox', 'dialog', 'gridcell', 'link', 'log', 'marquee', 'menuitem', 'menuitemcheckbox', 'menuitemradio', 'option', 'progressbar', 'radio', 'radiogroup', 'scrollbar', 'slider', 'spinbutton', 'status', 'tab', 'tabpanel', 'textbox', 'timer', 'tooltip', 'treeitem']
+let document_structure = ['article', 'columnheader', 'definition', 'directory', 'document', 'group', 'heading', 'img', 'list', 'listitem', 'math', 'note', 'presentation', 'region', 'row', 'rowheader', 'separator']
+let landmark_role = ['application', 'banner', 'complementary', 'contentinfo', 'form', 'main', 'navigation', 'search']
+let role = extend(widget_role, document_structure)
+let role = extend(role, landmark_role)
+
+let global_states_and_properties = {'aria-atomic': ['true', 'false'], 'aria-busy': ['true', 'false'], 'aria-controls': [], 'aria-describedby': [], 'aria-disabled': ['true', 'false'], 'aria-dropeffect': ['copy', 'move', 'link', 'execute', 'popup', 'none'], 'aria-flowto': [], 'aria-grabbed': ['true', 'false', 'undefined'], 'aria-haspopup': ['true', 'false'], 'aria-hidden': ['true', 'false'], 'aria-invalid': ['grammar', 'spelling', 'true', 'false'], 'aria-label': [], 'aria-labelledby': [], 'aria-live': ['off', 'polite', 'assertive'], 'aria-owns': [], 'aria-relevant': ['additions', 'removals', 'text', 'all']}
+let widget_attributes = {'aria-autocomplete': ['inline', 'list', 'both', 'none'], 'aria-checked': ['true', 'false', 'mixed', 'undefined'], 'aria-disabled': ['true', 'false'], 'aria-expanded': ['true', 'false', 'undefined'], 'aria-haspopup': ['true', 'false'], 'aria-hidden': ['true', 'false'], 'aria-invalid': ['grammar', 'spelling', 'true', 'false'], 'aria-label': [], 'aria-level': [], 'aria-multiline': ['true', 'false'], 'aria-multiselectable': ['true', 'false'], 'aria-orientation': ['horizontal', 'vertical'], 'aria-pressed': ['true', 'false', 'mixed', 'undefined'], 'aria-readonly': ['true', 'false'], 'aria-required': ['true', 'false'], 'aria-selected': ['true', 'false', 'undefined'], 'aria-sort': ['ascending', 'descending', 'none', 'other'], 'aria-valuemax': [], 'aria-valuemin': [], 'aria-valuenow': [], 'aria-valuetext': []}
+let live_region_attributes = {'aria-atomic': ['true', 'false'], 'aria-busy': ['true', 'false'], 'aria-live': ['off', 'polite', 'assertive'], 'aria-relevant': ['additions', 'removals', 'text', 'all', 'additions text']}
+let drag_and_drop_attributes = {'aria-dropeffect': ['copy', 'move', 'link', 'execute', 'popup', 'none'], 'aria-grabbed': ['true', 'false', 'undefined']}
+let relationship_attributes = {'aria-activedescendant': [], 'aria-controls': [], 'aria-describedby': [], 'aria-flowto': [], 'aria-labelledby': [], 'aria-owns': [], 'aria-posinset': [], 'aria-setsize': []}
+let aria_attributes = widget_attributes
+let aria_attributes = extend(aria_attributes, live_region_attributes)
+let aria_attributes = extend(aria_attributes, drag_and_drop_attributes)
+let aria_attributes = extend(aria_attributes, relationship_attributes)
+"let aria_attributes = SortUnique(aria_attributes)
+
 let core_attributes = {'accesskey': [], 'class': [], 'contenteditable': ['true', 'false', ''], 'contextmenu': [], 'dir': ['ltr', 'rtl'], 'draggable': ['true', 'false'], 'hidden': ['hidden', ''], 'id': [], 'lang': [], 'spellcheck': ['true', 'false', ''], 'style': [], 'tabindex': [], 'title': []}
 let event_handler_attributes = {'onabort': [], 'onblur': [], 'oncanplay': [], 'oncanplaythrough': [], 'onchange': [], 'onclick': [], 'oncontextmenu': [], 'ondblclick': [], 'ondrag': [], 'ondragend': [], 'ondragenter': [], 'ondragleave': [], 'ondragover': [], 'ondragstart': [], 'ondrop': [], 'ondurationchange': [], 'onemptied': [], 'onended': [], 'onerror': [], 'onfocus': [], 'onformchange': [], 'onforminput': [], 'oninput': [], 'oninvalid': [], 'onkeydown': [], 'onkeypress': [], 'onkeyup': [], 'onload': [], 'onloadeddata': [], 'onloadedmetadata': [], 'onloadstart': [], 'onmousedown': [], 'onmousemove': [], 'onmouseout': [], 'onmouseover': [], 'onmouseup': [], 'onmousewheel': [], 'onpause': [], 'onplay': [], 'onplaying': [], 'onprogress': [], 'onratechange': [], 'onreadystatechange': [], 'onscroll': [], 'onseeked': [], 'onseeking': [], 'onselect': [], 'onshow': [], 'onstalled': [], 'onsubmit': [], 'onsuspend': [], 'ontimeupdate': [], 'onvolumechange': [], 'onwaiting': []}
 let xml_attributes = {'xml:lang': lang_tag, 'xml:space': [], 'xml:base': []}
@@ -93,6 +110,13 @@ endif
 if g:microdata_attributes_complete == 1
     let global_attributes = extend(global_attributes, microdata_attributes)
 endif
+if !exists('g:role_attributes_complete')
+    let g:role_attributes_complete = 1
+endif
+if g:role_attributes_complete == 1
+    let global_attributes = extend(global_attributes, {'role': role})
+endif
+    let global_attributes = extend(global_attributes, {'role': role})
 
 let phrasing_elements = ['a', 'em', 'strong', 'small', 'mark', 'abbr', 'dfn', 'i', 'b', 'code', 'var', 'samp', 'kbd', 'sup', 'sub', 'q', 'cite', 'span', 'bdo', 'br', 'wbr', 'ins', 'del', 'img', 'embed', 'object', 'iframe', 'map', 'area', 'script', 'noscript', 'ruby', 'video', 'audio', 'input', 'textarea', 'select', 'button', 'label', 'output', 'datalist', 'keygen', 'progress', 'command', 'canvas', 'time', 'meter']
 
@@ -104,542 +128,543 @@ let g:xmldata_html5 = {
 \ 'vimxmlentities': ['AElig', 'Aacute', 'Acirc', 'Agrave', 'Alpha', 'Aring', 'Atilde', 'Auml', 'Beta', 'Ccedil', 'Chi', 'Dagger', 'Delta', 'ETH', 'Eacute', 'Ecirc', 'Egrave', 'Epsilon', 'Eta', 'Euml', 'Gamma', 'Iacute', 'Icirc', 'Igrave', 'Iota', 'Iuml', 'Kappa', 'Lambda', 'Mu', 'Ntilde', 'Nu', 'OElig', 'Oacute', 'Ocirc', 'Ograve', 'Omega', 'Omicron', 'Oslash', 'Otilde', 'Ouml', 'Phi', 'Pi', 'Prime', 'Psi', 'Rho', 'Scaron', 'Sigma', 'THORN', 'Tau', 'Theta', 'Uacute', 'Ucirc', 'Ugrave', 'Upsilon', 'Uuml', 'Xi', 'Yacute', 'Yuml', 'Zeta', 'aacute', 'acirc', 'acute', 'aelig', 'agrave', 'alefsym', 'alpha', 'amp', 'and', 'ang', 'apos', 'aring', 'asymp', 'atilde', 'auml', 'bdquo', 'beta', 'brvbar', 'bull', 'cap', 'ccedil', 'cedil', 'cent', 'chi', 'circ', 'clubs', 'cong', 'copy', 'crarr', 'cup', 'curren', 'dArr', 'dagger', 'darr', 'deg', 'delta', 'diams', 'divide', 'eacute', 'ecirc', 'egrave', 'empty', 'emsp', 'ensp', 'epsilon', 'equiv', 'eta', 'eth', 'euml', 'euro', 'exist', 'fnof', 'forall', 'frac12', 'frac14', 'frac34', 'frasl', 'gamma', 'ge', 'gt', 'hArr', 'harr', 'hearts', 'hellip', 'iacute', 'icirc', 'iexcl', 'igrave', 'image', 'infin', 'int', 'iota', 'iquest', 'isin', 'iuml', 'kappa', 'lArr', 'lambda', 'lang', 'laquo', 'larr', 'lceil', 'ldquo', 'le', 'lfloor', 'lowast', 'loz', 'lrm', 'lsaquo', 'lsquo', 'lt', 'macr', 'mdash', 'micro', 'middot', 'minus', 'mu', 'nabla', 'nbsp', 'ndash', 'ne', 'ni', 'not', 'notin', 'nsub', 'ntilde', 'nu', 'oacute', 'ocirc', 'oelig', 'ograve', 'oline', 'omega', 'omicron', 'oplus', 'or', 'ordf', 'ordm', 'oslash', 'otilde', 'otimes', 'ouml', 'para', 'part', 'permil', 'perp', 'phi', 'pi', 'piv', 'plusmn', 'pound', 'prime', 'prod', 'prop', 'psi', 'quot', 'rArr', 'radic', 'rang', 'raquo', 'rarr', 'rceil', 'rdquo', 'real', 'reg', 'rfloor', 'rho', 'rlm', 'rsaquo', 'rsquo', 'sbquo', 'scaron', 'sdot', 'sect', 'shy', 'sigma', 'sigmaf', 'sim', 'spades', 'sub', 'sube', 'sum', 'sup', 'sup1', 'sup2', 'sup3', 'supe', 'szlig', 'tau', 'there4', 'theta', 'thetasym', 'thinsp', 'thorn', 'tilde', 'times', 'trade', 'uArr', 'uacute', 'uarr', 'ucirc', 'ugrave', 'uml', 'upsih', 'upsilon', 'uuml', 'weierp', 'xi', 'yacute', 'yen', 'yuml', 'zeta', 'zwj', 'zwnj'],
 \ 'vimxmlroot': ['html'],
 \ 'a': [
-\ filter(copy(flow_elements), "!(v:val =~ 'details\\|embed\\|iframe\\|img\\|keygen\\|label\\|menu\\|select\\|textarea')"),
-\ extend(copy(global_attributes), {'name': [], 'href': [], 'target': [], 'rel': [], 'hreflang': lang_tag, 'media': [], 'type': []}) 
+    \ filter(copy(flow_elements), "!(v:val =~ 'details\\|embed\\|iframe\\|img\\|keygen\\|label\\|menu\\|select\\|textarea')"),
+    \ extend(copy(global_attributes), {'name': [], 'href': [], 'target': [], 'rel': [], 'hreflang': lang_tag, 'media': [], 'type': []}) 
 \ ],
 \ 'abbr': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'address': [
-\ filter(copy(flow_elements), "!(v:val =~ 'address\\|nav\\|article\\|header\\|footer\\|section\\|aside\\|h1\\|h2\\|h3\\|h4\\|h5\\|h6')"),
-\ global_attributes
+    \ filter(copy(flow_elements), "!(v:val =~ 'address\\|nav\\|article\\|header\\|footer\\|section\\|aside\\|h1\\|h2\\|h3\\|h4\\|h5\\|h6')"),
+    \ global_attributes
 \ ],
 \ 'area': [
-\ [],
-\ extend(copy(global_attributes), {'alt': [], 'href': [], 'target': [], 'rel': [], 'media': [], 'hreflang': lang_tag, 'type': [], 'shape': ['rect', 'circle', 'poly', 'default'], 'coords': []})
+    \ [],
+    \ extend(copy(global_attributes), {'alt': [], 'href': [], 'target': [], 'rel': [], 'media': [], 'hreflang': lang_tag, 'type': [], 'shape': ['rect', 'circle', 'poly', 'default'], 'coords': []})
 \ ],
 \ 'article': [
-\ flow_elements + ['style'],
-\ global_attributes
+    \ flow_elements + ['style'],
+    \ global_attributes
 \ ],
 \ 'aside': [
-\ flow_elements + ['style'],
-\ global_attributes
+    \ flow_elements + ['style'],
+    \ global_attributes
 \ ],
 \ 'audio': [
-\ flow_elements + ['source', 'track'],
-\ extend(copy(global_attributes), {'autoplay': ['autoplay', ''], 'preload': ['none', 'metadata', 'auto', ''], 'controls': ['controls', ''], 'loop': ['loop', ''], 'src': []})
+    \ flow_elements + ['source', 'track'],
+    \ extend(copy(global_attributes), {'autoplay': ['autoplay', ''], 'preload': ['none', 'metadata', 'auto', ''], 'controls': ['controls', ''], 'loop': ['loop', ''], 'src': []})
 \ ],
 \ 'b': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'base': [
-\ [],
-\ extend(copy(global_attributes), {'href': [], 'target': []})
+    \ [],
+    \ extend(copy(global_attributes), {'href': [], 'target': []})
 \ ],
 \ 'bdo': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'blockquote': [
-\ flow_elements,
-\ extend(copy(global_attributes), {'cite': []})
+    \ flow_elements,
+    \ extend(copy(global_attributes), {'cite': []})
 \ ],
 \ 'body': [
-\ flow_elements,
-\ extend(copy(global_attributes), {'onafterprint': [], 'onbeforeprint': [], 'onbeforeunload': [], 'onblur': [], 'onerror': [], 'onfocus': [], 'onhashchange': [], 'onload': [], 'onmessage': [], 'onoffline': [], 'ononline': [], 'onpopstate': [], 'onredo': [], 'onresize': [], 'onstorage': [], 'onundo': [], 'onunload': []})
+    \ flow_elements,
+    \ extend(copy(global_attributes), {'onafterprint': [], 'onbeforeprint': [], 'onbeforeunload': [], 'onblur': [], 'onerror': [], 'onfocus': [], 'onhashchange': [], 'onload': [], 'onmessage': [], 'onoffline': [], 'ononline': [], 'onpopstate': [], 'onredo': [], 'onresize': [], 'onstorage': [], 'onundo': [], 'onunload': []})
 \ ],
 \ 'br': [
-\ [],
-\ global_attributes
+    \ [],
+    \ global_attributes
 \ ],
 \ 'button': [
-\ filter(copy(phrasing_elements), "!(v:val =~ 'details\\|embed\\|button\\|img\\|keygen\\|label\\|menu\\|select\\|textarea')"),
-\ extend(copy(global_attributes), {'type': ['submit', 'reset', 'button'], 'name': [], 'disabled': ['disabled', ''], 'form': [], 'value': [], 'formaction': [], 'autofocus': ['autofocus', ''], 'formenctype': ['application/x-www-form-urlencoded', 'multipart/form-data', 'text/plain'], 'formmethod': ['get', 'post', 'put', 'delete'], 'formtarget': [], 'formnovalidate': ['formnovalidate', '']})
+    \ filter(copy(phrasing_elements), "!(v:val =~ 'details\\|embed\\|button\\|img\\|keygen\\|label\\|menu\\|select\\|textarea')"),
+    \ extend(copy(global_attributes), {'type': ['submit', 'reset', 'button'], 'name': [], 'disabled': ['disabled', ''], 'form': [], 'value': [], 'formaction': [], 'autofocus': ['autofocus', ''], 'formenctype': ['application/x-www-form-urlencoded', 'multipart/form-data', 'text/plain'], 'formmethod': ['get', 'post', 'put', 'delete'], 'formtarget': [], 'formnovalidate': ['formnovalidate', '']})
 \ ],
 \ 'canvas': [
-\ flow_elements,
-\ extend(copy(global_attributes), {'height': [], 'width': []})
+    \ flow_elements,
+    \ extend(copy(global_attributes), {'height': [], 'width': []})
 \ ],
 \ 'caption': [
-\ filter(copy(flow_elements), "!(v:val =~ 'table')"),
-\ global_attributes
+    \ filter(copy(flow_elements), "!(v:val =~ 'table')"),
+    \ global_attributes
 \ ],
 \ 'cite': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'code': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'col': [
-\ [],
-\ extend(copy(global_attributes), {'span': []})
+    \ [],
+    \ extend(copy(global_attributes), {'span': []})
 \ ],
 \ 'colgroup': [
-\ [],
-\ extend(copy(global_attributes), {'span': []})
+    \ [],
+    \ extend(copy(global_attributes), {'span': []})
 \ ],
 \ 'command': [
-\ ['col'],
-\ extend(copy(global_attributes), {'type': ['command', 'radio', 'checkbox'], 'radiogroup': [], 'checked': ['checked', ''], 'label': [], 'icon': [], 'disabled': ['disabled', '']})
+    \ ['col'],
+    \ extend(copy(global_attributes), {'type': ['command', 'radio', 'checkbox'], 'radiogroup': [], 'checked': ['checked', ''], 'label': [], 'icon': [], 'disabled': ['disabled', '']})
 \ ],
 \ 'datalist': [
-\ phrasing_elements + ['option'],
-\ global_attributes
+    \ phrasing_elements + ['option'],
+    \ global_attributes
 \ ],
 \ 'dd': [
-\ flow_elements,
-\ global_attributes
+    \ flow_elements,
+    \ global_attributes
 \ ],
 \ 'del': [
-\ flow_elements,
-\ extend(copy(global_attributes), {'cite': [], 'datetime': []})
+    \ flow_elements,
+    \ extend(copy(global_attributes), {'cite': [], 'datetime': []})
 \ ],
 \ 'details': [
-\ flow_elements + ['summary'],
-\ extend(copy(global_attributes), {'open': ['open', '']})
+    \ flow_elements + ['summary'],
+    \ extend(copy(global_attributes), {'open': ['open', '']})
 \ ],
 \ 'dfn': [
-\ filter(copy(phrasing_elements), "!(v:val =~ 'dfn')"),
-\ global_attributes
+    \ filter(copy(phrasing_elements), "!(v:val =~ 'dfn')"),
+    \ global_attributes
 \ ],
 \ 'div': [
-\ flow_elements + ['style'],
-\ global_attributes
+    \ flow_elements + ['style'],
+    \ global_attributes
 \ ],
 \ 'dl': [
-\ ['dt', 'dd'],
-\ global_attributes
+    \ ['dt', 'dd'],
+    \ global_attributes
 \ ],
 \ 'dt': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'em': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'embed': [
-\ [],
-\ extend(copy(global_attributes), {'src': [], 'type': [], 'height': [], 'width': []})
+    \ [],
+    \ extend(copy(global_attributes), {'src': [], 'type': [], 'height': [], 'width': []})
 \ ],
 \ 'fieldset': [
-\ flow_elements + ['legend'],
-\ extend(copy(global_attributes), {'name': [], 'disabled': ['disabled', ''], 'form': []})
+    \ flow_elements + ['legend'],
+    \ extend(copy(global_attributes), {'name': [], 'disabled': ['disabled', ''], 'form': []})
 \ ],
 \ 'figcaption': [
-\ flow_elements,
-\ global_attributes
+    \ flow_elements,
+    \ global_attributes
 \ ],
 \ 'figure': [
-\ flow_elements + ['figcaption'],
-\ global_attributes
+    \ flow_elements + ['figcaption'],
+    \ global_attributes
 \ ],
 \ 'footer': [
-\ filter(copy(flow_elements), "!(v:val =~ 'address\\|header\\|footer')"),
-\ global_attributes
+    \ filter(copy(flow_elements), "!(v:val =~ 'address\\|header\\|footer')"),
+    \ global_attributes
 \ ],
 \ 'form': [
-\ flow_elements,
-\ extend(copy(global_attributes), {'name': [], 'action': [], 'enctype': ['application/x-www-form-urlencoded', 'multipart/form-data', 'text/plain'], 'method': ['get', 'post', 'put', 'delete'], 'target': [], 'novalidate': ['novalidate', ''], 'accept-charset': charset, 'autocomplete': ['on', 'off']})
+    \ flow_elements,
+    \ extend(copy(global_attributes), {'name': [], 'action': [], 'enctype': ['application/x-www-form-urlencoded', 'multipart/form-data', 'text/plain'], 'method': ['get', 'post', 'put', 'delete'], 'target': [], 'novalidate': ['novalidate', ''], 'accept-charset': charset, 'autocomplete': ['on', 'off']})
 \ ],
 \ 'h1': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'h2': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'h3': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'h4': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'h5': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'h6': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'head': [
-\ metadata_elements + ['title', 'base'],
-\ global_attributes
+    \ metadata_elements + ['title', 'base'],
+    \ global_attributes
 \ ],
 \ 'header': [
-\ filter(copy(flow_elements), "!(v:val =~ 'address\\|header\\|footer')"),
-\ global_attributes
+    \ filter(copy(flow_elements), "!(v:val =~ 'address\\|header\\|footer')"),
+    \ global_attributes
 \ ],
 \ 'hgroup': [
-\ ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-\ global_attributes
+    \ ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+    \ global_attributes
 \ ],
 \ 'hr': [
-\ [],
-\ global_attributes
+    \ [],
+    \ global_attributes
 \ ],
 \ 'html': [
-\ ['head', 'body'],
-\ extend(copy(global_attributes), {'manifest': []})
+    \ ['head', 'body'],
+    \ extend(copy(global_attributes), {'manifest': []})
 \ ],
 \ 'i': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'iframe': [
-\ [],
-\ extend(copy(global_attributes), {'src': [], 'name': [], 'width': [], 'height': [], 'sandbox': [], 'seamless': ['seamless', '']})
+    \ [],
+    \ extend(copy(global_attributes), {'src': [], 'name': [], 'width': [], 'height': [], 'sandbox': [], 'seamless': ['seamless', '']})
 \ ],
 \ 'img': [
-\ [],
-\ extend(copy(global_attributes), {'src': [], 'alt': [], 'height': [], 'width': [], 'usemap': [], 'ismap': ['ismap', '']})
+    \ [],
+    \ extend(copy(global_attributes), {'src': [], 'alt': [], 'height': [], 'width': [], 'usemap': [], 'ismap': ['ismap', '']})
 \ ],
 \ 'input': [
-\ [],
-\ extend(copy(global_attributes), {'type': ['text', 'passwprd', 'checkbox', 'radio', 'button', 'submit', 'reset', 'file', 'hidden', 'image', 'datetime', 'datetime-local', 'date', 'month', 'time', 'week', 'number', 'range', 'email', 'url', 'search', 'tel', 'coloe'], 'name': [], 'disabled': ['disabled', ''], 'form': [], 'maxlength': [], 'readonly': ['readonly', ''], 'size': [], 'value': [], 'autocomplete': ['on', 'off'], 'autofocus': ['autofocus', ''], 'list': [], 'pattern': [], 'required': ['required', ''], 'placeholder': [], 'checked': ['checked'], 'accept': [], 'multiple': ['multiple', ''], 'alt': [], 'src': [], 'height': [], 'width': [], 'min': [], 'max': [], 'step': [], 'formenctype': ['application/x-www-form-urlencoded', 'multipart/form-data', 'text/plain'], 'formmethod': ['get', 'post', 'put', 'delete'], 'formtarget': [], 'formnovalidate': ['formnovalidate', '']})
+    \ [],
+    \ extend(copy(global_attributes), {'type': ['text', 'passwprd', 'checkbox', 'radio', 'button', 'submit', 'reset', 'file', 'hidden', 'image', 'datetime', 'datetime-local', 'date', 'month', 'time', 'week', 'number', 'range', 'email', 'url', 'search', 'tel', 'coloe'], 'name': [], 'disabled': ['disabled', ''], 'form': [], 'maxlength': [], 'readonly': ['readonly', ''], 'size': [], 'value': [], 'autocomplete': ['on', 'off'], 'autofocus': ['autofocus', ''], 'list': [], 'pattern': [], 'required': ['required', ''], 'placeholder': [], 'checked': ['checked'], 'accept': [], 'multiple': ['multiple', ''], 'alt': [], 'src': [], 'height': [], 'width': [], 'min': [], 'max': [], 'step': [], 'formenctype': ['application/x-www-form-urlencoded', 'multipart/form-data', 'text/plain'], 'formmethod': ['get', 'post', 'put', 'delete'], 'formtarget': [], 'formnovalidate': ['formnovalidate', '']})
 \ ],
 \ 'ins': [
-\ flow_elements,
-\ extend(copy(global_attributes), {'cite': [], 'datetime': []})
+    \ flow_elements,
+    \ extend(copy(global_attributes), {'cite': [], 'datetime': []})
 \ ],
 \ 'kbd': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'keygen': [
-\ [],
-\ extend(copy(global_attributes), {'challenge': [], 'keytype': ['rsa'], 'autofocus': ['autofocus', ''], 'name': [], 'disabled': ['disabled', ''], 'form': []})
+    \ [],
+    \ extend(copy(global_attributes), {'challenge': [], 'keytype': ['rsa'], 'autofocus': ['autofocus', ''], 'name': [], 'disabled': ['disabled', ''], 'form': []})
 \ ],
 \ 'label': [
-\ filter(copy(phrasing_elements), "!(v:val =~ 'label')"),
-\ extend(copy(global_attributes), {'for': [], 'form': []})
+    \ filter(copy(phrasing_elements), "!(v:val =~ 'label')"),
+    \ extend(copy(global_attributes), {'for': [], 'form': []})
 \ ],
 \ 'legend': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'li': [
-\ flow_elements,
-\ extend(copy(global_attributes), {'value': []})
+    \ flow_elements,
+    \ extend(copy(global_attributes), {'value': []})
 \ ],
 \ 'link': [
-\ [],
-\ extend(copy(global_attributes), {'href': [], 'rel': [], 'hreflang': lang_tag, 'media': [], 'type': [], 'sizes': ['any']})
+    \ [],
+    \ extend(copy(global_attributes), {'href': [], 'rel': [], 'hreflang': lang_tag, 'media': [], 'type': [], 'sizes': ['any']})
 \ ],
 \ 'map': [
-\ flow_elements,
-\ extend(copy(global_attributes), {'name': []})
+    \ flow_elements,
+    \ extend(copy(global_attributes), {'name': []})
 \ ],
 \ 'mark': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'menu': [
-\ flow_elements + ['li'],
-\ extend(copy(global_attributes), {'type': ['toolbar', 'context'], 'label': []})
+    \ flow_elements + ['li'],
+    \ extend(copy(global_attributes), {'type': ['toolbar', 'context'], 'label': []})
 \ ],
 \ 'meta': [
-\ [],
-\ extend(copy(global_attributes), {'name': [], 'http-equiv': ['refresh', 'default-style', 'content-type'], 'content': [], 'charset': charset})
+    \ [],
+    \ extend(copy(global_attributes), {'name': [], 'http-equiv': ['refresh', 'default-style', 'content-type'], 'content': [], 'charset': charset})
 \ ],
 \ 'meter': [
-\ phrasing_elements,
-\ extend(copy(global_attributes), {'value': [], 'min': [], 'low': [], 'high': [], 'max': [], 'optimum': []})
+    \ phrasing_elements,
+    \ extend(copy(global_attributes), {'value': [], 'min': [], 'low': [], 'high': [], 'max': [], 'optimum': []})
 \ ],
 \ 'nav': [
-\ flow_elements,
-\ global_attributes
+    \ flow_elements,
+    \ global_attributes
 \ ],
 \ 'noscript': [
-\ flow_elements + ['link', 'meta', 'style'],
-\ global_attributes
+    \ flow_elements + ['link', 'meta', 'style'],
+    \ global_attributes
 \ ],
 \ 'object': [
-\ flow_elements + ['param'],
-\ extend(copy(global_attributes), {'data': [], 'type': [], 'height': [], 'width': [], 'usemap': [], 'name': [], 'form': []})
+    \ flow_elements + ['param'],
+    \ extend(copy(global_attributes), {'data': [], 'type': [], 'height': [], 'width': [], 'usemap': [], 'name': [], 'form': []})
 \ ],
 \ 'ol': [
-\ ['li'],
-\ extend(copy(global_attributes), {'start': [], 'reversed': ['reversed', '']})
+    \ ['li'],
+    \ extend(copy(global_attributes), {'start': [], 'reversed': ['reversed', '']})
 \ ],
 \ 'optgroup': [
-\ ['option'],
-\ extend(copy(global_attributes), {'label': [], 'disabled': ['disabled', '']})
+    \ ['option'],
+    \ extend(copy(global_attributes), {'label': [], 'disabled': ['disabled', '']})
 \ ],
 \ 'option': [
-\ [''],
-\ extend(copy(global_attributes), {'disabled': ['disabled', ''], 'selected': ['selected', ''], 'label': [], 'value': []})
+    \ [''],
+    \ extend(copy(global_attributes), {'disabled': ['disabled', ''], 'selected': ['selected', ''], 'label': [], 'value': []})
 \ ],
 \ 'output': [
-\ phrasing_elements,
-\ extend(copy(global_attributes), {'name': [], 'form': [], 'for': []})
+    \ phrasing_elements,
+    \ extend(copy(global_attributes), {'name': [], 'form': [], 'for': []})
 \ ],
 \ 'p': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'param': [
-\ [],
-\ extend(copy(global_attributes), {'name': [], 'value': []})
+    \ [],
+    \ extend(copy(global_attributes), {'name': [], 'value': []})
 \ ],
 \ 'pre': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'progress': [
-\ filter(copy(phrasing_elements), "!(v:val =~ 'progress')"),
-\ extend(copy(global_attributes), {'value': [], 'max': []})
+    \ filter(copy(phrasing_elements), "!(v:val =~ 'progress')"),
+    \ extend(copy(global_attributes), {'value': [], 'max': []})
 \ ],
 \ 'q': [
-\ phrasing_elements,
-\ extend(copy(global_attributes), {'cite': []})
+    \ phrasing_elements,
+    \ extend(copy(global_attributes), {'cite': []})
 \ ],
 \ 'rp': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'rt': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'ruby': [
-\ phrasing_elements + ['rp', 'rt'],
-\ global_attributes
+    \ phrasing_elements + ['rp', 'rt'],
+    \ global_attributes
 \ ],
 \ 'samp': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'script': [
-\ [],
-\ extend(copy(global_attributes), {'src': [], 'defer': ['defer', ''], 'async': ['async', ''], 'type': [], 'charset': charset})
+    \ [],
+    \ extend(copy(global_attributes), {'src': [], 'defer': ['defer', ''], 'async': ['async', ''], 'type': [], 'charset': charset})
 \ ],
 \ 'section': [
-\ flow_elements + ['style'],
-\ global_attributes
+    \ flow_elements + ['style'],
+    \ global_attributes
 \ ],
 \ 'select': [
-\ ['optgroup', 'option'],
-\ extend(copy(global_attributes), {'name': [], 'disabled': ['disabled', ''], 'form': [], 'size': [], 'multiple': ['multiple', '']})
+    \ ['optgroup', 'option'],
+    \ extend(copy(global_attributes), {'name': [], 'disabled': ['disabled', ''], 'form': [], 'size': [], 'multiple': ['multiple', '']})
 \ ],
 \ 'small': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'source': [
-\ [],
-\ extend(copy(global_attributes), {'src': [], 'type': [], 'media': []})
+    \ [],
+    \ extend(copy(global_attributes), {'src': [], 'type': [], 'media': []})
 \ ],
 \ 'span': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'strong': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'style': [
-\ [],
-\ extend(copy(global_attributes), {'type': [], 'media': [], 'scoped': ['scoped', '']})
+    \ [],
+    \ extend(copy(global_attributes), {'type': [], 'media': [], 'scoped': ['scoped', '']})
 \ ],
 \ 'sub': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'summary': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'sup': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'table': [
-\ ['caption', 'col', 'colgroup', 'thead', 'tfoot', 'tbody', 'tr'],
-\ extend(copy(global_attributes), {'summary': []})
+    \ ['caption', 'col', 'colgroup', 'thead', 'tfoot', 'tbody', 'tr'],
+    \ extend(copy(global_attributes), {'summary': []})
 \ ],
 \ 'tbody': [
-\ ['tr'],
-\ global_attributes
+    \ ['tr'],
+    \ global_attributes
 \ ],
 \ 'td': [
-\ flow_elements,
-\ extend(copy(global_attributes), {'colspan': [], 'rowspan': [], 'headers': []})
+    \ flow_elements,
+    \ extend(copy(global_attributes), {'colspan': [], 'rowspan': [], 'headers': []})
 \ ],
 \ 'textarea': [
-\ [''],
-\ extend(copy(global_attributes), {'name': [], 'disabled': ['disabled', ''], 'form': [], 'readonly': ['readonly', ''], 'maxlength': [], 'autofocus': ['autofocus', ''], 'required': ['required', ''], 'placeholder': [], 'rows': [], 'wrap': ['hard', 'soft'], 'cols': []})
+    \ [''],
+    \ extend(copy(global_attributes), {'name': [], 'disabled': ['disabled', ''], 'form': [], 'readonly': ['readonly', ''], 'maxlength': [], 'autofocus': ['autofocus', ''], 'required': ['required', ''], 'placeholder': [], 'rows': [], 'wrap': ['hard', 'soft'], 'cols': []})
 \ ],
 \ 'tfoot': [
-\ ['tr'],
-\ global_attributes
+    \ ['tr'],
+    \ global_attributes
 \ ],
 \ 'th': [
-\ phrasing_elements,
-\ extend(copy(global_attributes), {'scope': ['row', 'col', 'rowgroup', 'colgroup'], 'colspan': [], 'rowspan': [], 'headers': []})
+    \ phrasing_elements,
+    \ extend(copy(global_attributes), {'scope': ['row', 'col', 'rowgroup', 'colgroup'], 'colspan': [], 'rowspan': [], 'headers': []})
 \ ],
 \ 'thead': [
-\ ['tr'],
-\ global_attributes
+    \ ['tr'],
+    \ global_attributes
 \ ],
 \ 'time': [
-\ phrasing_elements,
-\ extend(copy(global_attributes), {'datetime': [], 'pubdate': ['pubdate', '']})
+    \ phrasing_elements,
+    \ extend(copy(global_attributes), {'datetime': [], 'pubdate': ['pubdate', '']})
 \ ],
 \ 'title': [
-\ [''],
-\ global_attributes
+    \ [''],
+    \ global_attributes
 \ ],
 \ 'tr': [
-\ ['th', 'td'],
-\ global_attributes
+    \ ['th', 'td'],
+    \ global_attributes
 \ ],
 \ 'track': [
-\ [],
-\ extend(copy(global_attributes), {'kind': ['subtitles', 'captions', 'descriptions', 'chapters', 'metadata'], 'src': [], 'charset': charset, 'srclang': lang_tag, 'label': []})
+    \ [],
+    \ extend(copy(global_attributes), {'kind': ['subtitles', 'captions', 'descriptions', 'chapters', 'metadata'], 'src': [], 'charset': charset, 'srclang': lang_tag, 'label': []})
 \ ],
 \ 'ul': [
-\ ['li'],
-\ global_attributes
+    \ ['li'],
+    \ global_attributes
 \ ],
 \ 'var': [
-\ phrasing_elements,
-\ global_attributes
+    \ phrasing_elements,
+    \ global_attributes
 \ ],
 \ 'video': [
-\ flow_elements + ['source', 'track'],
-\ extend(copy(global_attributes), {'autoplay': ['autoplay', ''], 'preload': ['none', 'metadata', 'auto', ''], 'controls': ['controls', ''], 'loop': ['loop', ''], 'poster': [], 'height': [], 'width': [], 'src': []})
+    \ flow_elements + ['source', 'track'],
+    \ extend(copy(global_attributes), {'autoplay': ['autoplay', ''], 'preload': ['none', 'metadata', 'auto', ''], 'controls': ['controls', ''], 'loop': ['loop', ''], 'poster': [], 'height': [], 'width': [], 'src': []})
 \ ],
 \ 'wbr': [
-\ [],
-\ global_attributes
+    \ [],
+    \ global_attributes
 \ ],
 \ 'vimxmlattrinfo' : {
-\ 'accept' : ['ContentType', ''],
-\ 'accesskey' : ['Character', ''],
-\ 'action' : ['*URI', ''],
-\ 'align' : ['String', ''],
-\ 'alt' : ['*Text', ''],
-\ 'archive' : ['UriList', ''],
-\ 'autoplay' : ['Bool', ''],
-\ 'axis' : ['CDATA', ''],
-\ 'border' : ['Pixels', ''],
-\ 'cellpadding' : ['Length', ''],
-\ 'cellspacing' : ['Length', ''],
-\ 'char' : ['Character', ''],
-\ 'charoff' : ['Length', ''],
-\ 'charset' : ['Charset', ''],
-\ 'checked' : ['Bool', ''],
-\ 'class' : ['CDATA', ''],
-\ 'codetype' : ['ContentType', ''],
-\ 'cols' : ['*Number', ''],
-\ 'colspan' : ['Number', ''],
-\ 'content' : ['*CDATA', ''],
-\ 'contenteditable' : ['Bool', ''],
-\ 'contextmenu' : ['ID', ''],
-\ 'controls' : ['Bool', ''],
-\ 'coords' : ['Coords', ''],
-\ 'data' : ['URI', ''],
-\ 'datetime' : ['DateTime', ''],
-\ 'declare' : ['Bool', ''],
-\ 'defer' : ['Bool', ''],
-\ 'dir' : ['String', ''],
-\ 'disabled' : ['Bool', ''],
-\ 'draggable' : ['Bool', ''],
-\ 'enctype' : ['ContentType', ''],
-\ 'for' : ['ID', ''],
-\ 'form' : ['ID', ''],
-\ 'formaction' : ['*URL', ''],
-\ 'formnovalidate ' : ['Bool', ''],
-\ 'headers' : ['IDREFS', ''],
-\ 'height' : ['Number', ''],
-\ 'href' : ['*URI', ''],
-\ 'hreflang' : ['LangCode', ''],
-\ 'id' : ['ID', ''],
-\ 'ismap' : ['Bool', ''],
-\ 'label' : ['*Text', ''],
-\ 'lang' : ['LangCode', ''],
-\ 'list' : ['ID', ''],
-\ 'longdesc' : ['URI', ''],
-\ 'loop' : ['Bool', ''],
-\ 'manifest' : ['*URL', ''],
-\ 'max' : ['Number', ''],
-\ 'maxlength' : ['Number', ''],
-\ 'media' : ['MediaDesc', ''],
-\ 'method' : ['String', ''],
-\ 'min' : ['Number', ''],
-\ 'multiple' : ['Bool', ''],
-\ 'name' : ['CDATA', ''],
-\ 'nohref' : ['Bool', ''],
-\ 'onblur' : ['Script', ''],
-\ 'onchange' : ['Script', ''],
-\ 'onclick' : ['Script', ''],
-\ 'ondblclick' : ['Script', ''],
-\ 'onfocus' : ['Script', ''],
-\ 'onkeydown' : ['Script', ''],
-\ 'onkeypress' : ['Script', ''],
-\ 'onkeyup' : ['Script', ''],
-\ 'onload' : ['Script', ''],
-\ 'onmousedown' : ['Script', ''],
-\ 'onmousemove' : ['Script', ''],
-\ 'onmouseout' : ['Script', ''],
-\ 'onmouseover' : ['Script', ''],
-\ 'onmouseup' : ['Script', ''],
-\ 'onreset' : ['Script', ''],
-\ 'onselect' : ['Script', ''],
-\ 'onsubmit' : ['Script', ''],
-\ 'onunload' : ['Script', ''],
-\ 'placeholder' : ['String', ''],
-\ 'poster' : ['*URI', ''],
-\ 'preload' : ['Bool', ''],
-\ 'profile' : ['URI', ''],
-\ 'pubdate' : ['Bool', ''],
-\ 'readonly' : ['Bool', ''],
-\ 'rel' : ['LinkTypes', ''],
-\ 'rows' : ['*Number', ''],
-\ 'rules' : ['String', ''],
-\ 'scheme' : ['CDATA', ''],
-\ 'selected' : ['Bool', ''],
-\ 'shape' : ['Shape', ''],
-\ 'size' : ['CDATA', ''],
-\ 'span' : ['Number', ''],
-\ 'spellcheck ' : ['Bool', ''],
-\ 'src' : ['*URI', ''],
-\ 'srclang' : ['LangCode', ''],
-\ 'standby' : ['Text', ''],
-\ 'step' : ['Number', ''],
-\ 'style' : ['StyleSheet', ''],
-\ 'summary' : ['*Text', ''],
-\ 'tabindex' : ['Number', ''],
-\ 'title' : ['Text', ''],
-\ 'type' : ['', ''],
-\ 'usemap' : ['URI', ''],
-\ 'valign' : ['String', ''],
-\ 'valuetype' : ['String', ''],
-\ 'width' : ['Number', ''],
-\ 'wrap' : ['', ''],
-\ 'xmlns' : ['URI', ''],
-\ 'xml:base' : ['*URI', '']
+    \ 'accept' : ['ContentType', ''],
+    \ 'accesskey' : ['Character', ''],
+    \ 'action' : ['*URI', ''],
+    \ 'align' : ['String', ''],
+    \ 'alt' : ['*Text', ''],
+    \ 'archive' : ['UriList', ''],
+    \ 'autoplay' : ['Bool', ''],
+    \ 'axis' : ['CDATA', ''],
+    \ 'border' : ['Pixels', ''],
+    \ 'cellpadding' : ['Length', ''],
+    \ 'cellspacing' : ['Length', ''],
+    \ 'char' : ['Character', ''],
+    \ 'charoff' : ['Length', ''],
+    \ 'charset' : ['Charset', ''],
+    \ 'checked' : ['Bool', ''],
+    \ 'class' : ['CDATA', ''],
+    \ 'codetype' : ['ContentType', ''],
+    \ 'cols' : ['*Number', ''],
+    \ 'colspan' : ['Number', ''],
+    \ 'content' : ['*CDATA', ''],
+    \ 'contenteditable' : ['Bool', ''],
+    \ 'contextmenu' : ['ID', ''],
+    \ 'controls' : ['Bool', ''],
+    \ 'coords' : ['Coords', ''],
+    \ 'data' : ['URI', ''],
+    \ 'datetime' : ['DateTime', ''],
+    \ 'declare' : ['Bool', ''],
+    \ 'defer' : ['Bool', ''],
+    \ 'dir' : ['String', ''],
+    \ 'disabled' : ['Bool', ''],
+    \ 'draggable' : ['Bool', ''],
+    \ 'enctype' : ['ContentType', ''],
+    \ 'for' : ['ID', ''],
+    \ 'form' : ['ID', ''],
+    \ 'formaction' : ['*URL', ''],
+    \ 'formnovalidate ' : ['Bool', ''],
+    \ 'headers' : ['IDREFS', ''],
+    \ 'height' : ['Number', ''],
+    \ 'href' : ['*URI', ''],
+    \ 'hreflang' : ['LangCode', ''],
+    \ 'id' : ['ID', ''],
+    \ 'ismap' : ['Bool', ''],
+    \ 'label' : ['*Text', ''],
+    \ 'lang' : ['LangCode', ''],
+    \ 'list' : ['ID', ''],
+    \ 'longdesc' : ['URI', ''],
+    \ 'loop' : ['Bool', ''],
+    \ 'manifest' : ['*URL', ''],
+    \ 'max' : ['Number', ''],
+    \ 'maxlength' : ['Number', ''],
+    \ 'media' : ['MediaDesc', ''],
+    \ 'method' : ['String', ''],
+    \ 'min' : ['Number', ''],
+    \ 'multiple' : ['Bool', ''],
+    \ 'name' : ['CDATA', ''],
+    \ 'nohref' : ['Bool', ''],
+    \ 'onblur' : ['Script', ''],
+    \ 'onchange' : ['Script', ''],
+    \ 'onclick' : ['Script', ''],
+    \ 'ondblclick' : ['Script', ''],
+    \ 'onfocus' : ['Script', ''],
+    \ 'onkeydown' : ['Script', ''],
+    \ 'onkeypress' : ['Script', ''],
+    \ 'onkeyup' : ['Script', ''],
+    \ 'onload' : ['Script', ''],
+    \ 'onmousedown' : ['Script', ''],
+    \ 'onmousemove' : ['Script', ''],
+    \ 'onmouseout' : ['Script', ''],
+    \ 'onmouseover' : ['Script', ''],
+    \ 'onmouseup' : ['Script', ''],
+    \ 'onreset' : ['Script', ''],
+    \ 'onselect' : ['Script', ''],
+    \ 'onsubmit' : ['Script', ''],
+    \ 'onunload' : ['Script', ''],
+    \ 'placeholder' : ['String', ''],
+    \ 'poster' : ['*URI', ''],
+    \ 'preload' : ['Bool', ''],
+    \ 'profile' : ['URI', ''],
+    \ 'pubdate' : ['Bool', ''],
+    \ 'readonly' : ['Bool', ''],
+    \ 'rel' : ['LinkTypes', ''],
+    \ 'rows' : ['*Number', ''],
+    \ 'rules' : ['String', ''],
+    \ 'scheme' : ['CDATA', ''],
+    \ 'selected' : ['Bool', ''],
+    \ 'shape' : ['Shape', ''],
+    \ 'size' : ['CDATA', ''],
+    \ 'span' : ['Number', ''],
+    \ 'spellcheck ' : ['Bool', ''],
+    \ 'src' : ['*URI', ''],
+    \ 'srclang' : ['LangCode', ''],
+    \ 'standby' : ['Text', ''],
+    \ 'step' : ['Number', ''],
+    \ 'style' : ['StyleSheet', ''],
+    \ 'summary' : ['*Text', ''],
+    \ 'tabindex' : ['Number', ''],
+    \ 'title' : ['Text', ''],
+    \ 'type' : ['', ''],
+    \ 'usemap' : ['URI', ''],
+    \ 'valign' : ['String', ''],
+    \ 'valuetype' : ['String', ''],
+    \ 'width' : ['Number', ''],
+    \ 'wrap' : ['', ''],
+    \ 'xmlns' : ['URI', ''],
+    \ 'xml:base' : ['*URI', '']
 \ },
 \ 'vimxmltaginfo': {
-\ 'area': ['/>', ''],
-\ 'base': ['/>', ''],
-\ 'br': ['/>', ''],
-\ 'col': ['/>', ''],
-\ 'hr': ['/>', ''],
-\ 'img': ['/>', ''],
-\ 'input': ['/>', ''],
-\ 'link': ['/>', ''],
-\ 'meta': ['/>', ''],
-\ 'wbr': ['/>', ''],
-\ }
+    \ 'area': ['/>', ''],
+    \ 'base': ['/>', ''],
+    \ 'br': ['/>', ''],
+    \ 'col': ['/>', ''],
+    \ 'hr': ['/>', ''],
+    \ 'img': ['/>', ''],
+    \ 'input': ['/>', ''],
+    \ 'link': ['/>', ''],
+    \ 'meta': ['/>', ''],
+    \ 'wbr': ['/>', ''],
+\ },
+\ 'aria_attributes': aria_attributes
 \ }

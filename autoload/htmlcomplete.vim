@@ -474,6 +474,8 @@ function! htmlcomplete#CompleteTags(findstart, base)
 			else
 				if has_key(b:html_omni, tag) && has_key(b:html_omni[tag][1], attrname)
 					let values = b:html_omni[tag][1][attrname]
+                elseif has_key(b:html_omni, 'aria_attributes') && attrname =~ '^aria-' && has_key(b:html_omni['aria_attributes'], attrname)
+					let values = b:html_omni['aria_attributes'][attrname]
 				else
 					return []
 				endif
@@ -526,6 +528,9 @@ function! htmlcomplete#CompleteTags(findstart, base)
 		else
 			return []
 		endif
+        if has_key(b:html_omni, 'aria_attributes') && context =~ 'role='
+            let attrs = extend(attrs, keys(b:html_omni['aria_attributes']))
+        endif
 
 		for m in sort(attrs)
 			if m =~ '^'.attr
@@ -546,12 +551,21 @@ function! htmlcomplete#CompleteTags(findstart, base)
 					let m_menu = ''
 					let m_info = ''
 				endif
-				if len(b:html_omni[tag][1][item]) > 0 && b:html_omni[tag][1][item][0] =~ '^\(BOOL\|'.item.'\)$'
-					let item = item
-					let m_menu = 'Bool'
-				else
-					let item .= '="'
-				endif
+                if item =~ '^aria-'
+                    if len(b:html_omni['aria_attributes'][item]) > 0 && b:html_omni['aria_attributes'][item][0] =~ '^\(BOOL\|'.item.'\)$'
+                        let item = item
+                        let m_menu = 'Bool'
+                    else
+                        let item .= '="'
+                    endif
+                else
+                    if len(b:html_omni[tag][1][item]) > 0 && b:html_omni[tag][1][item][0] =~ '^\(BOOL\|'.item.'\)$'
+                        let item = item
+                        let m_menu = 'Bool'
+                    else
+                        let item .= '="'
+                    endif
+                endif
 				let final_menu += [{'word':item, 'menu':m_menu, 'info':m_info}]
 			endfor
 		else
