@@ -50,150 +50,150 @@ let charset = [
     \ 'KOI7-switched', 'BRF', 'TSCII', 'windows-1250', 'windows-1251', 'windows-1252', 'windows-1253', 'windows-1254', 'windows-1255', 
     \ 'windows-1256', 'windows-1257', 'windows-1258', 'TIS-620', ]
 
-" http://www.w3.org/TR/wai-aria/roles
-let widget_role = ['alert', 'alertdialog', 'button', 'checkbox', 'combobox', 'dialog', 'gridcell', 'link', 'log', 'marquee', 'menuitem', 'menuitemcheckbox', 'menuitemradio', 'option', 'progressbar', 'radio', 'radiogroup', 'scrollbar', 'slider', 'spinbutton', 'status', 'tab', 'tabpanel', 'textbox', 'timer', 'tooltip', 'treeitem']
-let document_structure = ['article', 'columnheader', 'definition', 'directory', 'document', 'group', 'heading', 'img', 'list', 'listitem', 'math', 'note', 'presentation', 'region', 'row', 'rowheader', 'separator']
-let landmark_role = ['application', 'banner', 'complementary', 'contentinfo', 'form', 'main', 'navigation', 'search']
-let role = extend(widget_role, document_structure)
-let role = extend(role, landmark_role)
-
-" http://www.w3.org/TR/wai-aria/states_and_properties#state_prop_taxonomy
-let global_states_and_properties = {'aria-atomic': ['true', 'false'], 'aria-busy': ['true', 'false'], 'aria-controls': [], 'aria-describedby': [], 'aria-disabled': ['true', 'false'], 'aria-dropeffect': ['copy', 'move', 'link', 'execute', 'popup', 'none'], 'aria-flowto': [], 'aria-grabbed': ['true', 'false', 'undefined'], 'aria-haspopup': ['true', 'false'], 'aria-hidden': ['true', 'false'], 'aria-invalid': ['grammar', 'spelling', 'true', 'false'], 'aria-label': [], 'aria-labelledby': [], 'aria-live': ['off', 'polite', 'assertive'], 'aria-owns': [], 'aria-relevant': ['additions', 'removals', 'text', 'all']}
-let widget_attributes = {'aria-autocomplete': ['inline', 'list', 'both', 'none'], 'aria-checked': ['true', 'false', 'mixed', 'undefined'], 'aria-disabled': ['true', 'false'], 'aria-expanded': ['true', 'false', 'undefined'], 'aria-haspopup': ['true', 'false'], 'aria-hidden': ['true', 'false'], 'aria-invalid': ['grammar', 'spelling', 'true', 'false'], 'aria-label': [], 'aria-level': [], 'aria-multiline': ['true', 'false'], 'aria-multiselectable': ['true', 'false'], 'aria-orientation': ['horizontal', 'vertical'], 'aria-pressed': ['true', 'false', 'mixed', 'undefined'], 'aria-readonly': ['true', 'false'], 'aria-required': ['true', 'false'], 'aria-selected': ['true', 'false', 'undefined'], 'aria-sort': ['ascending', 'descending', 'none', 'other'], 'aria-valuemax': [], 'aria-valuemin': [], 'aria-valuenow': [], 'aria-valuetext': []}
-let live_region_attributes = {'aria-atomic': ['true', 'false'], 'aria-busy': ['true', 'false'], 'aria-live': ['off', 'polite', 'assertive'], 'aria-relevant': ['additions', 'removals', 'text', 'all', 'additions text']}
-let drag_and_drop_attributes = {'aria-dropeffect': ['copy', 'move', 'link', 'execute', 'popup', 'none'], 'aria-grabbed': ['true', 'false', 'undefined']}
-let relationship_attributes = {'aria-activedescendant': [], 'aria-controls': [], 'aria-describedby': [], 'aria-flowto': [], 'aria-labelledby': [], 'aria-owns': [], 'aria-posinset': [], 'aria-setsize': []}
-let aria_attributes = widget_attributes
-let aria_attributes = extend(aria_attributes, live_region_attributes)
-let aria_attributes = extend(aria_attributes, drag_and_drop_attributes)
-let aria_attributes = extend(aria_attributes, relationship_attributes)
-
-let abstract_role = {}
-let role_attributes = {}
-
-" Abstract Roles
-let abstract_role['roletype'] = ['aria-atomic', 'aria-busy', 'aria-controls', 'aria-describedby', 'aria-disabled', 'aria-dropeffect', 'aria-flowto', 'aria-grabbed', 'aria-haspopup', 'aria-hidden', 'aria-invalid', 'aria-label', 'aria-labelledby', 'aria-live', 'aria-owns', 'aria-relevant']
-let abstract_role['structure'] = abstract_role['roletype']
-let abstract_role['widget'] = abstract_role['roletype']
-let abstract_role['window'] = abstract_role['roletype'] + ['aria-expanded']
-let abstract_role['composite'] = abstract_role['widget'] + ['aria-activedescendant']
-let abstract_role['input'] = abstract_role['widget']
-let abstract_role['section'] = abstract_role['structure'] + ['aria-expanded']
-let abstract_role['sectionhead'] = abstract_role['structure'] + ['aria-expanded']
-
-let role_attributes['group'] = abstract_role['section']
-let abstract_role['select'] = abstract_role['composite'] + role_attributes['group'] + abstract_role['input']
-
-let abstract_role['range'] = abstract_role['input'] + ['aria-valuemax', 'aria-valuemin', 'aria-valuenow', 'aria-valuetext']
-
-let role_attributes['region'] = abstract_role['section']
-let abstract_role['landmark'] = role_attributes['region']
-
-" Widget Roles
-let role_attributes['list'] = role_attributes['region'] 
-let role_attributes['listitem'] = abstract_role['section']
-
-let role_attributes['dialog'] = abstract_role['window']
-let role_attributes['menuitem'] = abstract_role['input'] 
-let role_attributes['checkbox'] = abstract_role['input'] + ['aria-checked'] 
-let role_attributes['menuitemcheckbox'] = role_attributes['menuitem'] + role_attributes['checkbox']
-let role_attributes['option'] = abstract_role['input'] + ['aria-checked', 'aria-posinset', 'aria-selected', 'aria-setsize']
-let role_attributes['radio'] = role_attributes['checkbox'] + role_attributes['option']
-
-let role_attributes['directory'] = role_attributes['list'] 
-
-let role_attributes['alert'] = role_attributes['region']
-let role_attributes['alertdialog'] = role_attributes['alert'] + role_attributes['dialog']
-let role_attributes['button'] = role_attributes['region'] + role_attributes['menuitemcheckbox']
-let role_attributes['combobox'] = abstract_role['select'] + ['aria-expanded', 'aria-required'] 
-let role_attributes['gridcell'] = abstract_role['section'] + abstract_role['widget']
-let role_attributes['link'] = abstract_role['widget'] 
-let role_attributes['log'] = role_attributes['region'] 
-let role_attributes['marquee'] = role_attributes['region'] 
-let role_attributes['menuitemradio'] = role_attributes['menuitemcheckbox'] + role_attributes['radio']
-let role_attributes['progressbar'] = abstract_role['widget'] + ['aria-valuemax', 'aria-valuemin', 'aria-valuenow', 'aria-valuetext']
-let role_attributes['radiogroup'] = abstract_role['select'] + ['aria-required']
-let role_attributes['scrollbar'] = abstract_role['range'] + ['aria-controls', 'aria-orientation', 'aria-valuemax', 'aria-valuemin', 'aria-valuenow']
-let role_attributes['slider'] = abstract_role['range'] + ['aria-valuemax', 'aria-valuemin', 'aria-valuenow']
-let role_attributes['spinbutton'] = abstract_role['composite'] + abstract_role['range'] + ['aria-required'] 
-let role_attributes['status'] = abstract_role['composite'] + role_attributes['region']
-let role_attributes['tab'] = abstract_role['sectionhead'] + abstract_role['widget']
-let role_attributes['tabpanel'] = role_attributes['region']
-let role_attributes['textbox'] = abstract_role['input'] + ['aria-autocomplete', 'aria-multiline', 'aria-readonly', 'aria-required']
-let role_attributes['timer'] = role_attributes['status'] 
-let role_attributes['tooltip'] = abstract_role['section'] 
-let role_attributes['treeitem'] = role_attributes['listitem'] + role_attributes['option']
-
-let role_attributes['grid'] = abstract_role['composite'] + role_attributes['region'] + ['aria-level', 'aria-multiselectable', 'aria-readonly']
-let role_attributes['listbox'] = role_attributes['list'] + abstract_role['select'] + ['aria-multiselectable', 'aria-required']
-let role_attributes['menu'] =  role_attributes['list'] + abstract_role['select'] 
-let role_attributes['menubar'] = role_attributes['menu'] 
-let role_attributes['tablist'] = abstract_role['composite'] + role_attributes['directory']
-let role_attributes['toolbar'] = role_attributes['group'] 
-let role_attributes['tree'] = abstract_role['select'] + ['aria-multiselectable', 'aria-required']
-let role_attributes['treegrid'] = role_attributes['grid'] + role_attributes['tree']
-
-" Document Structure
-let role_attributes['document'] = abstract_role['structure'] + ['aria-expanded'] 
-
-let role_attributes['article'] = role_attributes['document'] + role_attributes['region'] 
-let role_attributes['columnheader'] = role_attributes['gridcell'] + abstract_role['sectionhead'] + ['aria-sort']
-let role_attributes['definition'] = abstract_role['section'] 
-let role_attributes['heading'] = abstract_role['sectionhead'] + ['aria-level'] 
-let role_attributes['img'] = abstract_role['section'] 
-let role_attributes['math'] = abstract_role['section'] 
-let role_attributes['note'] = abstract_role['section'] 
-let role_attributes['presentation'] = abstract_role['structure']
-let role_attributes['row'] = role_attributes['group'] + ['aria-level', 'aria-selected']
-let role_attributes['rowheader'] = role_attributes['gridcell'] + abstract_role['sectionhead']
-let role_attributes['separator'] = abstract_role['structure'] + ['aria-expanded'] 
-
-" Landmark Roles
-let role_attributes['application'] = abstract_role['landmark'] 
-let role_attributes['banner'] = abstract_role['landmark'] 
-let role_attributes['complementary'] = abstract_role['landmark'] 
-let role_attributes['contentinfo'] = abstract_role['landmark'] 
-let role_attributes['form'] = abstract_role['landmark'] 
-let role_attributes['main'] = abstract_role['landmark'] 
-let role_attributes['navigation'] = abstract_role['landmark'] 
-let role_attributes['search'] = abstract_role['landmark']
-
 let core_attributes = {'accesskey': [], 'class': [], 'contenteditable': ['true', 'false', ''], 'contextmenu': [], 'dir': ['ltr', 'rtl'], 'draggable': ['true', 'false'], 'hidden': ['hidden', ''], 'id': [], 'lang': [], 'spellcheck': ['true', 'false', ''], 'style': [], 'tabindex': [], 'title': []}
-let event_handler_attributes = {'onabort': [], 'onblur': [], 'oncanplay': [], 'oncanplaythrough': [], 'onchange': [], 'onclick': [], 'oncontextmenu': [], 'ondblclick': [], 'ondrag': [], 'ondragend': [], 'ondragenter': [], 'ondragleave': [], 'ondragover': [], 'ondragstart': [], 'ondrop': [], 'ondurationchange': [], 'onemptied': [], 'onended': [], 'onerror': [], 'onfocus': [], 'onformchange': [], 'onforminput': [], 'oninput': [], 'oninvalid': [], 'onkeydown': [], 'onkeypress': [], 'onkeyup': [], 'onload': [], 'onloadeddata': [], 'onloadedmetadata': [], 'onloadstart': [], 'onmousedown': [], 'onmousemove': [], 'onmouseout': [], 'onmouseover': [], 'onmouseup': [], 'onmousewheel': [], 'onpause': [], 'onplay': [], 'onplaying': [], 'onprogress': [], 'onratechange': [], 'onreadystatechange': [], 'onscroll': [], 'onseeked': [], 'onseeking': [], 'onselect': [], 'onshow': [], 'onstalled': [], 'onsubmit': [], 'onsuspend': [], 'ontimeupdate': [], 'onvolumechange': [], 'onwaiting': []}
 let xml_attributes = {'xml:lang': lang_tag, 'xml:space': [], 'xml:base': []}
-
-let rdfa_attributes = {'about': [], 'typeof': [], 'property': [], 'resource': [], 'content': [], 'datatype': [], 'rel': [], 'rev': []}
-let microdata_attributes = {'item': [], 'itemid': [], 'itemscope': [], 'itemtype': [], 'itemprop': []}
 
 let global_attributes = extend(core_attributes, xml_attributes)
 if !exists('g:event_handler_attributes_complete')
     let g:event_handler_attributes_complete = 1
 endif
 if g:event_handler_attributes_complete == 1
+    let event_handler_attributes = {'onabort': [], 'onblur': [], 'oncanplay': [], 'oncanplaythrough': [], 'onchange': [], 'onclick': [], 'oncontextmenu': [], 'ondblclick': [], 'ondrag': [], 'ondragend': [], 'ondragenter': [], 'ondragleave': [], 'ondragover': [], 'ondragstart': [], 'ondrop': [], 'ondurationchange': [], 'onemptied': [], 'onended': [], 'onerror': [], 'onfocus': [], 'onformchange': [], 'onforminput': [], 'oninput': [], 'oninvalid': [], 'onkeydown': [], 'onkeypress': [], 'onkeyup': [], 'onload': [], 'onloadeddata': [], 'onloadedmetadata': [], 'onloadstart': [], 'onmousedown': [], 'onmousemove': [], 'onmouseout': [], 'onmouseover': [], 'onmouseup': [], 'onmousewheel': [], 'onpause': [], 'onplay': [], 'onplaying': [], 'onprogress': [], 'onratechange': [], 'onreadystatechange': [], 'onscroll': [], 'onseeked': [], 'onseeking': [], 'onselect': [], 'onshow': [], 'onstalled': [], 'onsubmit': [], 'onsuspend': [], 'ontimeupdate': [], 'onvolumechange': [], 'onwaiting': []}
     let global_attributes = extend(global_attributes, event_handler_attributes)
 endif
 if !exists('g:rdfa_attributes_complete')
     let g:rdfa_attributes_complete = 1
 endif
 if g:rdfa_attributes_complete == 1
+    let rdfa_attributes = {'about': [], 'typeof': [], 'property': [], 'resource': [], 'content': [], 'datatype': [], 'rel': [], 'rev': []}
     let global_attributes = extend(global_attributes, rdfa_attributes)
 endif
 if !exists('g:microdata_attributes_complete')
     let g:microdata_attributes_complete = 1
 endif
 if g:microdata_attributes_complete == 1
+    let microdata_attributes = {'item': [], 'itemid': [], 'itemscope': [], 'itemtype': [], 'itemprop': []}
     let global_attributes = extend(global_attributes, microdata_attributes)
 endif
+
+let abstract_role = {}
+let role_attributes = {}
+
 if !exists('g:role_attributes_complete')
     let g:role_attributes_complete = 1
 endif
 if g:role_attributes_complete == 1
+    " Ref: http://www.w3.org/TR/wai-aria/roles
+    " Version: Draft 15 December 2009
+    let widget_role = ['alert', 'alertdialog', 'button', 'checkbox', 'combobox', 'dialog', 'gridcell', 'link', 'log', 'marquee', 'menuitem', 'menuitemcheckbox', 'menuitemradio', 'option', 'progressbar', 'radio', 'radiogroup', 'scrollbar', 'slider', 'spinbutton', 'status', 'tab', 'tabpanel', 'textbox', 'timer', 'tooltip', 'treeitem']
+    let document_structure = ['article', 'columnheader', 'definition', 'directory', 'document', 'group', 'heading', 'img', 'list', 'listitem', 'math', 'note', 'presentation', 'region', 'row', 'rowheader', 'separator']
+    let landmark_role = ['application', 'banner', 'complementary', 'contentinfo', 'form', 'main', 'navigation', 'search']
+    let role = extend(widget_role, document_structure)
+    let role = extend(role, landmark_role)
     let global_attributes = extend(global_attributes, {'role': role})
+
+    " http://www.w3.org/TR/wai-aria/states_and_properties#state_prop_taxonomy
+    let global_states_and_properties = {'aria-atomic': ['true', 'false'], 'aria-busy': ['true', 'false'], 'aria-controls': [], 'aria-describedby': [], 'aria-disabled': ['true', 'false'], 'aria-dropeffect': ['copy', 'move', 'link', 'execute', 'popup', 'none'], 'aria-flowto': [], 'aria-grabbed': ['true', 'false', 'undefined'], 'aria-haspopup': ['true', 'false'], 'aria-hidden': ['true', 'false'], 'aria-invalid': ['grammar', 'spelling', 'true', 'false'], 'aria-label': [], 'aria-labelledby': [], 'aria-live': ['off', 'polite', 'assertive'], 'aria-owns': [], 'aria-relevant': ['additions', 'removals', 'text', 'all']}
+    let widget_attributes = {'aria-autocomplete': ['inline', 'list', 'both', 'none'], 'aria-checked': ['true', 'false', 'mixed', 'undefined'], 'aria-disabled': ['true', 'false'], 'aria-expanded': ['true', 'false', 'undefined'], 'aria-haspopup': ['true', 'false'], 'aria-hidden': ['true', 'false'], 'aria-invalid': ['grammar', 'spelling', 'true', 'false'], 'aria-label': [], 'aria-level': [], 'aria-multiline': ['true', 'false'], 'aria-multiselectable': ['true', 'false'], 'aria-orientation': ['horizontal', 'vertical'], 'aria-pressed': ['true', 'false', 'mixed', 'undefined'], 'aria-readonly': ['true', 'false'], 'aria-required': ['true', 'false'], 'aria-selected': ['true', 'false', 'undefined'], 'aria-sort': ['ascending', 'descending', 'none', 'other'], 'aria-valuemax': [], 'aria-valuemin': [], 'aria-valuenow': [], 'aria-valuetext': []}
+    let live_region_attributes = {'aria-atomic': ['true', 'false'], 'aria-busy': ['true', 'false'], 'aria-live': ['off', 'polite', 'assertive'], 'aria-relevant': ['additions', 'removals', 'text', 'all', 'additions text']}
+    let drag_and_drop_attributes = {'aria-dropeffect': ['copy', 'move', 'link', 'execute', 'popup', 'none'], 'aria-grabbed': ['true', 'false', 'undefined']}
+    let relationship_attributes = {'aria-activedescendant': [], 'aria-controls': [], 'aria-describedby': [], 'aria-flowto': [], 'aria-labelledby': [], 'aria-owns': [], 'aria-posinset': [], 'aria-setsize': []}
+    let aria_attributes = widget_attributes
+    let aria_attributes = extend(aria_attributes, live_region_attributes)
+    let aria_attributes = extend(aria_attributes, drag_and_drop_attributes)
+    let aria_attributes = extend(aria_attributes, relationship_attributes)
+
+    " Abstract Roles
+    let abstract_role['roletype'] = ['aria-atomic', 'aria-busy', 'aria-controls', 'aria-describedby', 'aria-disabled', 'aria-dropeffect', 'aria-flowto', 'aria-grabbed', 'aria-haspopup', 'aria-hidden', 'aria-invalid', 'aria-label', 'aria-labelledby', 'aria-live', 'aria-owns', 'aria-relevant']
+    let abstract_role['structure'] = abstract_role['roletype']
+    let abstract_role['widget'] = abstract_role['roletype']
+    let abstract_role['window'] = abstract_role['roletype'] + ['aria-expanded']
+    let abstract_role['composite'] = abstract_role['widget'] + ['aria-activedescendant']
+    let abstract_role['input'] = abstract_role['widget']
+    let abstract_role['section'] = abstract_role['structure'] + ['aria-expanded']
+    let abstract_role['sectionhead'] = abstract_role['structure'] + ['aria-expanded']
+
+    let role_attributes['group'] = abstract_role['section']
+    let abstract_role['select'] = abstract_role['composite'] + role_attributes['group'] + abstract_role['input']
+
+    let abstract_role['range'] = abstract_role['input'] + ['aria-valuemax', 'aria-valuemin', 'aria-valuenow', 'aria-valuetext']
+
+    let role_attributes['region'] = abstract_role['section']
+    let abstract_role['landmark'] = role_attributes['region']
+
+    " Widget Roles
+    let role_attributes['list'] = role_attributes['region'] 
+    let role_attributes['listitem'] = abstract_role['section']
+
+    let role_attributes['dialog'] = abstract_role['window']
+    let role_attributes['menuitem'] = abstract_role['input'] 
+    let role_attributes['checkbox'] = abstract_role['input'] + ['aria-checked'] 
+    let role_attributes['menuitemcheckbox'] = role_attributes['menuitem'] + role_attributes['checkbox']
+    let role_attributes['option'] = abstract_role['input'] + ['aria-checked', 'aria-posinset', 'aria-selected', 'aria-setsize']
+    let role_attributes['radio'] = role_attributes['checkbox'] + role_attributes['option']
+
+    let role_attributes['directory'] = role_attributes['list'] 
+
+    let role_attributes['alert'] = role_attributes['region']
+    let role_attributes['alertdialog'] = role_attributes['alert'] + role_attributes['dialog']
+    let role_attributes['button'] = role_attributes['region'] + role_attributes['menuitemcheckbox']
+    let role_attributes['combobox'] = abstract_role['select'] + ['aria-expanded', 'aria-required'] 
+    let role_attributes['gridcell'] = abstract_role['section'] + abstract_role['widget']
+    let role_attributes['link'] = abstract_role['widget'] 
+    let role_attributes['log'] = role_attributes['region'] 
+    let role_attributes['marquee'] = role_attributes['region'] 
+    let role_attributes['menuitemradio'] = role_attributes['menuitemcheckbox'] + role_attributes['radio']
+    let role_attributes['progressbar'] = abstract_role['widget'] + ['aria-valuemax', 'aria-valuemin', 'aria-valuenow', 'aria-valuetext']
+    let role_attributes['radiogroup'] = abstract_role['select'] + ['aria-required']
+    let role_attributes['scrollbar'] = abstract_role['range'] + ['aria-controls', 'aria-orientation', 'aria-valuemax', 'aria-valuemin', 'aria-valuenow']
+    let role_attributes['slider'] = abstract_role['range'] + ['aria-valuemax', 'aria-valuemin', 'aria-valuenow']
+    let role_attributes['spinbutton'] = abstract_role['composite'] + abstract_role['range'] + ['aria-required'] 
+    let role_attributes['status'] = abstract_role['composite'] + role_attributes['region']
+    let role_attributes['tab'] = abstract_role['sectionhead'] + abstract_role['widget']
+    let role_attributes['tabpanel'] = role_attributes['region']
+    let role_attributes['textbox'] = abstract_role['input'] + ['aria-autocomplete', 'aria-multiline', 'aria-readonly', 'aria-required']
+    let role_attributes['timer'] = role_attributes['status'] 
+    let role_attributes['tooltip'] = abstract_role['section'] 
+    let role_attributes['treeitem'] = role_attributes['listitem'] + role_attributes['option']
+
+    let role_attributes['grid'] = abstract_role['composite'] + role_attributes['region'] + ['aria-level', 'aria-multiselectable', 'aria-readonly']
+    let role_attributes['listbox'] = role_attributes['list'] + abstract_role['select'] + ['aria-multiselectable', 'aria-required']
+    let role_attributes['menu'] =  role_attributes['list'] + abstract_role['select'] 
+    let role_attributes['menubar'] = role_attributes['menu'] 
+    let role_attributes['tablist'] = abstract_role['composite'] + role_attributes['directory']
+    let role_attributes['toolbar'] = role_attributes['group'] 
+    let role_attributes['tree'] = abstract_role['select'] + ['aria-multiselectable', 'aria-required']
+    let role_attributes['treegrid'] = role_attributes['grid'] + role_attributes['tree']
+
+    " Document Structure
+    let role_attributes['document'] = abstract_role['structure'] + ['aria-expanded'] 
+
+    let role_attributes['article'] = role_attributes['document'] + role_attributes['region'] 
+    let role_attributes['columnheader'] = role_attributes['gridcell'] + abstract_role['sectionhead'] + ['aria-sort']
+    let role_attributes['definition'] = abstract_role['section'] 
+    let role_attributes['heading'] = abstract_role['sectionhead'] + ['aria-level'] 
+    let role_attributes['img'] = abstract_role['section'] 
+    let role_attributes['math'] = abstract_role['section'] 
+    let role_attributes['note'] = abstract_role['section'] 
+    let role_attributes['presentation'] = abstract_role['structure']
+    let role_attributes['row'] = role_attributes['group'] + ['aria-level', 'aria-selected']
+    let role_attributes['rowheader'] = role_attributes['gridcell'] + abstract_role['sectionhead']
+    let role_attributes['separator'] = abstract_role['structure'] + ['aria-expanded'] 
+
+    " Landmark Roles
+    let role_attributes['application'] = abstract_role['landmark'] 
+    let role_attributes['banner'] = abstract_role['landmark'] 
+    let role_attributes['complementary'] = abstract_role['landmark'] 
+    let role_attributes['contentinfo'] = abstract_role['landmark'] 
+    let role_attributes['form'] = abstract_role['landmark'] 
+    let role_attributes['main'] = abstract_role['landmark'] 
+    let role_attributes['navigation'] = abstract_role['landmark'] 
+    let role_attributes['search'] = abstract_role['landmark']
 endif
 
 let phrasing_elements = ['a', 'em', 'strong', 'small', 'mark', 'abbr', 'dfn', 'i', 'b', 'code', 'var', 'samp', 'kbd', 'sup', 'sub', 'q', 'cite', 'span', 'bdo', 'br', 'wbr', 'ins', 'del', 'img', 'embed', 'object', 'iframe', 'map', 'area', 'script', 'noscript', 'ruby', 'video', 'audio', 'input', 'textarea', 'select', 'button', 'label', 'output', 'datalist', 'keygen', 'progress', 'command', 'canvas', 'time', 'meter']
 
-let metadata_elements = ['link', 'style', 'meta name', 'meta', 'script', 'noscript', 'command']
+let metadata_elements = ['link', 'style', 'meta', 'script', 'noscript', 'command']
 
 let flow_elements = phrasing_elements + ['p', 'hr', 'pre', 'ul', 'ol', 'dl', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hgroup', 'address', 'blockquote', 'ins', 'del', 'object', 'map', 'noscript', 'section', 'nav', 'article', 'aside', 'header', 'footer', 'video', 'audio', 'figure', 'table', 'form', 'fieldset', 'menu', 'canvas', 'details']
 

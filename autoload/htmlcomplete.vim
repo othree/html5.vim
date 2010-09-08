@@ -3,8 +3,8 @@
 " Maintainer:	Mikolaj Machowski ( mikmach AT wp DOT pl )
 " Last Change:	2006 Oct 19
 " Modified:     othree <othree@gmail.com>
-" Changes:      Add some html5 support
-" Last Change:	2010 Sep 07
+" Changes:      Add HTML5, WAI-ARIA support
+" Last Change:	2010 Sep 10
 
 function! htmlcomplete#CompleteTags(findstart, base)
   if a:findstart
