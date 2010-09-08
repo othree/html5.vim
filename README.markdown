@@ -1,6 +1,7 @@
 # html5-complete.vim
 
-HTML5 complete funtion for Vim.
+HTML5 omnicomplete funtion for Vim.
+Based on the default htmlcomplete.vim.
 
 ## Feature
 
