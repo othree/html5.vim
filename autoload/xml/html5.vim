@@ -1,20 +1,3 @@
-" http://vim.wikia.com/wiki/Unique_sorting
-" Works like sort(), optionally taking in a comparator (just like the
-" original), except that duplicate entries will be removed.
-function! SortUnique( list, ... )
-  let dictionary = {}
-  for i in a:list
-    execute "let dictionary[ '" . i . "' ] = ''"
-  endfor
-  let result = []
-  if ( exists( 'a:1' ) )
-    let result = sort( keys( dictionary ), a:1 )
-  else
-    let result = sort( keys( dictionary ) )
-  endif
-  return result
-endfunction
-
 " Ref: http://www.iana.org/assignments/language-subtag-registry
 " Version: 2010/09/07
 " Description: only get two-letter language tag
@@ -67,12 +50,14 @@ let charset = [
     \ 'KOI7-switched', 'BRF', 'TSCII', 'windows-1250', 'windows-1251', 'windows-1252', 'windows-1253', 'windows-1254', 'windows-1255', 
     \ 'windows-1256', 'windows-1257', 'windows-1258', 'TIS-620', ]
 
+" http://www.w3.org/TR/wai-aria/roles
 let widget_role = ['alert', 'alertdialog', 'button', 'checkbox', 'combobox', 'dialog', 'gridcell', 'link', 'log', 'marquee', 'menuitem', 'menuitemcheckbox', 'menuitemradio', 'option', 'progressbar', 'radio', 'radiogroup', 'scrollbar', 'slider', 'spinbutton', 'status', 'tab', 'tabpanel', 'textbox', 'timer', 'tooltip', 'treeitem']
 let document_structure = ['article', 'columnheader', 'definition', 'directory', 'document', 'group', 'heading', 'img', 'list', 'listitem', 'math', 'note', 'presentation', 'region', 'row', 'rowheader', 'separator']
 let landmark_role = ['application', 'banner', 'complementary', 'contentinfo', 'form', 'main', 'navigation', 'search']
 let role = extend(widget_role, document_structure)
 let role = extend(role, landmark_role)
 
+" http://www.w3.org/TR/wai-aria/states_and_properties#state_prop_taxonomy
 let global_states_and_properties = {'aria-atomic': ['true', 'false'], 'aria-busy': ['true', 'false'], 'aria-controls': [], 'aria-describedby': [], 'aria-disabled': ['true', 'false'], 'aria-dropeffect': ['copy', 'move', 'link', 'execute', 'popup', 'none'], 'aria-flowto': [], 'aria-grabbed': ['true', 'false', 'undefined'], 'aria-haspopup': ['true', 'false'], 'aria-hidden': ['true', 'false'], 'aria-invalid': ['grammar', 'spelling', 'true', 'false'], 'aria-label': [], 'aria-labelledby': [], 'aria-live': ['off', 'polite', 'assertive'], 'aria-owns': [], 'aria-relevant': ['additions', 'removals', 'text', 'all']}
 let widget_attributes = {'aria-autocomplete': ['inline', 'list', 'both', 'none'], 'aria-checked': ['true', 'false', 'mixed', 'undefined'], 'aria-disabled': ['true', 'false'], 'aria-expanded': ['true', 'false', 'undefined'], 'aria-haspopup': ['true', 'false'], 'aria-hidden': ['true', 'false'], 'aria-invalid': ['grammar', 'spelling', 'true', 'false'], 'aria-label': [], 'aria-level': [], 'aria-multiline': ['true', 'false'], 'aria-multiselectable': ['true', 'false'], 'aria-orientation': ['horizontal', 'vertical'], 'aria-pressed': ['true', 'false', 'mixed', 'undefined'], 'aria-readonly': ['true', 'false'], 'aria-required': ['true', 'false'], 'aria-selected': ['true', 'false', 'undefined'], 'aria-sort': ['ascending', 'descending', 'none', 'other'], 'aria-valuemax': [], 'aria-valuemin': [], 'aria-valuenow': [], 'aria-valuetext': []}
 let live_region_attributes = {'aria-atomic': ['true', 'false'], 'aria-busy': ['true', 'false'], 'aria-live': ['off', 'polite', 'assertive'], 'aria-relevant': ['additions', 'removals', 'text', 'all', 'additions text']}
@@ -82,9 +67,11 @@ let aria_attributes = widget_attributes
 let aria_attributes = extend(aria_attributes, live_region_attributes)
 let aria_attributes = extend(aria_attributes, drag_and_drop_attributes)
 let aria_attributes = extend(aria_attributes, relationship_attributes)
-"let aria_attributes = SortUnique(aria_attributes)
 
 let abstract_role = {}
+let role_attributes = {}
+
+" Abstract Roles
 let abstract_role['roletype'] = ['aria-atomic', 'aria-busy', 'aria-controls', 'aria-describedby', 'aria-disabled', 'aria-dropeffect', 'aria-flowto', 'aria-grabbed', 'aria-haspopup', 'aria-hidden', 'aria-invalid', 'aria-label', 'aria-labelledby', 'aria-live', 'aria-owns', 'aria-relevant']
 let abstract_role['structure'] = abstract_role['roletype']
 let abstract_role['widget'] = abstract_role['roletype']
@@ -93,66 +80,75 @@ let abstract_role['composite'] = abstract_role['widget'] + ['aria-activedescenda
 let abstract_role['input'] = abstract_role['widget']
 let abstract_role['section'] = abstract_role['structure'] + ['aria-expanded']
 let abstract_role['sectionhead'] = abstract_role['structure'] + ['aria-expanded']
-let abstract_role['landmark'] = abstract_role['section']
-let abstract_role['select'] = abstract_role['input'] + ['aria-activedescendant']
+
+let role_attributes['group'] = abstract_role['section']
+let abstract_role['select'] = abstract_role['composite'] + role_attributes['group'] + abstract_role['input']
+
 let abstract_role['range'] = abstract_role['input'] + ['aria-valuemax', 'aria-valuemin', 'aria-valuenow', 'aria-valuetext']
 
-let role_attributes = {}
 let role_attributes['region'] = abstract_role['section']
+let abstract_role['landmark'] = role_attributes['region']
+
+" Widget Roles
 let role_attributes['list'] = role_attributes['region'] 
 let role_attributes['listitem'] = abstract_role['section']
-let role_attributes['group'] = abstract_role['section']
+
+let role_attributes['dialog'] = abstract_role['window']
+let role_attributes['menuitem'] = abstract_role['input'] 
+let role_attributes['checkbox'] = abstract_role['input'] + ['aria-checked'] 
+let role_attributes['menuitemcheckbox'] = role_attributes['menuitem'] + role_attributes['checkbox']
+let role_attributes['option'] = abstract_role['input'] + ['aria-checked', 'aria-posinset', 'aria-selected', 'aria-setsize']
+let role_attributes['radio'] = role_attributes['checkbox'] + role_attributes['option']
+
+let role_attributes['directory'] = role_attributes['list'] 
 
 let role_attributes['alert'] = role_attributes['region']
-let role_attributes['alertdialog'] = role_attributes['alert']
-let role_attributes['button'] = role_attributes['region'] + ['aira-pressed']
-let role_attributes['checkbox'] = abstract_role['input'] + ['aria-checked'] 
+let role_attributes['alertdialog'] = role_attributes['alert'] + role_attributes['dialog']
+let role_attributes['button'] = role_attributes['region'] + role_attributes['menuitemcheckbox']
 let role_attributes['combobox'] = abstract_role['select'] + ['aria-expanded', 'aria-required'] 
-let role_attributes['dialog'] = abstract_role['window']
-let role_attributes['gridcell'] = abstract_role['section'] + ['aria-readonly', 'aria-required', 'aria-selected'] 
+let role_attributes['gridcell'] = abstract_role['section'] + abstract_role['widget']
 let role_attributes['link'] = abstract_role['widget'] 
 let role_attributes['log'] = role_attributes['region'] 
 let role_attributes['marquee'] = role_attributes['region'] 
-let role_attributes['menuitem'] = abstract_role['input'] 
-let role_attributes['menuitemcheckbox'] = role_attributes['menuitem'] + ['aria-checked']
-let role_attributes['menuitemradio'] = role_attributes['menuitemcheckbox'] 
-let role_attributes['option'] = abstract_role['input'] + ['aria-checked', 'aria-posinset', 'aria-selected', 'aria-setsize']
+let role_attributes['menuitemradio'] = role_attributes['menuitemcheckbox'] + role_attributes['radio']
 let role_attributes['progressbar'] = abstract_role['widget'] + ['aria-valuemax', 'aria-valuemin', 'aria-valuenow', 'aria-valuetext']
-let role_attributes['radio'] = role_attributes['checkbox'] 
 let role_attributes['radiogroup'] = abstract_role['select'] + ['aria-required']
 let role_attributes['scrollbar'] = abstract_role['range'] + ['aria-controls', 'aria-orientation', 'aria-valuemax', 'aria-valuemin', 'aria-valuenow']
 let role_attributes['slider'] = abstract_role['range'] + ['aria-valuemax', 'aria-valuemin', 'aria-valuenow']
-let role_attributes['spinbutton'] = abstract_role['range'] + ['aria-valuemax', 'aria-valuemin', 'aria-valuenow', 'aria-activedescendant'] 
-let role_attributes['status'] = role_attributes['region'] + ['aria-activedescendant'] 
-let role_attributes['tab'] = abstract_role['sectionhead'] + ['aria-selected']  
+let role_attributes['spinbutton'] = abstract_role['composite'] + abstract_role['range'] + ['aria-required'] 
+let role_attributes['status'] = abstract_role['composite'] + role_attributes['region']
+let role_attributes['tab'] = abstract_role['sectionhead'] + abstract_role['widget']
 let role_attributes['tabpanel'] = role_attributes['region']
 let role_attributes['textbox'] = abstract_role['input'] + ['aria-autocomplete', 'aria-multiline', 'aria-readonly', 'aria-required']
 let role_attributes['timer'] = role_attributes['status'] 
 let role_attributes['tooltip'] = abstract_role['section'] 
-let role_attributes['treeitem'] = role_attributes['listitem'] + ['aria-checked', 'aria-posinset', 'aria-selected', 'aria-setsize']
-let role_attributes['grid'] = abstract_role['composite'] + ['aria-level', 'aria-multiselectable', 'aria-readonly']
-let role_attributes['listbox'] = abstract_role['select'] + ['aria-multiselectable', 'aria-required']
-let role_attributes['menu'] =  abstract_role['select'] 
+let role_attributes['treeitem'] = role_attributes['listitem'] + role_attributes['option']
+
+let role_attributes['grid'] = abstract_role['composite'] + role_attributes['region'] + ['aria-level', 'aria-multiselectable', 'aria-readonly']
+let role_attributes['listbox'] = role_attributes['list'] + abstract_role['select'] + ['aria-multiselectable', 'aria-required']
+let role_attributes['menu'] =  role_attributes['list'] + abstract_role['select'] 
 let role_attributes['menubar'] = role_attributes['menu'] 
-let role_attributes['tablist'] = abstract_role['composite'] 
+let role_attributes['tablist'] = abstract_role['composite'] + role_attributes['directory']
 let role_attributes['toolbar'] = role_attributes['group'] 
 let role_attributes['tree'] = abstract_role['select'] + ['aria-multiselectable', 'aria-required']
-let role_attributes['treegrid'] = role_attributes['grid'] + ['aria-required'] 
+let role_attributes['treegrid'] = role_attributes['grid'] + role_attributes['tree']
 
-let role_attributes['article'] = abstract_role['section'] 
-let role_attributes['columnheader'] = role_attributes['gridcell'] + ['aria-sort'] 
-let role_attributes['definition'] = abstract_role['section'] 
-let role_attributes['directory'] = role_attributes['list'] 
+" Document Structure
 let role_attributes['document'] = abstract_role['structure'] + ['aria-expanded'] 
+
+let role_attributes['article'] = role_attributes['document'] + role_attributes['region'] 
+let role_attributes['columnheader'] = role_attributes['gridcell'] + abstract_role['sectionhead'] + ['aria-sort']
+let role_attributes['definition'] = abstract_role['section'] 
 let role_attributes['heading'] = abstract_role['sectionhead'] + ['aria-level'] 
 let role_attributes['img'] = abstract_role['section'] 
 let role_attributes['math'] = abstract_role['section'] 
 let role_attributes['note'] = abstract_role['section'] 
 let role_attributes['presentation'] = abstract_role['structure']
 let role_attributes['row'] = role_attributes['group'] + ['aria-level', 'aria-selected']
-let role_attributes['rowheader'] = role_attributes['gridcell'] 
+let role_attributes['rowheader'] = role_attributes['gridcell'] + abstract_role['sectionhead']
 let role_attributes['separator'] = abstract_role['structure'] + ['aria-expanded'] 
 
+" Landmark Roles
 let role_attributes['application'] = abstract_role['landmark'] 
 let role_attributes['banner'] = abstract_role['landmark'] 
 let role_attributes['complementary'] = abstract_role['landmark'] 
@@ -199,7 +195,7 @@ let phrasing_elements = ['a', 'em', 'strong', 'small', 'mark', 'abbr', 'dfn', 'i
 
 let metadata_elements = ['link', 'style', 'meta name', 'meta', 'script', 'noscript', 'command']
 
-let flow_elements = SortUnique( phrasing_elements + ['p', 'hr', 'pre', 'ul', 'ol', 'dl', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hgroup', 'address', 'blockquote', 'ins', 'del', 'object', 'map', 'noscript', 'section', 'nav', 'article', 'aside', 'header', 'footer', 'video', 'audio', 'figure', 'table', 'form', 'fieldset', 'menu', 'canvas', 'details'] )
+let flow_elements = phrasing_elements + ['p', 'hr', 'pre', 'ul', 'ol', 'dl', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hgroup', 'address', 'blockquote', 'ins', 'del', 'object', 'map', 'noscript', 'section', 'nav', 'article', 'aside', 'header', 'footer', 'video', 'audio', 'figure', 'table', 'form', 'fieldset', 'menu', 'canvas', 'details']
 
 let g:xmldata_html5 = {
 \ 'vimxmlentities': ['AElig', 'Aacute', 'Acirc', 'Agrave', 'Alpha', 'Aring', 'Atilde', 'Auml', 'Beta', 'Ccedil', 'Chi', 'Dagger', 'Delta', 'ETH', 'Eacute', 'Ecirc', 'Egrave', 'Epsilon', 'Eta', 'Euml', 'Gamma', 'Iacute', 'Icirc', 'Igrave', 'Iota', 'Iuml', 'Kappa', 'Lambda', 'Mu', 'Ntilde', 'Nu', 'OElig', 'Oacute', 'Ocirc', 'Ograve', 'Omega', 'Omicron', 'Oslash', 'Otilde', 'Ouml', 'Phi', 'Pi', 'Prime', 'Psi', 'Rho', 'Scaron', 'Sigma', 'THORN', 'Tau', 'Theta', 'Uacute', 'Ucirc', 'Ugrave', 'Upsilon', 'Uuml', 'Xi', 'Yacute', 'Yuml', 'Zeta', 'aacute', 'acirc', 'acute', 'aelig', 'agrave', 'alefsym', 'alpha', 'amp', 'and', 'ang', 'apos', 'aring', 'asymp', 'atilde', 'auml', 'bdquo', 'beta', 'brvbar', 'bull', 'cap', 'ccedil', 'cedil', 'cent', 'chi', 'circ', 'clubs', 'cong', 'copy', 'crarr', 'cup', 'curren', 'dArr', 'dagger', 'darr', 'deg', 'delta', 'diams', 'divide', 'eacute', 'ecirc', 'egrave', 'empty', 'emsp', 'ensp', 'epsilon', 'equiv', 'eta', 'eth', 'euml', 'euro', 'exist', 'fnof', 'forall', 'frac12', 'frac14', 'frac34', 'frasl', 'gamma', 'ge', 'gt', 'hArr', 'harr', 'hearts', 'hellip', 'iacute', 'icirc', 'iexcl', 'igrave', 'image', 'infin', 'int', 'iota', 'iquest', 'isin', 'iuml', 'kappa', 'lArr', 'lambda', 'lang', 'laquo', 'larr', 'lceil', 'ldquo', 'le', 'lfloor', 'lowast', 'loz', 'lrm', 'lsaquo', 'lsquo', 'lt', 'macr', 'mdash', 'micro', 'middot', 'minus', 'mu', 'nabla', 'nbsp', 'ndash', 'ne', 'ni', 'not', 'notin', 'nsub', 'ntilde', 'nu', 'oacute', 'ocirc', 'oelig', 'ograve', 'oline', 'omega', 'omicron', 'oplus', 'or', 'ordf', 'ordm', 'oslash', 'otilde', 'otimes', 'ouml', 'para', 'part', 'permil', 'perp', 'phi', 'pi', 'piv', 'plusmn', 'pound', 'prime', 'prod', 'prop', 'psi', 'quot', 'rArr', 'radic', 'rang', 'raquo', 'rarr', 'rceil', 'rdquo', 'real', 'reg', 'rfloor', 'rho', 'rlm', 'rsaquo', 'rsquo', 'sbquo', 'scaron', 'sdot', 'sect', 'shy', 'sigma', 'sigmaf', 'sim', 'spades', 'sub', 'sube', 'sum', 'sup', 'sup1', 'sup2', 'sup3', 'supe', 'szlig', 'tau', 'there4', 'theta', 'thetasym', 'thinsp', 'thorn', 'tilde', 'times', 'trade', 'uArr', 'uacute', 'uarr', 'ucirc', 'ugrave', 'uml', 'upsih', 'upsilon', 'uuml', 'weierp', 'xi', 'yacute', 'yen', 'yuml', 'zeta', 'zwj', 'zwnj'],
@@ -743,5 +739,6 @@ let g:xmldata_html5 = {
     \ 'meta': ['/>', ''],
     \ 'wbr': ['/>', ''],
 \ },
-\ 'aria_attributes': aria_attributes
+\ 'aria_attributes': aria_attributes,
+\ 'role_attributes': role_attributes
 \ }
