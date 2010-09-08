@@ -598,7 +598,7 @@ function! htmlcomplete#CompleteTags(findstart, base)
 	endif
 	" }}}
 	" Close tag {{{
-	let b:unaryTagsStack = "base meta link hr br param img area input col"
+	let b:unaryTagsStack = "area base br col command embed hr img input keygen link meta param source wbr"
 	if context =~ '^\/'
 		if context =~ '^\/.'
 			return []
