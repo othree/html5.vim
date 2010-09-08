@@ -92,6 +92,8 @@ endif
 " }}}
 
 " WAI_ARIA: {{{
+" Ref: http://www.w3.org/TR/wai-aria/
+" Version: Draft 15 December 2009
 let abstract_role = {}
 let role_attributes = {}
 
@@ -208,6 +210,8 @@ if g:role_attributes_complete == 1
 endif
 " }}}
 
+" Ref: http://dev.w3.org/html5/markup/
+" Version: Draft 29 August 2010
 let phrasing_elements = ['a', 'em', 'strong', 'small', 'mark', 'abbr', 'dfn', 'i', 'b', 'code', 'var', 'samp', 'kbd', 'sup', 'sub', 'q', 'cite', 'span', 'bdo', 'br', 'wbr', 'ins', 'del', 'img', 'embed', 'object', 'iframe', 'map', 'area', 'script', 'noscript', 'ruby', 'video', 'audio', 'input', 'textarea', 'select', 'button', 'label', 'output', 'datalist', 'keygen', 'progress', 'command', 'canvas', 'time', 'meter']
 
 let metadata_elements = ['link', 'style', 'meta', 'script', 'noscript', 'command']
