@@ -1,3 +1,10 @@
+" Vim completion for HTML5 data file
+" Language:       HTML5
+" Maintainer:     othree <othree@gmail.com>
+" Last Change:    2010 Sep 08
+
+
+" Lang Tag: {{{
 " Ref: http://www.iana.org/assignments/language-subtag-registry
 " Version: 2010/09/07
 " Description: only get two-letter language tag
@@ -13,7 +20,9 @@ let lang_tag = [
     \ 'sd', 'se', 'sg', 'sh', 'si', 'sk', 'sl', 'sm', 'sn', 'so', 'sq', 'sr', 'ss', 'st', 'su', 'sv', 'sw', 'ta',
     \ 'te', 'tg', 'th', 'ti', 'tk', 'tl', 'tn', 'to', 'tr', 'ts', 'tt', 'tw', 'ty', 'ug', 'uk', 'ur', 'uz', 've',
     \ 'vi', 'vo', 'wa', 'wo', 'xh', 'yi', 'yo', 'za', 'zh', 'zu', 'zh-CN', 'zh-TW']
+" }}}
 
+" Charset: {{{
 " Ref: http://www.iana.org/assignments/character-sets 
 " Version: 2010/09/07
 let charset = [
@@ -49,10 +58,13 @@ let charset = [
     \ 'IBM01144', 'IBM01145', 'IBM01146', 'IBM01147', 'IBM01148', 'IBM01149', 'Big5-HKSCS', 'IBM1047', 'PTCP154', 'Amiga-1251', 
     \ 'KOI7-switched', 'BRF', 'TSCII', 'windows-1250', 'windows-1251', 'windows-1252', 'windows-1253', 'windows-1254', 'windows-1255', 
     \ 'windows-1256', 'windows-1257', 'windows-1258', 'TIS-620', ]
+" }}}
 
+" Attributes_and_Settings: {{{
 let core_attributes = {'accesskey': [], 'class': [], 'contenteditable': ['true', 'false', ''], 'contextmenu': [], 'dir': ['ltr', 'rtl'], 'draggable': ['true', 'false'], 'hidden': ['hidden', ''], 'id': [], 'lang': [], 'spellcheck': ['true', 'false', ''], 'style': [], 'tabindex': [], 'title': []}
 let xml_attributes = {'xml:lang': lang_tag, 'xml:space': [], 'xml:base': []}
 
+let body_attributes = {}
 let global_attributes = extend(core_attributes, xml_attributes)
 if !exists('g:event_handler_attributes_complete')
     let g:event_handler_attributes_complete = 1
@@ -60,6 +72,8 @@ endif
 if g:event_handler_attributes_complete == 1
     let event_handler_attributes = {'onabort': [], 'onblur': [], 'oncanplay': [], 'oncanplaythrough': [], 'onchange': [], 'onclick': [], 'oncontextmenu': [], 'ondblclick': [], 'ondrag': [], 'ondragend': [], 'ondragenter': [], 'ondragleave': [], 'ondragover': [], 'ondragstart': [], 'ondrop': [], 'ondurationchange': [], 'onemptied': [], 'onended': [], 'onerror': [], 'onfocus': [], 'onformchange': [], 'onforminput': [], 'oninput': [], 'oninvalid': [], 'onkeydown': [], 'onkeypress': [], 'onkeyup': [], 'onload': [], 'onloadeddata': [], 'onloadedmetadata': [], 'onloadstart': [], 'onmousedown': [], 'onmousemove': [], 'onmouseout': [], 'onmouseover': [], 'onmouseup': [], 'onmousewheel': [], 'onpause': [], 'onplay': [], 'onplaying': [], 'onprogress': [], 'onratechange': [], 'onreadystatechange': [], 'onscroll': [], 'onseeked': [], 'onseeking': [], 'onselect': [], 'onshow': [], 'onstalled': [], 'onsubmit': [], 'onsuspend': [], 'ontimeupdate': [], 'onvolumechange': [], 'onwaiting': []}
     let global_attributes = extend(global_attributes, event_handler_attributes)
+    
+    let body_attributes = {'onafterprint': [], 'onbeforeprint': [], 'onbeforeunload': [], 'onblur': [], 'onerror': [], 'onfocus': [], 'onhashchange': [], 'onload': [], 'onmessage': [], 'onoffline': [], 'ononline': [], 'onpopstate': [], 'onredo': [], 'onresize': [], 'onstorage': [], 'onundo': [], 'onunload': []}
 endif
 if !exists('g:rdfa_attributes_complete')
     let g:rdfa_attributes_complete = 1
@@ -75,7 +89,9 @@ if g:microdata_attributes_complete == 1
     let microdata_attributes = {'item': [], 'itemid': [], 'itemscope': [], 'itemtype': [], 'itemprop': []}
     let global_attributes = extend(global_attributes, microdata_attributes)
 endif
+" }}}
 
+" WAI_ARIA: {{{
 let abstract_role = {}
 let role_attributes = {}
 
@@ -190,6 +206,7 @@ if g:role_attributes_complete == 1
     let role_attributes['navigation'] = abstract_role['landmark'] 
     let role_attributes['search'] = abstract_role['landmark']
 endif
+" }}}
 
 let phrasing_elements = ['a', 'em', 'strong', 'small', 'mark', 'abbr', 'dfn', 'i', 'b', 'code', 'var', 'samp', 'kbd', 'sup', 'sub', 'q', 'cite', 'span', 'bdo', 'br', 'wbr', 'ins', 'del', 'img', 'embed', 'object', 'iframe', 'map', 'area', 'script', 'noscript', 'ruby', 'video', 'audio', 'input', 'textarea', 'select', 'button', 'label', 'output', 'datalist', 'keygen', 'progress', 'command', 'canvas', 'time', 'meter']
 
@@ -246,7 +263,7 @@ let g:xmldata_html5 = {
 \ ],
 \ 'body': [
     \ flow_elements,
-    \ extend(copy(global_attributes), {'onafterprint': [], 'onbeforeprint': [], 'onbeforeunload': [], 'onblur': [], 'onerror': [], 'onfocus': [], 'onhashchange': [], 'onload': [], 'onmessage': [], 'onoffline': [], 'ononline': [], 'onpopstate': [], 'onredo': [], 'onresize': [], 'onstorage': [], 'onundo': [], 'onunload': []})
+    \ extend(copy(global_attributes), body_attributes)
 \ ],
 \ 'br': [
     \ [],
