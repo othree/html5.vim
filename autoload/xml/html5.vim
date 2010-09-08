@@ -71,12 +71,27 @@ let core_attributes = {'accesskey': [], 'class': [], 'contenteditable': ['true',
 let event_handler_attributes = {'onabort': [], 'onblur': [], 'oncanplay': [], 'oncanplaythrough': [], 'onchange': [], 'onclick': [], 'oncontextmenu': [], 'ondblclick': [], 'ondrag': [], 'ondragend': [], 'ondragenter': [], 'ondragleave': [], 'ondragover': [], 'ondragstart': [], 'ondrop': [], 'ondurationchange': [], 'onemptied': [], 'onended': [], 'onerror': [], 'onfocus': [], 'onformchange': [], 'onforminput': [], 'oninput': [], 'oninvalid': [], 'onkeydown': [], 'onkeypress': [], 'onkeyup': [], 'onload': [], 'onloadeddata': [], 'onloadedmetadata': [], 'onloadstart': [], 'onmousedown': [], 'onmousemove': [], 'onmouseout': [], 'onmouseover': [], 'onmouseup': [], 'onmousewheel': [], 'onpause': [], 'onplay': [], 'onplaying': [], 'onprogress': [], 'onratechange': [], 'onreadystatechange': [], 'onscroll': [], 'onseeked': [], 'onseeking': [], 'onselect': [], 'onshow': [], 'onstalled': [], 'onsubmit': [], 'onsuspend': [], 'ontimeupdate': [], 'onvolumechange': [], 'onwaiting': []}
 let xml_attributes = {'xml:lang': lang_tag, 'xml:space': [], 'xml:base': []}
 
+let rdfa_attributes = {'about': [], 'typeof': [], 'property': [], 'resource': [], 'content': [], 'datatype': [], 'rel': [], 'rev': []}
+let microdata_attributes = {'item': [], 'itemid': [], 'itemscope': [], 'itemtype': [], 'itemprop': []}
+
 let global_attributes = extend(core_attributes, xml_attributes)
 if !exists('g:event_handler_attributes_complete')
     let g:event_handler_attributes_complete = 1
 endif
 if g:event_handler_attributes_complete == 1
     let global_attributes = extend(global_attributes, event_handler_attributes)
+endif
+if !exists('g:rdfa_attributes_complete')
+    let g:rdfa_attributes_complete = 1
+endif
+if g:rdfa_attributes_complete == 1
+    let global_attributes = extend(global_attributes, rdfa_attributes)
+endif
+if !exists('g:microdata_attributes_complete')
+    let g:microdata_attributes_complete = 1
+endif
+if g:microdata_attributes_complete == 1
+    let global_attributes = extend(global_attributes, microdata_attributes)
 endif
 
 let phrasing_elements = ['a', 'em', 'strong', 'small', 'mark', 'abbr', 'dfn', 'i', 'b', 'code', 'var', 'samp', 'kbd', 'sup', 'sub', 'q', 'cite', 'span', 'bdo', 'br', 'wbr', 'ins', 'del', 'img', 'embed', 'object', 'iframe', 'map', 'area', 'script', 'noscript', 'ruby', 'video', 'audio', 'input', 'textarea', 'select', 'button', 'label', 'output', 'datalist', 'keygen', 'progress', 'command', 'canvas', 'time', 'meter']
