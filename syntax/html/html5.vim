@@ -10,6 +10,7 @@
 "       and don't replace default html.vim syntax file
 "
 " Modified:     othree <othree@gmail.com>
+" Last Change:  2010/09/09
 " Changes:      update to Draft 28 August 2010
 "               add complete new attributes
 "               add wai-aria attributes

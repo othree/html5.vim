@@ -40,6 +40,36 @@ Disable WAI-ARIA attribute support:
 
     let g:atia_attributes_complete = 0
 
+## Change Log
+
+### Version 0.2
+
+- attributes now must match from beginning
+- fix some attr(\w*on\w*) will use jscomplete for their value
+- add vim-makefile
+
+## References
+ 
+1. [HTML5 Spec][1]
+2. [HTML5 Markup][2]
+3. [Custom Data Attributes][3]
+4. [microdata][4]
+5. [RDFa 1.0 Rec][5]
+6. [RDFa 1.1 Core WD][6]
+7. [WAI-ARIA][7]
+8. [IANA Language Sub Tags][8]
+9. [IANA Charset][9]
+
 [microdata]:http://dev.w3.org/html5/md/
 [RDFa]:http://www.w3.org/TR/rdfa-syntax/
 [aria]:http://www.w3.org/TR/wai-aria/
+
+[1]:http://dev.w3.org/html5/spec/
+[2]:http://dev.w3.org/html5/markup/
+[3]:http://dev.w3.org/html5/spec/Overview.html#custom-data-attribute
+[4]:http://dev.w3.org/html5/md/
+[5]:http://www.w3.org/TR/rdfa-syntax/#a_xhtmlrdfa_dtd
+[6]:http://www.w3.org/TR/rdfa-core/
+[7]:http://www.w3.org/TR/wai-aria/
+[8]:http://www.iana.org/assignments/language-subtag-registry
+[9]:http://www.iana.org/assignments/character-sets 
