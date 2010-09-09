@@ -225,7 +225,7 @@ function! htmlcomplete#CompleteTags(findstart, base)
 	" 1. Events attributes
 	if context =~ '\s'
 		" Sort out style, class, and on* cases
-		if context =~? "\\(on[a-z]*\\|id\\|style\\|class\\)\\s*=\\s*[\"']"
+		if context =~? "\\s\\(on[a-z]+\\|id\\|style\\|class\\)\\s*=\\s*[\"']"
 			" Id, class completion {{{
 			if context =~? "\\(id\\|class\\)\\s*=\\s*[\"'][a-zA-Z0-9_ -]*$"
 				if context =~? "class\\s*=\\s*[\"'][a-zA-Z0-9_ -]*$"
