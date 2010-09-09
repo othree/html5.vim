@@ -62,32 +62,241 @@ let charset = [
 
 " Attributes_and_Settings: {{{
 let core_attributes = {'accesskey': [], 'class': [], 'contenteditable': ['true', 'false', ''], 'contextmenu': [], 'dir': ['ltr', 'rtl'], 'draggable': ['true', 'false'], 'hidden': ['hidden', ''], 'id': [], 'lang': [], 'spellcheck': ['true', 'false', ''], 'style': [], 'tabindex': [], 'title': []}
-let xml_attributes = {'xml:lang': lang_tag, 'xml:space': [], 'xml:base': []}
+let xml_attributes = {'xml:lang': lang_tag, 'xml:space': ['preserve'], 'xml:base': [], 'xmlns': []}
 
 let body_attributes = {}
 let global_attributes = extend(core_attributes, xml_attributes)
 if !exists('g:event_handler_attributes_complete')
     let g:event_handler_attributes_complete = 1
 endif
+
+" http://dev.w3.org/html5/spec/Overview.html#attributes-1
+let attributes_value = {
+    \ 'accept': ['MIME', ''],
+    \ 'accept-charset': ['Charset', ''],
+    \ 'accesskey': ['Character', ''],
+    \ 'action': ['URL', ''],
+    \ 'alt': ['Text', ''],
+    \ 'async': ['Bool', ''],
+    \ 'autocomplete': ['on/off', ''],
+    \ 'autofocus': ['Bool', ''],
+    \ 'autoplay': ['Bool', ''],
+    \ 'challenge': ['Text', ''],
+    \ 'charset': ['Charset', ''],
+    \ 'checked': ['Bool', ''],
+    \ 'cite': ['URL', ''],
+    \ 'class': ['*Token', ''],
+    \ 'cols': ['Int', ''],
+    \ 'colspan': ['Int', ''],
+    \ 'content': ['Text', ''],
+    \ 'contenteditable': ['true/false', ''],
+    \ 'contextmenu': ['ID', ''],
+    \ 'controls': ['Bool', ''],
+    \ 'coords': ['*Int', ''],
+    \ 'data': ['URL', ''],
+    \ 'datetime': ['Datetime', ''],
+    \ 'defer': ['Bool', ''],
+    \ 'dir': ['ltr/rtl', ''],
+    \ 'disabled': ['Bool', ''],
+    \ 'draggable': ['true/false', ''],
+    \ 'enctype': ['Token', ''],
+    \ 'for': ['ID', ''],
+    \ 'form': ['ID', ''],
+    \ 'formaction': ['URL', ''],
+    \ 'formenctype': ['Token', ''],
+    \ 'formmethod': ['HTTP Method', ''],
+    \ 'formnovalidate': ['Bool', ''],
+    \ 'formtarget': ['Name', ''],
+    \ 'headers': ['*ID', ''],
+    \ 'height': ['Int', ''],
+    \ 'hidden': ['Bool', ''],
+    \ 'high': ['Number', ''],
+    \ 'href': ['URL', ''],
+    \ 'hreflang': ['Lang Tag', ''],
+    \ 'http-equiv': ['Text', ''],
+    \ 'icon': ['URL', ''],
+    \ 'id': ['Text', ''],
+    \ 'ismap': ['Bool', ''],
+    \ 'keytype': ['Text', ''],
+    \ 'label': ['Text', ''],
+    \ 'lang': ['Lang Tag', ''],
+    \ 'list': ['ID', ''],
+    \ 'loop': ['Bool', ''],
+    \ 'low': ['Number', ''],
+    \ 'manifest': ['URL', ''],
+    \ 'max': ['Number', ''],
+    \ 'maxlength': ['Int', ''],
+    \ 'media': ['Text', ''],
+    \ 'method': ['HTTP Method', ''],
+    \ 'min': ['Number', ''],
+    \ 'multiple': ['Bool', ''],
+    \ 'name': ['Text', ''],
+    \ 'novalidate': ['Bool', ''],
+    \ 'open': ['Bool', ''],
+    \ 'optimum': ['Number', ''],
+    \ 'pattern': ['Pattern', ''],
+    \ 'placeholder': ['Text', ''],
+    \ 'poster': ['URL', ''],
+    \ 'preload': ['Token', ''],
+    \ 'pubdate': ['Bool', ''],
+    \ 'radiogroup': ['Text', ''],
+    \ 'readonly': ['Bool', ''],
+    \ 'rel': ['*Token', ''],
+    \ 'required': ['Bool', ''],
+    \ 'reversed': ['Bool', ''],
+    \ 'rows': ['Int', ''],
+    \ 'rowspan': ['Int', ''],
+    \ 'sandbox': ['*Token', ''],
+    \ 'spellcheck': ['true/false', ''],
+    \ 'scope': ['Token', ''],
+    \ 'scoped': ['Bool', ''],
+    \ 'seamless': ['Bool', ''],
+    \ 'selected': ['Bool', ''],
+    \ 'shape': ['Token', ''],
+    \ 'size': ['Int', ''],
+    \ 'sizes': ['*Token', ''],
+    \ 'span': ['Int', ''],
+    \ 'src': ['Int', ''],
+    \ 'srcdoc': ['Document', ''],
+    \ 'start': ['Int', ''],
+    \ 'step': ['Int', ''],
+    \ 'style': ['Style', ''],
+    \ 'summary': ['Text', ''],
+    \ 'tabindex': ['Int', ''],
+    \ 'target': ['Name', ''],
+    \ 'title': ['Text', ''],
+    \ 'type': ['Token', ''],
+    \ 'usemap': ['Name', ''],
+    \ 'value': ['Text', ''],
+    \ 'width': ['Int', ''],
+    \ 'wrap': ['soft/hard', ''],
+    \ 'xml:lang': ['Lang tag', ''],
+    \ 'xml:base': ['*URI', ''],
+    \ 'xml:space': ['preserve', ''],
+    \ 'xmlns': ['URI', ''],
+    \ 'version': ['HTML+RDFa 1.1', '']
+\ }
+
 if g:event_handler_attributes_complete == 1
     let event_handler_attributes = {'onabort': [], 'onblur': [], 'oncanplay': [], 'oncanplaythrough': [], 'onchange': [], 'onclick': [], 'oncontextmenu': [], 'ondblclick': [], 'ondrag': [], 'ondragend': [], 'ondragenter': [], 'ondragleave': [], 'ondragover': [], 'ondragstart': [], 'ondrop': [], 'ondurationchange': [], 'onemptied': [], 'onended': [], 'onerror': [], 'onfocus': [], 'onformchange': [], 'onforminput': [], 'oninput': [], 'oninvalid': [], 'onkeydown': [], 'onkeypress': [], 'onkeyup': [], 'onload': [], 'onloadeddata': [], 'onloadedmetadata': [], 'onloadstart': [], 'onmousedown': [], 'onmousemove': [], 'onmouseout': [], 'onmouseover': [], 'onmouseup': [], 'onmousewheel': [], 'onpause': [], 'onplay': [], 'onplaying': [], 'onprogress': [], 'onratechange': [], 'onreadystatechange': [], 'onscroll': [], 'onseeked': [], 'onseeking': [], 'onselect': [], 'onshow': [], 'onstalled': [], 'onsubmit': [], 'onsuspend': [], 'ontimeupdate': [], 'onvolumechange': [], 'onwaiting': []}
     let global_attributes = extend(global_attributes, event_handler_attributes)
     
     let body_attributes = {'onafterprint': [], 'onbeforeprint': [], 'onbeforeunload': [], 'onblur': [], 'onerror': [], 'onfocus': [], 'onhashchange': [], 'onload': [], 'onmessage': [], 'onoffline': [], 'ononline': [], 'onpopstate': [], 'onredo': [], 'onresize': [], 'onstorage': [], 'onundo': [], 'onunload': []}
+
+    let event_attributes_value = {
+        \ 'onabort': ['Script', ''],
+        \ 'onafterprint': ['Script', ''],
+        \ 'onbeforeprint': ['Script', ''],
+        \ 'onbeforeunload': ['Script', ''],
+        \ 'onblur': ['Script', ''],
+        \ 'oncanplay': ['Script', ''],
+        \ 'oncanplaythrough': ['Script', ''],
+        \ 'onchange': ['Script', ''],
+        \ 'onclick': ['Script', ''],
+        \ 'oncontextmenu': ['Script', ''],
+        \ 'ondblclick': ['Script', ''],
+        \ 'ondrag': ['Script', ''],
+        \ 'ondragend': ['Script', ''],
+        \ 'ondragenter': ['Script', ''],
+        \ 'ondragleave': ['Script', ''],
+        \ 'ondragover': ['Script', ''],
+        \ 'ondragstart': ['Script', ''],
+        \ 'ondrop': ['Script', ''],
+        \ 'ondurationchange': ['Script', ''],
+        \ 'onemptied': ['Script', ''],
+        \ 'onended': ['Script', ''],
+        \ 'onerror': ['Script', ''],
+        \ 'onfocus': ['Script', ''],
+        \ 'onformchange': ['Script', ''],
+        \ 'onforminput': ['Script', ''],
+        \ 'onhashchange': ['Script', ''],
+        \ 'oninput': ['Script', ''],
+        \ 'oninvalid': ['Script', ''],
+        \ 'onkeydown': ['Script', ''],
+        \ 'onkeypress': ['Script', ''],
+        \ 'onkeyup': ['Script', ''],
+        \ 'onload': ['Script', ''],
+        \ 'onloadeddata': ['Script', ''],
+        \ 'onloadedmetadata': ['Script', ''],
+        \ 'onloadstart': ['Script', ''],
+        \ 'onmessage': ['Script', ''],
+        \ 'onmousedown': ['Script', ''],
+        \ 'onmousemove': ['Script', ''],
+        \ 'onmouseout': ['Script', ''],
+        \ 'onmouseover': ['Script', ''],
+        \ 'onmouseup': ['Script', ''],
+        \ 'onmousewheel': ['Script', ''],
+        \ 'onoffline': ['Script', ''],
+        \ 'ononline': ['Script', ''],
+        \ 'onpagehide': ['Script', ''],
+        \ 'onpageshow': ['Script', ''],
+        \ 'onpause': ['Script', ''],
+        \ 'onplay': ['Script', ''],
+        \ 'onplaying': ['Script', ''],
+        \ 'onpopstate': ['Script', ''],
+        \ 'onprogress': ['Script', ''],
+        \ 'onratechange': ['Script', ''],
+        \ 'onreadystatechange': ['Script', ''],
+        \ 'onredo': ['Script', ''],
+        \ 'onresize': ['Script', ''],
+        \ 'onscroll': ['Script', ''],
+        \ 'onseeked': ['Script', ''],
+        \ 'onseeking': ['Script', ''],
+        \ 'onselect': ['Script', ''],
+        \ 'onshow': ['Script', ''],
+        \ 'onstalled': ['Script', ''],
+        \ 'onstorage': ['Script', ''],
+        \ 'onsubmit': ['Script', ''],
+        \ 'onsuspend': ['Script', ''],
+        \ 'ontimeupdate': ['Script', ''],
+        \ 'onundo': ['Script', ''],
+        \ 'onunload': ['Script', ''],
+        \ 'onvolumechange': ['Script', ''],
+        \ 'onwaiting': ['Script', '']
+    \ }
+
+    let attributes_value = extend(attributes_value, event_attributes_value)
 endif
 if !exists('g:rdfa_attributes_complete')
     let g:rdfa_attributes_complete = 1
 endif
 if g:rdfa_attributes_complete == 1
-    let rdfa_attributes = {'about': [], 'typeof': [], 'property': [], 'resource': [], 'content': [], 'datatype': [], 'rel': [], 'rev': []}
+    " http://www.w3.org/TR/rdfa-syntax/#s_metaAttributes
+    " http://www.w3.org/TR/rdfa-core/#s_syntax
+    let relrev = ['chapter', 'contents', 'copyright', 'first', 'glossary', 'help', 'icon', 'index', 'last', 'license', 'meta', 'next', 'p3pv1', 'prev', 'role', 'section', 'stylesheet', 'subsection', 'start', 'top', 'up']
+    let rdfa_attributes = {'about': [], 'content': [], 'datatype': [], 'prefix': [], 'profile': [], 'property': [], 'resource': [], 'rel': relrev, 'rev': relrev, 'typeof': [], 'vocab': []}
     let global_attributes = extend(global_attributes, rdfa_attributes)
+
+    let rdfa_attributes_value = {
+        \ 'about': ['SafeCURIEorCURIEorURI', ''],
+        \ 'content': ['CDATA String', ''],
+        \ 'datatype': ['CURIE', ''],
+        \ 'prefix': ['*Prefix', ''],
+        \ 'profile': ['String', ''],
+        \ 'property': ['*TERMorCURIEorAbsURIs', ''],
+        \ 'resource': ['URIorSafeCURIE', ''],
+        \ 'rel': ['*TERMorCURIEorAbsURIs', ''],
+        \ 'rev': ['*TERMorCURIEorAbsURIs', ''],
+        \ 'typeof': ['*TERMorCURIEorAbsURIs', ''],
+        \ 'vocab': ['URI', '']
+    \ }
+    let attributes_value = extend(attributes_value, rdfa_attributes_value)
 endif
 if !exists('g:microdata_attributes_complete')
     let g:microdata_attributes_complete = 1
 endif
 if g:microdata_attributes_complete == 1
-    let microdata_attributes = {'item': [], 'itemid': [], 'itemscope': [], 'itemtype': [], 'itemprop': []}
+    let microdata_attributes = {'itemid': [], 'itemscope': ['itemscope', ''], 'itemtype': [], 'itemprop': [], 'itemref': []}
     let global_attributes = extend(global_attributes, microdata_attributes)
+
+    let microdata_attributes_value = {
+        \ 'itemid': ['URI', ''],
+        \ 'itemscope': ['Bool', ''],
+        \ 'itemtype': ['URI', ''],
+        \ 'itemprop': ['String', ''],
+        \ 'itemref': ['*ID', '']
+    \ }
+    let attributes_value = extend(attributes_value, microdata_attributes_value)
 endif
 " }}}
 
@@ -97,10 +306,10 @@ endif
 let abstract_role = {}
 let role_attributes = {}
 
-if !exists('g:role_attributes_complete')
-    let g:role_attributes_complete = 1
+if !exists('g:aria_attributes_complete')
+    let g:aria_attributes_complete = 1
 endif
-if g:role_attributes_complete == 1
+if g:aria_attributes_complete == 1
     " Ref: http://www.w3.org/TR/wai-aria/roles
     " Version: Draft 15 December 2009
     let widget_role = ['alert', 'alertdialog', 'button', 'checkbox', 'combobox', 'dialog', 'gridcell', 'link', 'log', 'marquee', 'menuitem', 'menuitemcheckbox', 'menuitemradio', 'option', 'progressbar', 'radio', 'radiogroup', 'scrollbar', 'slider', 'spinbutton', 'status', 'tab', 'tabpanel', 'textbox', 'timer', 'tooltip', 'treeitem']
@@ -207,6 +416,46 @@ if g:role_attributes_complete == 1
     let role_attributes['main'] = abstract_role['landmark'] 
     let role_attributes['navigation'] = abstract_role['landmark'] 
     let role_attributes['search'] = abstract_role['landmark']
+
+    " http://www.w3.org/TR/wai-aria/states_and_properties#state_prop_def
+    let aria_attributes_value = {
+        \ 'aria-autocomplete': ['ID', ''],
+        \ 'aria-checked': ['Token', ''],
+        \ 'aria-disabled': ['true/false', ''],
+        \ 'aria-expanded': ['Token', ''],
+        \ 'aria-haspopup': ['true/false', ''],
+        \ 'aria-hidden': ['true/false', ''],
+        \ 'aria-invalid': ['Token', ''],
+        \ 'aria-label': ['String', ''],
+        \ 'aria-level': ['Int', ''],
+        \ 'aria-multiline': ['true/false', ''],
+        \ 'aria-multiselectable': ['true/false', ''],
+        \ 'aria-orientation': ['Token', ''],
+        \ 'aria-pressed': ['Token', ''],
+        \ 'aria-readonly': ['true/false', ''],
+        \ 'aria-required': ['true/false', ''],
+        \ 'aria-selected': ['Token', ''],
+        \ 'aria-sort': ['Token', ''],
+        \ 'aria-valuemax': ['Number', ''],
+        \ 'aria-valuemin': ['Number', ''],
+        \ 'aria-valuenow': ['Number', ''],
+        \ 'aria-valuetext': ['String', ''],
+        \ 'aria-atomic': ['true/false', ''],
+        \ 'aria-busy': ['true/false', ''],
+        \ 'aria-live': ['Token', ''],
+        \ 'aria-relevant': ['*Token', ''],
+        \ 'aria-dropeffect': ['*Token', ''],
+        \ 'aria-grabbed': ['Token', ''],
+        \ 'aria-activedescendant': ['ID', ''],
+        \ 'aria-controls': ['*ID', ''],
+        \ 'aria-describedby': ['*ID', ''],
+        \ 'aria-flowto': ['*ID', ''],
+        \ 'aria-labelledby': ['*ID', ''],
+        \ 'aria-owns': ['*ID', ''],
+        \ 'aria-posinset': ['Int', ''],
+        \ 'aria-setsize': ['Int', '']
+    \ }
+    let attributes_value = extend(attributes_value, aria_attributes_value)
 endif
 " }}}
 
@@ -223,6 +472,8 @@ let linktypes = ['alternate', 'archives', 'author', 'bookmark', 'external', 'fir
 
 " a and button are special elements for interactive, some element can't be its descendent
 let abutton_dec = 'details\\|embed\\|iframe\\|keygen\\|label\\|menu\\|select\\|textarea'
+
+
 
 let g:xmldata_html5 = {
 \ 'vimxmlentities': ['AElig', 'Aacute', 'Acirc', 'Agrave', 'Alpha', 'Aring', 'Atilde', 'Auml', 'Beta', 'Ccedil', 'Chi', 'Dagger', 'Delta', 'ETH', 'Eacute', 'Ecirc', 'Egrave', 'Epsilon', 'Eta', 'Euml', 'Gamma', 'Iacute', 'Icirc', 'Igrave', 'Iota', 'Iuml', 'Kappa', 'Lambda', 'Mu', 'Ntilde', 'Nu', 'OElig', 'Oacute', 'Ocirc', 'Ograve', 'Omega', 'Omicron', 'Oslash', 'Otilde', 'Ouml', 'Phi', 'Pi', 'Prime', 'Psi', 'Rho', 'Scaron', 'Sigma', 'THORN', 'Tau', 'Theta', 'Uacute', 'Ucirc', 'Ugrave', 'Upsilon', 'Uuml', 'Xi', 'Yacute', 'Yuml', 'Zeta', 'aacute', 'acirc', 'acute', 'aelig', 'agrave', 'alefsym', 'alpha', 'amp', 'and', 'ang', 'apos', 'aring', 'asymp', 'atilde', 'auml', 'bdquo', 'beta', 'brvbar', 'bull', 'cap', 'ccedil', 'cedil', 'cent', 'chi', 'circ', 'clubs', 'cong', 'copy', 'crarr', 'cup', 'curren', 'dArr', 'dagger', 'darr', 'deg', 'delta', 'diams', 'divide', 'eacute', 'ecirc', 'egrave', 'empty', 'emsp', 'ensp', 'epsilon', 'equiv', 'eta', 'eth', 'euml', 'euro', 'exist', 'fnof', 'forall', 'frac12', 'frac14', 'frac34', 'frasl', 'gamma', 'ge', 'gt', 'hArr', 'harr', 'hearts', 'hellip', 'iacute', 'icirc', 'iexcl', 'igrave', 'image', 'infin', 'int', 'iota', 'iquest', 'isin', 'iuml', 'kappa', 'lArr', 'lambda', 'lang', 'laquo', 'larr', 'lceil', 'ldquo', 'le', 'lfloor', 'lowast', 'loz', 'lrm', 'lsaquo', 'lsquo', 'lt', 'macr', 'mdash', 'micro', 'middot', 'minus', 'mu', 'nabla', 'nbsp', 'ndash', 'ne', 'ni', 'not', 'notin', 'nsub', 'ntilde', 'nu', 'oacute', 'ocirc', 'oelig', 'ograve', 'oline', 'omega', 'omicron', 'oplus', 'or', 'ordf', 'ordm', 'oslash', 'otilde', 'otimes', 'ouml', 'para', 'part', 'permil', 'perp', 'phi', 'pi', 'piv', 'plusmn', 'pound', 'prime', 'prod', 'prop', 'psi', 'quot', 'rArr', 'radic', 'rang', 'raquo', 'rarr', 'rceil', 'rdquo', 'real', 'reg', 'rfloor', 'rho', 'rlm', 'rsaquo', 'rsquo', 'sbquo', 'scaron', 'sdot', 'sect', 'shy', 'sigma', 'sigmaf', 'sim', 'spades', 'sub', 'sube', 'sum', 'sup', 'sup1', 'sup2', 'sup3', 'supe', 'szlig', 'tau', 'there4', 'theta', 'thetasym', 'thinsp', 'thorn', 'tilde', 'times', 'trade', 'uArr', 'uacute', 'uarr', 'ucirc', 'ugrave', 'uml', 'upsih', 'upsilon', 'uuml', 'weierp', 'xi', 'yacute', 'yen', 'yuml', 'zeta', 'zwj', 'zwnj'],
@@ -413,7 +664,7 @@ let g:xmldata_html5 = {
 \ ],
 \ 'html': [
     \ ['head', 'body'],
-    \ extend(copy(global_attributes), {'manifest': []})
+    \ extend(copy(global_attributes), {'manifest': [], 'version': ['HTML+RDFa 1.1']})
 \ ],
 \ 'i': [
     \ phrasing_elements,
@@ -421,7 +672,7 @@ let g:xmldata_html5 = {
 \ ],
 \ 'iframe': [
     \ [],
-    \ extend(copy(global_attributes), {'src': [], 'name': [], 'width': [], 'height': [], 'sandbox': [], 'seamless': ['seamless', '']})
+    \ extend(copy(global_attributes), {'src': [], 'name': [], 'width': [], 'height': [], 'sandbox': ['allow-same-origin', 'allow-forms', 'allow-scripts'], 'seamless': ['seamless', '']})
 \ ],
 \ 'img': [
     \ [],
@@ -647,113 +898,7 @@ let g:xmldata_html5 = {
     \ [],
     \ global_attributes
 \ ],
-\ 'vimxmlattrinfo' : {
-    \ 'accept' : ['ContentType', ''],
-    \ 'accesskey' : ['Character', ''],
-    \ 'action' : ['*URI', ''],
-    \ 'align' : ['String', ''],
-    \ 'alt' : ['*Text', ''],
-    \ 'archive' : ['UriList', ''],
-    \ 'autoplay' : ['Bool', ''],
-    \ 'axis' : ['CDATA', ''],
-    \ 'border' : ['Pixels', ''],
-    \ 'cellpadding' : ['Length', ''],
-    \ 'cellspacing' : ['Length', ''],
-    \ 'char' : ['Character', ''],
-    \ 'charoff' : ['Length', ''],
-    \ 'charset' : ['Charset', ''],
-    \ 'checked' : ['Bool', ''],
-    \ 'class' : ['CDATA', ''],
-    \ 'codetype' : ['ContentType', ''],
-    \ 'cols' : ['*Number', ''],
-    \ 'colspan' : ['Number', ''],
-    \ 'content' : ['*CDATA', ''],
-    \ 'contenteditable' : ['Bool', ''],
-    \ 'contextmenu' : ['ID', ''],
-    \ 'controls' : ['Bool', ''],
-    \ 'coords' : ['Coords', ''],
-    \ 'data' : ['URI', ''],
-    \ 'datetime' : ['DateTime', ''],
-    \ 'declare' : ['Bool', ''],
-    \ 'defer' : ['Bool', ''],
-    \ 'dir' : ['String', ''],
-    \ 'disabled' : ['Bool', ''],
-    \ 'draggable' : ['Bool', ''],
-    \ 'enctype' : ['ContentType', ''],
-    \ 'for' : ['ID', ''],
-    \ 'form' : ['ID', ''],
-    \ 'formaction' : ['*URL', ''],
-    \ 'formnovalidate ' : ['Bool', ''],
-    \ 'headers' : ['IDREFS', ''],
-    \ 'height' : ['Number', ''],
-    \ 'href' : ['*URI', ''],
-    \ 'hreflang' : ['LangCode', ''],
-    \ 'id' : ['ID', ''],
-    \ 'ismap' : ['Bool', ''],
-    \ 'label' : ['*Text', ''],
-    \ 'lang' : ['LangCode', ''],
-    \ 'list' : ['ID', ''],
-    \ 'longdesc' : ['URI', ''],
-    \ 'loop' : ['Bool', ''],
-    \ 'manifest' : ['*URL', ''],
-    \ 'max' : ['Number', ''],
-    \ 'maxlength' : ['Number', ''],
-    \ 'media' : ['MediaDesc', ''],
-    \ 'method' : ['String', ''],
-    \ 'min' : ['Number', ''],
-    \ 'multiple' : ['Bool', ''],
-    \ 'name' : ['CDATA', ''],
-    \ 'nohref' : ['Bool', ''],
-    \ 'onblur' : ['Script', ''],
-    \ 'onchange' : ['Script', ''],
-    \ 'onclick' : ['Script', ''],
-    \ 'ondblclick' : ['Script', ''],
-    \ 'onfocus' : ['Script', ''],
-    \ 'onkeydown' : ['Script', ''],
-    \ 'onkeypress' : ['Script', ''],
-    \ 'onkeyup' : ['Script', ''],
-    \ 'onload' : ['Script', ''],
-    \ 'onmousedown' : ['Script', ''],
-    \ 'onmousemove' : ['Script', ''],
-    \ 'onmouseout' : ['Script', ''],
-    \ 'onmouseover' : ['Script', ''],
-    \ 'onmouseup' : ['Script', ''],
-    \ 'onreset' : ['Script', ''],
-    \ 'onselect' : ['Script', ''],
-    \ 'onsubmit' : ['Script', ''],
-    \ 'onunload' : ['Script', ''],
-    \ 'placeholder' : ['String', ''],
-    \ 'poster' : ['*URI', ''],
-    \ 'preload' : ['Bool', ''],
-    \ 'profile' : ['URI', ''],
-    \ 'pubdate' : ['Bool', ''],
-    \ 'readonly' : ['Bool', ''],
-    \ 'rel' : ['LinkTypes', ''],
-    \ 'rows' : ['*Number', ''],
-    \ 'rules' : ['String', ''],
-    \ 'scheme' : ['CDATA', ''],
-    \ 'selected' : ['Bool', ''],
-    \ 'shape' : ['Shape', ''],
-    \ 'size' : ['CDATA', ''],
-    \ 'span' : ['Number', ''],
-    \ 'spellcheck ' : ['Bool', ''],
-    \ 'src' : ['*URI', ''],
-    \ 'srclang' : ['LangCode', ''],
-    \ 'standby' : ['Text', ''],
-    \ 'step' : ['Number', ''],
-    \ 'style' : ['StyleSheet', ''],
-    \ 'summary' : ['*Text', ''],
-    \ 'tabindex' : ['Number', ''],
-    \ 'title' : ['Text', ''],
-    \ 'type' : ['', ''],
-    \ 'usemap' : ['URI', ''],
-    \ 'valign' : ['String', ''],
-    \ 'valuetype' : ['String', ''],
-    \ 'width' : ['Number', ''],
-    \ 'wrap' : ['', ''],
-    \ 'xmlns' : ['URI', ''],
-    \ 'xml:base' : ['*URI', '']
-\ },
+\ 'vimxmlattrinfo' : attributes_value,
 \ 'vimxmltaginfo': {
     \ 'area': ['/>', ''],
     \ 'base': ['/>', ''],
