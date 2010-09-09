@@ -218,12 +218,18 @@ let metadata_elements = ['link', 'style', 'meta', 'script', 'noscript', 'command
 
 let flow_elements = phrasing_elements + ['p', 'hr', 'pre', 'ul', 'ol', 'dl', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hgroup', 'address', 'blockquote', 'ins', 'del', 'object', 'map', 'noscript', 'section', 'nav', 'article', 'aside', 'header', 'footer', 'video', 'audio', 'figure', 'table', 'form', 'fieldset', 'menu', 'canvas', 'details']
 
+" http://dev.w3.org/html5/spec/Overview.html#linkTypes
+let linktypes = ['alternate', 'archives', 'author', 'bookmark', 'external', 'first', 'help', 'icon', 'index', 'last', 'license', 'next', 'nofollow', 'noreferrer', 'pingback', 'prefetch', 'prev', 'search', 'stylesheet', 'sidebar', 'tag', 'up']
+
+" a and button are special elements for interactive, some element can't be its descendent
+let abutton_dec = 'details\\|embed\\|iframe\\|keygen\\|label\\|menu\\|select\\|textarea'
+
 let g:xmldata_html5 = {
 \ 'vimxmlentities': ['AElig', 'Aacute', 'Acirc', 'Agrave', 'Alpha', 'Aring', 'Atilde', 'Auml', 'Beta', 'Ccedil', 'Chi', 'Dagger', 'Delta', 'ETH', 'Eacute', 'Ecirc', 'Egrave', 'Epsilon', 'Eta', 'Euml', 'Gamma', 'Iacute', 'Icirc', 'Igrave', 'Iota', 'Iuml', 'Kappa', 'Lambda', 'Mu', 'Ntilde', 'Nu', 'OElig', 'Oacute', 'Ocirc', 'Ograve', 'Omega', 'Omicron', 'Oslash', 'Otilde', 'Ouml', 'Phi', 'Pi', 'Prime', 'Psi', 'Rho', 'Scaron', 'Sigma', 'THORN', 'Tau', 'Theta', 'Uacute', 'Ucirc', 'Ugrave', 'Upsilon', 'Uuml', 'Xi', 'Yacute', 'Yuml', 'Zeta', 'aacute', 'acirc', 'acute', 'aelig', 'agrave', 'alefsym', 'alpha', 'amp', 'and', 'ang', 'apos', 'aring', 'asymp', 'atilde', 'auml', 'bdquo', 'beta', 'brvbar', 'bull', 'cap', 'ccedil', 'cedil', 'cent', 'chi', 'circ', 'clubs', 'cong', 'copy', 'crarr', 'cup', 'curren', 'dArr', 'dagger', 'darr', 'deg', 'delta', 'diams', 'divide', 'eacute', 'ecirc', 'egrave', 'empty', 'emsp', 'ensp', 'epsilon', 'equiv', 'eta', 'eth', 'euml', 'euro', 'exist', 'fnof', 'forall', 'frac12', 'frac14', 'frac34', 'frasl', 'gamma', 'ge', 'gt', 'hArr', 'harr', 'hearts', 'hellip', 'iacute', 'icirc', 'iexcl', 'igrave', 'image', 'infin', 'int', 'iota', 'iquest', 'isin', 'iuml', 'kappa', 'lArr', 'lambda', 'lang', 'laquo', 'larr', 'lceil', 'ldquo', 'le', 'lfloor', 'lowast', 'loz', 'lrm', 'lsaquo', 'lsquo', 'lt', 'macr', 'mdash', 'micro', 'middot', 'minus', 'mu', 'nabla', 'nbsp', 'ndash', 'ne', 'ni', 'not', 'notin', 'nsub', 'ntilde', 'nu', 'oacute', 'ocirc', 'oelig', 'ograve', 'oline', 'omega', 'omicron', 'oplus', 'or', 'ordf', 'ordm', 'oslash', 'otilde', 'otimes', 'ouml', 'para', 'part', 'permil', 'perp', 'phi', 'pi', 'piv', 'plusmn', 'pound', 'prime', 'prod', 'prop', 'psi', 'quot', 'rArr', 'radic', 'rang', 'raquo', 'rarr', 'rceil', 'rdquo', 'real', 'reg', 'rfloor', 'rho', 'rlm', 'rsaquo', 'rsquo', 'sbquo', 'scaron', 'sdot', 'sect', 'shy', 'sigma', 'sigmaf', 'sim', 'spades', 'sub', 'sube', 'sum', 'sup', 'sup1', 'sup2', 'sup3', 'supe', 'szlig', 'tau', 'there4', 'theta', 'thetasym', 'thinsp', 'thorn', 'tilde', 'times', 'trade', 'uArr', 'uacute', 'uarr', 'ucirc', 'ugrave', 'uml', 'upsih', 'upsilon', 'uuml', 'weierp', 'xi', 'yacute', 'yen', 'yuml', 'zeta', 'zwj', 'zwnj'],
 \ 'vimxmlroot': ['html'],
 \ 'a': [
-    \ filter(copy(flow_elements), "!(v:val =~ 'details\\|embed\\|iframe\\|img\\|keygen\\|label\\|menu\\|select\\|textarea')"),
-    \ extend(copy(global_attributes), {'name': [], 'href': [], 'target': [], 'rel': [], 'hreflang': lang_tag, 'media': [], 'type': []}) 
+    \ filter(copy(flow_elements), "!(v:val =~ '". abutton_dec ."')"),
+    \ extend(copy(global_attributes), {'name': [], 'href': [], 'target': [], 'rel': linktypes, 'hreflang': lang_tag, 'media': [], 'type': []}) 
 \ ],
 \ 'abbr': [
     \ phrasing_elements,
@@ -235,7 +241,7 @@ let g:xmldata_html5 = {
 \ ],
 \ 'area': [
     \ [],
-    \ extend(copy(global_attributes), {'alt': [], 'href': [], 'target': [], 'rel': [], 'media': [], 'hreflang': lang_tag, 'type': [], 'shape': ['rect', 'circle', 'poly', 'default'], 'coords': []})
+    \ extend(copy(global_attributes), {'alt': [], 'href': [], 'target': [], 'rel': linktypes, 'media': [], 'hreflang': lang_tag, 'type': [], 'shape': ['rect', 'circle', 'poly', 'default'], 'coords': []})
 \ ],
 \ 'article': [
     \ flow_elements + ['style'],
@@ -274,7 +280,7 @@ let g:xmldata_html5 = {
     \ global_attributes
 \ ],
 \ 'button': [
-    \ filter(copy(phrasing_elements), "!(v:val =~ 'details\\|embed\\|button\\|img\\|keygen\\|label\\|menu\\|select\\|textarea')"),
+    \ filter(copy(phrasing_elements), "!(v:val =~ '". abutton_dec ."')"),
     \ extend(copy(global_attributes), {'type': ['submit', 'reset', 'button'], 'name': [], 'disabled': ['disabled', ''], 'form': [], 'value': [], 'formaction': [], 'autofocus': ['autofocus', ''], 'formenctype': ['application/x-www-form-urlencoded', 'multipart/form-data', 'text/plain'], 'formmethod': ['get', 'post', 'put', 'delete'], 'formtarget': [], 'formnovalidate': ['formnovalidate', '']})
 \ ],
 \ 'canvas': [
@@ -451,7 +457,7 @@ let g:xmldata_html5 = {
 \ ],
 \ 'link': [
     \ [],
-    \ extend(copy(global_attributes), {'href': [], 'rel': [], 'hreflang': lang_tag, 'media': [], 'type': [], 'sizes': ['any']})
+    \ extend(copy(global_attributes), {'href': [], 'rel': linktypes, 'hreflang': lang_tag, 'media': [], 'type': [], 'sizes': ['any']})
 \ ],
 \ 'map': [
     \ flow_elements,
