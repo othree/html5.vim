@@ -550,7 +550,8 @@ function! htmlcomplete#CompleteTags(findstart, base)
 				call add(res2, m)
 			endif
 		endfor
-		let menu = res + res2
+		"let menu = res + res2
+		let menu = res
 		if has_key(b:html_omni, 'vimxmlattrinfo')
 			let final_menu = []
 			for i in range(len(menu))
