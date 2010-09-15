@@ -12,10 +12,7 @@ Based on the default htmlcomplete.vim.
 
 ## Install
 
-    curl http://github.com/othree/html5.vim/raw/master/autoload/htmlcomplete.vim > ~/.vim/autoload/htmlcomplete.vim
-    curl http://github.com/othree/html5.vim/raw/master/autoload/xml/html5.vim > ~/.vim/autoload/xml/html5.vim
-    curl http://github.com/othree/html5.vim/raw/master/syntax/html.vim > ~/.vim/syntax/html.vim
-
+Goto [get][html5.vim] vimball file and open it with vim and execute :so%
 or 
 
     git clone git://github.com/othree/html5.vim.git
@@ -59,6 +56,8 @@ Disable WAI-ARIA attribute support:
 7. [WAI-ARIA][7]
 8. [IANA Language Sub Tags][8]
 9. [IANA Charset][9]
+
+[html5.vim]:http://www.vim.org/scripts/script.php?script_id=3236
 
 [microdata]:http://dev.w3.org/html5/md/
 [RDFa]:http://www.w3.org/TR/rdfa-syntax/
