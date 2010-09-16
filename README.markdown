@@ -35,7 +35,7 @@ Disable microdata attributes support:
 
 Disable WAI-ARIA attribute support:
 
-    let g:atia_attributes_complete = 0
+    let g:aria_attributes_complete = 0
 
 ## Change Log
 
