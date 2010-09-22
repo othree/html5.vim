@@ -305,6 +305,7 @@ endif
 " Version: Draft 15 December 2009
 let abstract_role = {}
 let role_attributes = {}
+let default_role = {}
 
 if !exists('g:aria_attributes_complete')
     let g:aria_attributes_complete = 1
@@ -456,6 +457,65 @@ if g:aria_attributes_complete == 1
         \ 'aria-setsize': ['Int', '']
     \ }
     let attributes_value = extend(attributes_value, aria_attributes_value)
+
+    " http://dev.w3.org/html5/spec/content-models.html#annotations-for-assistive-technology-products-aria
+    let default_role = {
+        \ 'a': 'link',
+        \ 'area': 'link',
+        \ 'body': 'document',
+        \ 'button': 'button',
+        \ 'datalist': 'listbox',
+        \ 'h1': 'heading',
+        \ 'h2': 'heading',
+        \ 'h3': 'heading',
+        \ 'h4': 'heading',
+        \ 'h5': 'heading',
+        \ 'h6': 'heading',
+        \ 'hgroup': 'heading',
+        \ 'hr': 'separator',
+        \ 'img[alt=]': 'presentation',
+        \ 'input[type=button]': 'button',
+        \ 'input[type=email]': 'textbox',
+        \ 'input[type=image]': 'button',
+        \ 'input[type=number]': 'spinbutton',
+        \ 'input[type=password]': 'textbox',
+        \ 'input[type=range]': 'slider',
+        \ 'input[type=reset]': 'button',
+        \ 'input[type=search]': 'textbox',
+        \ 'input[type=submit]': 'button',
+        \ 'input[type=tel]': 'textbox',
+        \ 'input[type=text]': 'textbox',
+        \ 'input[list]': 'combobox',
+        \ 'input[type=url]': 'textbox',
+        \ 'input': 'text',
+        \ 'menu[type=list]': 'menu',
+        \ 'menu[type=toolbar]': 'toolbar',
+        \ 'link': 'link',
+        \ 'nav': 'navigation',
+        \ 'option': 'option',
+        \ 'progress': 'progressbar',
+        \ 'select': 'listbox',
+        \ 'summary': 'heading',
+        \ 'tbody': 'rowgroup',
+        \ 'td': 'gridcell',
+        \ 'textarea': 'textbox',
+        \ 'tfoot': 'rowgroup',
+        \ 'th[scope=col]': 'columnheader',
+        \ 'th[scope=row]': 'rowheader',
+        \ 'tr': 'row',
+        \ 'article': 'article',
+        \ 'aside': 'note',
+        \ 'details': 'group',
+        \ 'img': 'img',
+        \ 'input[type=checkbox]': 'checkbox',
+        \ 'input[type=radio]': 'radio',
+        \ 'li': 'listitem',
+        \ 'ol': 'list',
+        \ 'output': 'status',
+        \ 'section': 'region',
+        \ 'table': 'grid',
+        \ 'ul': 'list',
+    \ }
 endif
 " }}}
 
@@ -680,7 +740,7 @@ let g:xmldata_html5 = {
 \ ],
 \ 'input': [
     \ [],
-    \ extend(copy(global_attributes), {'type': ['text', 'passwprd', 'checkbox', 'radio', 'button', 'submit', 'reset', 'file', 'hidden', 'image', 'datetime', 'datetime-local', 'date', 'month', 'time', 'week', 'number', 'range', 'email', 'url', 'search', 'tel', 'coloe'], 'name': [], 'disabled': ['disabled', ''], 'form': [], 'maxlength': [], 'readonly': ['readonly', ''], 'size': [], 'value': [], 'autocomplete': ['on', 'off'], 'autofocus': ['autofocus', ''], 'list': [], 'pattern': [], 'required': ['required', ''], 'placeholder': [], 'checked': ['checked'], 'accept': [], 'multiple': ['multiple', ''], 'alt': [], 'src': [], 'height': [], 'width': [], 'min': [], 'max': [], 'step': [], 'formenctype': ['application/x-www-form-urlencoded', 'multipart/form-data', 'text/plain'], 'formmethod': ['get', 'post', 'put', 'delete'], 'formtarget': [], 'formnovalidate': ['formnovalidate', '']})
+    \ extend(copy(global_attributes), {'type': ['text', 'password', 'checkbox', 'radio', 'button', 'submit', 'reset', 'file', 'hidden', 'image', 'datetime', 'datetime-local', 'date', 'month', 'time', 'week', 'number', 'range', 'email', 'url', 'search', 'tel', 'coloe'], 'name': [], 'disabled': ['disabled', ''], 'form': [], 'maxlength': [], 'readonly': ['readonly', ''], 'size': [], 'value': [], 'autocomplete': ['on', 'off'], 'autofocus': ['autofocus', ''], 'list': [], 'pattern': [], 'required': ['required', ''], 'placeholder': [], 'checked': ['checked'], 'accept': [], 'multiple': ['multiple', ''], 'alt': [], 'src': [], 'height': [], 'width': [], 'min': [], 'max': [], 'step': [], 'formenctype': ['application/x-www-form-urlencoded', 'multipart/form-data', 'text/plain'], 'formmethod': ['get', 'post', 'put', 'delete'], 'formtarget': [], 'formnovalidate': ['formnovalidate', '']})
 \ ],
 \ 'ins': [
     \ flow_elements,
@@ -918,5 +978,6 @@ let g:xmldata_html5 = {
     \ 'wbr': ['/>', ''],
 \ },
 \ 'aria_attributes': aria_attributes,
-\ 'role_attributes': role_attributes
+\ 'role_attributes': role_attributes,
+\ 'default_role': default_role
 \ }
