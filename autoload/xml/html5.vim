@@ -321,7 +321,7 @@ if g:aria_attributes_complete == 1
     let global_attributes = extend(global_attributes, {'role': role})
 
     " http://www.w3.org/TR/wai-aria/states_and_properties#state_prop_taxonomy
-    let global_states_and_properties = {'aria-atomic': ['true', 'false'], 'aria-busy': ['true', 'false'], 'aria-controls': [], 'aria-describedby': [], 'aria-disabled': ['true', 'false'], 'aria-dropeffect': ['copy', 'move', 'link', 'execute', 'popup', 'none'], 'aria-flowto': [], 'aria-grabbed': ['true', 'false', 'undefined'], 'aria-haspopup': ['true', 'false'], 'aria-hidden': ['true', 'false'], 'aria-invalid': ['grammar', 'spelling', 'true', 'false'], 'aria-label': [], 'aria-labelledby': [], 'aria-live': ['off', 'polite', 'assertive'], 'aria-owns': [], 'aria-relevant': ['additions', 'removals', 'text', 'all']}
+    "let global_states_and_properties = {'aria-atomic': ['true', 'false'], 'aria-busy': ['true', 'false'], 'aria-controls': [], 'aria-describedby': [], 'aria-disabled': ['true', 'false'], 'aria-dropeffect': ['copy', 'move', 'link', 'execute', 'popup', 'none'], 'aria-flowto': [], 'aria-grabbed': ['true', 'false', 'undefined'], 'aria-haspopup': ['true', 'false'], 'aria-hidden': ['true', 'false'], 'aria-invalid': ['grammar', 'spelling', 'true', 'false'], 'aria-label': [], 'aria-labelledby': [], 'aria-live': ['off', 'polite', 'assertive'], 'aria-owns': [], 'aria-relevant': ['additions', 'removals', 'text', 'all']}
     let widget_attributes = {'aria-autocomplete': ['inline', 'list', 'both', 'none'], 'aria-checked': ['true', 'false', 'mixed', 'undefined'], 'aria-disabled': ['true', 'false'], 'aria-expanded': ['true', 'false', 'undefined'], 'aria-haspopup': ['true', 'false'], 'aria-hidden': ['true', 'false'], 'aria-invalid': ['grammar', 'spelling', 'true', 'false'], 'aria-label': [], 'aria-level': [], 'aria-multiline': ['true', 'false'], 'aria-multiselectable': ['true', 'false'], 'aria-orientation': ['horizontal', 'vertical'], 'aria-pressed': ['true', 'false', 'mixed', 'undefined'], 'aria-readonly': ['true', 'false'], 'aria-required': ['true', 'false'], 'aria-selected': ['true', 'false', 'undefined'], 'aria-sort': ['ascending', 'descending', 'none', 'other'], 'aria-valuemax': [], 'aria-valuemin': [], 'aria-valuenow': [], 'aria-valuetext': []}
     let live_region_attributes = {'aria-atomic': ['true', 'false'], 'aria-busy': ['true', 'false'], 'aria-live': ['off', 'polite', 'assertive'], 'aria-relevant': ['additions', 'removals', 'text', 'all', 'additions text']}
     let drag_and_drop_attributes = {'aria-dropeffect': ['copy', 'move', 'link', 'execute', 'popup', 'none'], 'aria-grabbed': ['true', 'false', 'undefined']}
@@ -333,6 +333,7 @@ if g:aria_attributes_complete == 1
 
     " Abstract Roles
     let abstract_role['roletype'] = ['aria-atomic', 'aria-busy', 'aria-controls', 'aria-describedby', 'aria-disabled', 'aria-dropeffect', 'aria-flowto', 'aria-grabbed', 'aria-haspopup', 'aria-hidden', 'aria-invalid', 'aria-label', 'aria-labelledby', 'aria-live', 'aria-owns', 'aria-relevant']
+    let role_attributes['default'] = abstract_role['roletype']
     let abstract_role['structure'] = abstract_role['roletype']
     let abstract_role['widget'] = abstract_role['roletype']
     let abstract_role['window'] = abstract_role['roletype'] + ['aria-expanded']
@@ -488,10 +489,14 @@ if g:aria_attributes_complete == 1
         \ 'input[list]': 'combobox',
         \ 'input[type=url]': 'textbox',
         \ 'input': 'text',
+        \ 'keygen': 'default',
+        \ 'label': 'default',
         \ 'menu[type=list]': 'menu',
         \ 'menu[type=toolbar]': 'toolbar',
+        \ 'menu': 'default',
         \ 'link': 'link',
         \ 'nav': 'navigation',
+        \ 'optgroup': 'default',
         \ 'option': 'option',
         \ 'progress': 'progressbar',
         \ 'select': 'listbox',
@@ -503,8 +508,11 @@ if g:aria_attributes_complete == 1
         \ 'th[scope=col]': 'columnheader',
         \ 'th[scope=row]': 'rowheader',
         \ 'tr': 'row',
+        \ 'address': 'default',
         \ 'article': 'article',
         \ 'aside': 'note',
+        \ 'footer': 'default',
+        \ 'header': 'default',
         \ 'details': 'group',
         \ 'img': 'img',
         \ 'input[type=checkbox]': 'checkbox',

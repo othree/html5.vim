@@ -528,19 +528,25 @@ function! htmlcomplete#CompleteTags(findstart, base)
 		else
 			return []
 		endif
-        if has_key(b:html_omni, 'aria_attributes') && has_key(b:html_omni, 'role_attributes') && context =~ 'role='
-            "let attrs = extend(attrs, keys(b:html_omni['aria_attributes']))
-            let start = matchend(context, "role=['\"]")
-            let end   = matchend(context, "[a-z ]\\+['\"]", start)
-            if start != -1 && end != -1
-                let roles = split(strpart(context, start, end-start-1), " ")
-                for i in range(len(roles))
-                    let role = roles[i]
-                    if has_key(b:html_omni['role_attributes'], role)
-                        let attrs = extend(attrs, b:html_omni['role_attributes'][role])
-                    endif
-                endfor
+        if has_key(b:html_omni, 'default_role') && has_key(b:html_omni, 'role_attributes') && has_key(b:html_omni, 'aria_attributes')
+            let roles = []
+            if has_key(b:html_omni['default_role'], tag)
+                let roles = [b:html_omni['default_role'][tag]]
             endif
+            if context =~ 'role='
+                "let attrs = extend(attrs, keys(b:html_omni['aria_attributes']))
+                let start = matchend(context, "role=['\"]")
+                let end   = matchend(context, "[a-z ]\\+['\"]", start)
+                if start != -1 && end != -1
+                    let roles = split(strpart(context, start, end-start-1), " ")
+                endif
+            endif
+            for i in range(len(roles))
+                let role = roles[i]
+                if has_key(b:html_omni['role_attributes'], role)
+                    let attrs = extend(attrs, b:html_omni['role_attributes'][role])
+                endif
+            endfor
         endif
 
 		for m in sort(attrs)
