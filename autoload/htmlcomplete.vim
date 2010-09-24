@@ -496,16 +496,26 @@ function! htmlcomplete#CompleteTags(findstart, base)
 
 			if len(values) == 0
 				return []
-			endif
+            endif
 
 			" We need special version of sbase
 			let attrbase = matchstr(context, ".*[\"']")
 			let attrquote = matchstr(attrbase, '.$')
 			if attrquote !~ "['\"]"
 				let attrquoteopen = '"'
-				let attrquote = '"'
+                let attrquote = '"'
 			else
 				let attrquoteopen = ''
+            endif
+            " Multi value attributes don't need ending quote
+            let info = ''
+            if has_key(b:html_omni['vimxmlattrinfo'], attrname)
+                let info = b:html_omni['vimxmlattrinfo'][attrname][0]
+            elseif has_key(b:aria_omni['vimariaattrinfo'], attrname)
+                let info = b:aria_omni['vimariaattrinfo'][attrname][0]
+            endif
+            if info =~ "^\\*"
+                let attrquote = ''
             endif
 
             if len(entered_value) > 0
@@ -515,7 +525,6 @@ function! htmlcomplete#CompleteTags(findstart, base)
                     let entered_value = split(entered_value)[-1]
                 endif
             endif
-
 			for m in values
 				" This if is needed to not offer all completions as-is
 				" alphabetically but sort them. Those beginning with entered

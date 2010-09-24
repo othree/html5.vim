@@ -174,7 +174,7 @@ let attributes_value = {
     \ 'xml:base': ['*URI', ''],
     \ 'xml:space': ['preserve', ''],
     \ 'xmlns': ['URI', ''],
-    \ 'version': ['HTML+RDFa 1.1', '']
+    \ 'version': ['HTML+RDFa 1.1', ''],
     \ 'role': ['*Token', '']
 \ }
 
