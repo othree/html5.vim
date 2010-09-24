@@ -4,7 +4,7 @@
 " Last Change:	2006 Oct 19
 " Modified:     othree <othree@gmail.com>
 " Changes:      Add HTML5, WAI-ARIA support
-" Last Change:	2010 Sep 10
+" Last Change:	2010 Sep 25
 
 if !exists('g:aria_attributes_complete')
     let g:aria_attributes_complete = 1
@@ -227,7 +227,10 @@ function! htmlcomplete#CompleteTags(findstart, base)
 		endif
 	endif
 	" Get last word, it should be attr name
-	let attr = matchstr(context, '.*\s\zs.*')
+	let attr = matchstr(context, '\S\+="[^"]*')
+    if attr == ''
+        let attr = matchstr(context, '.*\s\zs.*')
+    endif
 	" Possible situations where any prediction would be difficult:
 	" 1. Events attributes
 	if context =~ '\s'
@@ -503,7 +506,15 @@ function! htmlcomplete#CompleteTags(findstart, base)
 				let attrquote = '"'
 			else
 				let attrquoteopen = ''
-			endif
+            endif
+
+            if len(entered_value) > 0
+                if entered_value =~ "\\s$"
+                    let entered_value = ''
+                else
+                    let entered_value = split(entered_value)[-1]
+                endif
+            endif
 
 			for m in values
 				" This if is needed to not offer all completions as-is
