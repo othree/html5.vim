@@ -6,6 +6,10 @@
 " Changes:      Add HTML5, WAI-ARIA support
 " Last Change:	2010 Sep 10
 
+if !exists('g:aria_attributes_complete')
+    let g:aria_attributes_complete = 1
+endif
+
 function! htmlcomplete#CompleteTags(findstart, base)
   if a:findstart
     " locate the start of the word
@@ -163,6 +167,9 @@ function! htmlcomplete#CompleteTags(findstart, base)
 			"runtime! autoload/xml/xhtml10s.vim
 			call htmlcomplete#LoadData()
 		endif
+        if g:aria_attributes_complete == 1 && !exists("b:aria_omni")
+            call htmlcomplete#LoadAria()
+        endif
 
 	    let entities =  b:html_omni['vimxmlentities']
 
@@ -459,6 +466,9 @@ function! htmlcomplete#CompleteTags(findstart, base)
 				"runtime! autoload/xml/xhtml10s.vim
 				call htmlcomplete#LoadData()
 			endif
+            if g:aria_attributes_complete == 1 && !exists("b:aria_omni")
+                call htmlcomplete#LoadAria()
+            endif
 			" }}}
 			if attrname == 'href'
 				" Now we are looking for local anchors defined by name or id
@@ -474,8 +484,8 @@ function! htmlcomplete#CompleteTags(findstart, base)
 			else
 				if has_key(b:html_omni, tag) && has_key(b:html_omni[tag][1], attrname)
 					let values = b:html_omni[tag][1][attrname]
-                elseif has_key(b:html_omni, 'aria_attributes') && attrname =~ '^aria-' && has_key(b:html_omni['aria_attributes'], attrname)
-					let values = b:html_omni['aria_attributes'][attrname]
+                elseif has_key(b:aria_omni, 'aria_attributes') && attrname =~ '^aria-' && has_key(b:aria_omni['aria_attributes'], attrname)
+					let values = b:aria_omni['aria_attributes'][attrname]
 				else
 					return []
 				endif
@@ -521,20 +531,23 @@ function! htmlcomplete#CompleteTags(findstart, base)
 		if !exists("b:html_omni")
 			call htmlcomplete#LoadData()
 		endif
+        if g:aria_attributes_complete == 1 && !exists("b:aria_omni")
+            call htmlcomplete#LoadAria()
+        endif
 		" }}}
 
 		if has_key(b:html_omni, tag)
 			let attrs = keys(b:html_omni[tag][1])
 		else
 			return []
-		endif
-        if has_key(b:html_omni, 'default_role') && has_key(b:html_omni, 'role_attributes') && has_key(b:html_omni, 'aria_attributes')
+        endif
+        if exists("b:aria_omni") && has_key(b:aria_omni, 'default_role') && has_key(b:aria_omni, 'role_attributes') && has_key(b:aria_omni, 'vimariaattrinfo') && has_key(b:aria_omni, 'aria_attributes')
             let roles = []
-            if has_key(b:html_omni['default_role'], tag)
-                let roles = [b:html_omni['default_role'][tag]]
+            if has_key(b:aria_omni['default_role'], tag)
+                let roles = [b:aria_omni['default_role'][tag]]
             endif
             if context =~ 'role='
-                "let attrs = extend(attrs, keys(b:html_omni['aria_attributes']))
+                "let attrs = extend(attrs, keys(b:aria_omni['aria_attributes']))
                 let start = matchend(context, "role=['\"]")
                 let end   = matchend(context, "[a-z ]\\+['\"]", start)
                 if start != -1 && end != -1
@@ -543,8 +556,8 @@ function! htmlcomplete#CompleteTags(findstart, base)
             endif
             for i in range(len(roles))
                 let role = roles[i]
-                if has_key(b:html_omni['role_attributes'], role)
-                    let attrs = extend(attrs, b:html_omni['role_attributes'][role])
+                if has_key(b:aria_omni['role_attributes'], role)
+                    let attrs = extend(attrs, b:aria_omni['role_attributes'][role])
                 endif
             endfor
         endif
@@ -558,19 +571,22 @@ function! htmlcomplete#CompleteTags(findstart, base)
 		endfor
 		"let menu = res + res2
 		let menu = res
-		if has_key(b:html_omni, 'vimxmlattrinfo')
+		if has_key(b:html_omni, 'vimxmlattrinfo') || has_key(b:aria_omni, 'vimariaattrinfo')
 			let final_menu = []
 			for i in range(len(menu))
 				let item = menu[i]
 				if has_key(b:html_omni['vimxmlattrinfo'], item)
 					let m_menu = b:html_omni['vimxmlattrinfo'][item][0]
 					let m_info = b:html_omni['vimxmlattrinfo'][item][1]
+                elseif has_key(b:aria_omni['vimariaattrinfo'], item)
+					let m_menu = b:aria_omni['vimariaattrinfo'][item][0]
+					let m_info = b:aria_omni['vimariaattrinfo'][item][1]
 				else
 					let m_menu = ''
 					let m_info = ''
 				endif
                 if item =~ '^aria-'
-                    if len(b:html_omni['aria_attributes'][item]) > 0 && b:html_omni['aria_attributes'][item][0] =~ '^\(BOOL\|'.item.'\)$'
+                    if len(b:aria_omni['aria_attributes'][item]) > 0 && b:aria_omni['aria_attributes'][item][0] =~ '^\(BOOL\|'.item.'\)$'
                         let item = item
                         let m_menu = 'Bool'
                     else
@@ -623,6 +639,9 @@ function! htmlcomplete#CompleteTags(findstart, base)
 		"runtime! autoload/xml/xhtml10s.vim
 		call htmlcomplete#LoadData()
 	endif
+    if g:aria_attributes_complete == 1 && !exists("b:aria_omni")
+        call htmlcomplete#LoadAria()
+    endif
 	" }}}
 	" Tag completion {{{
 	" Deal with tag completion.
@@ -709,6 +728,11 @@ function! htmlcomplete#CompleteTags(findstart, base)
   endif
 endfunction
 
+function! htmlcomplete#LoadAria() " {{{
+    runtime! autoload/xml/aria.vim
+    let b:aria_omni = g:xmldata_aria
+endfunction
+" }}}
 function! htmlcomplete#LoadData() " {{{
 	if !exists("b:html_omni_flavor")
 		if &filetype == 'html'
