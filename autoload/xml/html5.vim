@@ -175,6 +175,7 @@ let attributes_value = {
     \ 'xml:space': ['preserve', ''],
     \ 'xmlns': ['URI', ''],
     \ 'version': ['HTML+RDFa 1.1', '']
+    \ 'role': ['*Token', '']
 \ }
 
 if g:event_handler_attributes_complete == 1
