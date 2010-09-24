@@ -227,7 +227,7 @@ function! htmlcomplete#CompleteTags(findstart, base)
 		endif
 	endif
 	" Get last word, it should be attr name
-	let attr = matchstr(context, '\S\+="[^"]*')
+	let attr = matchstr(context, '\S\+="[^"]*$')
     if attr == ''
         let attr = matchstr(context, '.*\s\zs.*')
     endif
