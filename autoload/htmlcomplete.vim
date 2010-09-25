@@ -487,7 +487,7 @@ function! htmlcomplete#CompleteTags(findstart, base)
 			else
 				if has_key(b:html_omni, tag) && has_key(b:html_omni[tag][1], attrname)
 					let values = b:html_omni[tag][1][attrname]
-                elseif has_key(b:aria_omni, 'aria_attributes') && attrname =~ '^aria-' && has_key(b:aria_omni['aria_attributes'], attrname)
+                elseif attrname =~ '^aria-' && exists("b:aria_omni") && has_key(b:aria_omni['aria_attributes'], attrname)
 					let values = b:aria_omni['aria_attributes'][attrname]
 				else
 					return []
@@ -511,7 +511,7 @@ function! htmlcomplete#CompleteTags(findstart, base)
             let info = ''
             if has_key(b:html_omni['vimxmlattrinfo'], attrname)
                 let info = b:html_omni['vimxmlattrinfo'][attrname][0]
-            elseif has_key(b:aria_omni['vimariaattrinfo'], attrname)
+            elseif exists("b:aria_omni") && has_key(b:aria_omni['vimariaattrinfo'], attrname)
                 let info = b:aria_omni['vimariaattrinfo'][attrname][0]
             endif
             if info =~ "^\\*"
@@ -561,13 +561,12 @@ function! htmlcomplete#CompleteTags(findstart, base)
 		else
 			return []
         endif
-        if exists("b:aria_omni") && has_key(b:aria_omni, 'default_role') && has_key(b:aria_omni, 'role_attributes') && has_key(b:aria_omni, 'vimariaattrinfo') && has_key(b:aria_omni, 'aria_attributes')
+        if exists("b:aria_omni")
             let roles = []
             if has_key(b:aria_omni['default_role'], tag)
                 let roles = [b:aria_omni['default_role'][tag]]
             endif
             if context =~ 'role='
-                "let attrs = extend(attrs, keys(b:aria_omni['aria_attributes']))
                 let start = matchend(context, "role=['\"]")
                 let end   = matchend(context, "[a-z ]\\+['\"]", start)
                 if start != -1 && end != -1
@@ -591,21 +590,21 @@ function! htmlcomplete#CompleteTags(findstart, base)
 		endfor
 		"let menu = res + res2
 		let menu = res
-		if has_key(b:html_omni, 'vimxmlattrinfo') || has_key(b:aria_omni, 'vimariaattrinfo')
+		if has_key(b:html_omni, 'vimxmlattrinfo') || (exists("b:aria_omni") && has_key(b:aria_omni, 'vimariaattrinfo'))
 			let final_menu = []
 			for i in range(len(menu))
 				let item = menu[i]
 				if has_key(b:html_omni['vimxmlattrinfo'], item)
 					let m_menu = b:html_omni['vimxmlattrinfo'][item][0]
 					let m_info = b:html_omni['vimxmlattrinfo'][item][1]
-                elseif has_key(b:aria_omni['vimariaattrinfo'], item)
+                elseif exists("b:aria_omni") && has_key(b:aria_omni['vimariaattrinfo'], item)
 					let m_menu = b:aria_omni['vimariaattrinfo'][item][0]
 					let m_info = b:aria_omni['vimariaattrinfo'][item][1]
-				else
+                else
 					let m_menu = ''
 					let m_info = ''
-				endif
-                if item =~ '^aria-'
+                endif
+                if item =~ '^aria-' && exists("b:aria_omni")
                     if len(b:aria_omni['aria_attributes'][item]) > 0 && b:aria_omni['aria_attributes'][item][0] =~ '^\(BOOL\|'.item.'\)$'
                         let item = item
                         let m_menu = 'Bool'
@@ -750,7 +749,15 @@ endfunction
 
 function! htmlcomplete#LoadAria() " {{{
     runtime! autoload/xml/aria.vim
-    let b:aria_omni = g:xmldata_aria
+    if exists("g:xmldata_aria")
+        \ && has_key(g:xmldata_aria, 'default_role') 
+        \ && has_key(g:xmldata_aria, 'role_attributes') 
+        \ && has_key(g:xmldata_aria, 'vimariaattrinfo')
+        \ && has_key(g:xmldata_aria, 'aria_attributes')
+        let b:aria_omni = g:xmldata_aria
+    else
+        let g:aria_attributes_complete = 0
+    endif
 endfunction
 " }}}
 function! htmlcomplete#LoadData() " {{{
