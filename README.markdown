@@ -39,6 +39,11 @@ Disable WAI-ARIA attribute support:
 
 ## Change Log
 
+### Version 0.25
+
+- WAI-ARIA support bug fix
+- WAI-ARIA complete supports all doctypes now
+
 ### Version 0.2
 
 - attributes now must match from beginning
