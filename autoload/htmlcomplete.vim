@@ -219,7 +219,7 @@ function! htmlcomplete#CompleteTags(findstart, base)
 		let tag = split(context)[0]
 		" Detect if tag is uppercase to return in proper case,
 		" we need to make it lowercase for processing
-		if tag =~ '^[A-Z]\*$'
+		if tag =~ '^\u*$'
 			let uppercase_tag = 1
 			let tag = tolower(tag)
 		else
