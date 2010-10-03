@@ -39,7 +39,7 @@ Disable WAI-ARIA attribute support:
 
 ## Change Log
 
-### Version 0.3
+### Version 0.26
 
 - Support multi-value attributes (Most of them are WAI-ARIA attributes)
 - Some old complete function bug fix
