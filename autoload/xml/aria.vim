@@ -186,7 +186,7 @@ let default_role = {
     \ 'input[type=text]': 'textbox',
     \ 'input[list]': 'combobox',
     \ 'input[type=url]': 'textbox',
-    \ 'input': 'text',
+    \ 'input': 'textbox',
     \ 'keygen': 'default',
     \ 'label': 'default',
     \ 'menu[type=list]': 'menu',
