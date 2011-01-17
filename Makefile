@@ -62,6 +62,8 @@ CURL_OPT=
 RECORD_SCRIPT=.mkrecord
 TAR=tar czvf
 
+GIT_SOURCES=
+
 # INTERNAL FUNCTIONS {{{
 record_file = \
 		PTYPE=`cat $(1) | perl -nle 'print $$1 if /^"\s*script\s*type:\s*(\S*)$$/i'` ;\
@@ -70,6 +72,35 @@ record_file = \
 # }}}
 
 # PUBLIC FUNCTIONS {{{
+
+GIT_SOURCES=
+DEPEND_DIR=/tmp/vim-deps
+
+# Usage:
+#
+# 		$(call install_git_sources)
+#
+
+install_git_source = \
+		PWD=$(PWD) ; \
+		mkdir -p $(DEPEND_DIR) ; \
+		cd $(DEPEND_DIR) ; \
+		for git_uri in $(GIT_SOURCES) ; do \
+			OUTDIR=$$(echo $$git_uri | perl -pe 's{^.*/}{}') ;\
+			echo $$OUTDIR ; \
+			if [[ -e $$OUTDIR ]] ; then \
+				cd $$OUTDIR ; \
+				git pull origin master && \
+				make install && cd .. ; \
+			else \
+				git clone $$git_uri $$OUTDIR && \
+				cd $$OUTDIR && \
+				make install && cd .. ; \
+			fi; \
+		done ;
+
+
+
 
 # install file by inspecting content
 install_file = \
@@ -96,6 +127,13 @@ fetch_url = \
 			wget $(WGET_OPT) $(1) -O $(2)  				    \
 		; fi  									\
 		; echo $(2) >> .bundlefiles
+
+
+install_source = \
+		for git_uri in $(GIT_SOURCES) ; do \
+			OUTDIR=$$(echo $$git_uri | perl -pe 's{^.*/}{}') ;\
+			echo $$OUTDIR ; \
+		done
 
 # fetch script from github
 fetch_github = \
@@ -173,13 +211,19 @@ CONFIG_FILE=config.mk
 # ======= SECTIONS ======= {{{
 -include ext.mk
 
-all: install
+all: install-deps install
 
+install-deps:
+	# check required binaries
+	[[ -n $$(which git) ]]
+	[[ -n $$(which bash) ]]
+	[[ -n $$(which vim) ]]
+	[[ -n $$(which wget) || -n $$(which curl) ]]
+	$(call install_git_sources)
 
 check-require:
 	@if [[ -n `which wget` || -n `which curl` || -n `which fetch` ]]; then echo "wget|curl|fetch: OK" ; else echo "wget|curl|fetch: NOT OK" ; fi
 	@if [[ -n `which vim` ]] ; then echo "vim: OK" ; else echo "vim: NOT OK" ; fi
-
 
 config:
 	@rm -f $(CONFIG_FILE)
@@ -256,13 +300,13 @@ mkfilelist:
 vimball-edit:
 	find $(DIRS) -type f > .tmp_list
 	vim .tmp_list
-	vim .tmp_list -c ":MkVimball $(NAME)-$(VERSION)" -c "q"
+	vim .tmp_list -c ":MkVimball $(NAME)-$(VERSION) ." -c "q"
 	@rm -vf .tmp_list
 	@echo "$(NAME)-$(VERSION).vba is ready."
 
 vimball:
 	find $(DIRS) -type f > .tmp_list
-	vim .tmp_list -c ":MkVimball $(NAME)-$(VERSION)" -c "q"
+	vim .tmp_list -c ":MkVimball $(NAME)-$(VERSION) ." -c "q"
 	@rm -vf .tmp_list
 	@echo "$(NAME)-$(VERSION).vba is ready."
 
@@ -289,12 +333,14 @@ mkrecordscript:
 		@echo "let content = join(split(output,\"\\\\n\"),'')"  >> $(RECORD_SCRIPT)
 		@echo "let record_file = expand('~/.vim/record/' . package_name )"  >> $(RECORD_SCRIPT)
 		@echo "cal writefile( [content] , record_file )"  >> $(RECORD_SCRIPT)
+		@echo "cal delete('.record')"  >> $(RECORD_SCRIPT)
 		@echo "echo \"Done\""  >> $(RECORD_SCRIPT)
 
 
 record: mkfilelist mkrecordscript
 	vim --noplugin -V10install.log -c "so $(RECORD_SCRIPT)" -c "q"
 	@echo "Vim script record making log: install.log"
+#	@rm -vf $(RECORD_FILE)
 
 rmrecord:
 	@echo "Removing Record"
