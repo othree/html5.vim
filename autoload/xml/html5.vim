@@ -1,7 +1,7 @@
 " Vim completion for HTML5 data file
 " Language:       HTML5
 " Maintainer:     othree <othree@gmail.com>
-" Last Change:    2010 Sep 09
+" Last Change:    2011 Feb 1
 
 
 " Lang Tag: {{{
