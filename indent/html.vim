@@ -135,6 +135,7 @@ call <SID>HtmlIndentPush('source')
 call <SID>HtmlIndentPush('summary')
 call <SID>HtmlIndentPush('time')
 call <SID>HtmlIndentPush('video')
+call <SID>HtmlIndentPush('bdi')
 
 " [-- <ELEMENT ? O O ...> --]
 if !exists('g:html_indent_strict')
