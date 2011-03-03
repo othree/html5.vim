@@ -329,6 +329,8 @@ let flow_elements = phrasing_elements + ['p', 'hr', 'pre', 'ul', 'ol', 'dl', 'di
 
 " http://dev.w3.org/html5/spec/Overview.html#linkTypes
 let linktypes = ['alternate', 'archives', 'author', 'bookmark', 'external', 'first', 'help', 'icon', 'index', 'last', 'license', 'next', 'nofollow', 'noreferrer', 'pingback', 'prefetch', 'prev', 'search', 'stylesheet', 'sidebar', 'tag', 'up']
+" http://googlewebmastercentral.blogspot.com/2009/02/specify-your-canonical.html
+let linkreltypes = linktypes + ['canonical']
 
 " a and button are special elements for interactive, some element can't be its descendent
 let abutton_dec = 'details\\|embed\\|iframe\\|keygen\\|label\\|menu\\|select\\|textarea'
@@ -568,7 +570,7 @@ let g:xmldata_html5 = {
 \ ],
 \ 'link': [
     \ [],
-    \ extend(copy(global_attributes), {'href': [], 'rel': linktypes, 'hreflang': lang_tag, 'media': [], 'type': [], 'sizes': ['any']})
+    \ extend(copy(global_attributes), {'href': [], 'rel': linkreltypes, 'hreflang': lang_tag, 'media': [], 'type': [], 'sizes': ['any']})
 \ ],
 \ 'map': [
     \ flow_elements,
