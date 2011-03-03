@@ -1,7 +1,7 @@
 " Vim completion for HTML5 data file
 " Language:       HTML5
 " Maintainer:     othree <othree@gmail.com>
-" Last Change:    2010 Sep 09
+" Last Change:    2011 Feb 1
 
 
 " Lang Tag: {{{
@@ -321,7 +321,7 @@ endif
 
 " Ref: http://dev.w3.org/html5/markup/
 " Version: Draft 29 August 2010
-let phrasing_elements = ['a', 'em', 'strong', 'small', 'mark', 'abbr', 'dfn', 'i', 'b', 'code', 'var', 'samp', 'kbd', 'sup', 'sub', 'q', 'cite', 'span', 'bdo', 'br', 'wbr', 'ins', 'del', 'img', 'embed', 'object', 'iframe', 'map', 'area', 'script', 'noscript', 'ruby', 'video', 'audio', 'input', 'textarea', 'select', 'button', 'label', 'output', 'datalist', 'keygen', 'progress', 'command', 'canvas', 'time', 'meter']
+let phrasing_elements = ['a', 'em', 'strong', 'small', 'mark', 'abbr', 'dfn', 'i', 'b', 'code', 'var', 'samp', 'kbd', 'sup', 'sub', 'q', 'cite', 'span', 'bdo', 'bdi', 'br', 'wbr', 'ins', 'del', 'img', 'embed', 'object', 'iframe', 'map', 'area', 'script', 'noscript', 'ruby', 'video', 'audio', 'input', 'textarea', 'select', 'button', 'label', 'output', 'datalist', 'keygen', 'progress', 'command', 'canvas', 'time', 'meter']
 
 let metadata_elements = ['link', 'style', 'meta', 'script', 'noscript', 'command']
 
@@ -377,6 +377,10 @@ let g:xmldata_html5 = {
     \ extend(copy(global_attributes), {'href': [], 'target': []})
 \ ],
 \ 'bdo': [
+    \ phrasing_elements,
+    \ global_attributes
+\ ],
+\ 'bdi': [
     \ phrasing_elements,
     \ global_attributes
 \ ],
