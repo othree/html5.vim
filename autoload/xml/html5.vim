@@ -81,6 +81,7 @@ let attributes_value = {
     \ 'autocomplete': ['on/off', ''],
     \ 'autofocus': ['Bool', ''],
     \ 'autoplay': ['Bool', ''],
+    \ 'border': ['1', ''],
     \ 'challenge': ['Text', ''],
     \ 'charset': ['Charset', ''],
     \ 'checked': ['Bool', ''],
@@ -706,7 +707,7 @@ let g:xmldata_html5 = {
 \ ],
 \ 'table': [
     \ ['caption', 'col', 'colgroup', 'thead', 'tfoot', 'tbody', 'tr'],
-    \ extend(copy(global_attributes), {'summary': []})
+    \ extend(copy(global_attributes), {'border': []})
 \ ],
 \ 'tbody': [
     \ ['tr'],
