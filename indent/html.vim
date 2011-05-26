@@ -107,7 +107,6 @@ call <SID>HtmlIndentPush('ul')
 call <SID>HtmlIndentPush('var')
 
 " New HTML 5 elements
-call <SID>HtmlIndentPush('table')
 call <SID>HtmlIndentPush('article')
 call <SID>HtmlIndentPush('aside')
 call <SID>HtmlIndentPush('audio')
