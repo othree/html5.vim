@@ -1,17 +1,5 @@
 # vim:filetype=make:foldmethod=marker:fdl=0:
 #
-#
-# 	Look at the stars, Look how they shine for you, And everything you do,
-# 	Yeah they were all yellow, 
-#
-# 	I came along, I wrote a song for you, And all the things you do And it was
-# 	called yellow.
-#
-# 	So then I took my turn.  Oh all the things I've done And it was all yellow 
-#
-# 														- Coldplay
-#
-#
 # Makefile: install/uninstall/link vim plugin files.
 # Author: Cornelius <cornelius.howl@gmail.com>
 # Date:   一  3/15 22:49:26 2010
@@ -300,13 +288,13 @@ mkfilelist:
 vimball-edit:
 	find $(DIRS) -type f > .tmp_list
 	vim .tmp_list
-	vim .tmp_list -c ":MkVimball $(NAME)-$(VERSION) ." -c "q"
+	vim .tmp_list -c ":%MkVimball $(NAME)-$(VERSION) ." -c "q"
 	@rm -vf .tmp_list
 	@echo "$(NAME)-$(VERSION).vba is ready."
 
 vimball:
 	find $(DIRS) -type f > .tmp_list
-	vim .tmp_list -c ":MkVimball $(NAME)-$(VERSION) ." -c "q"
+	vim .tmp_list -c ":%MkVimball $(NAME)-$(VERSION) ." -c "q"
 	@rm -vf .tmp_list
 	@echo "$(NAME)-$(VERSION).vba is ready."
 
