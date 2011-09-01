@@ -1,6 +1,6 @@
-" Description:	html5 (and html4) indenter
-" Changed By:	Brian Gershon <brian.five@gmail.com>
-" Last Change:	30 Jan 2011
+" Description:        html5 (and html4) indenter
+" Changed By:        Brian Gershon <brian.five@gmail.com>
+" Last Change:        30 Jan 2011
 " 
 "   1. Started with vim72 html indent file authored by Johannes Zellner (below)
 "   2. Added html5 list as described here:
@@ -8,13 +8,13 @@
 "   3. Added this to a fork of https://github.com/othree/html5.vim
 "      which already provides nice html5 syntax highlighting.
 "
-" Description:	html indenter
-" Author:	Johannes Zellner <johannes@zellner.org>
-" Last Change:	Mo, 05 Jun 2006 22:32:41 CEST
-" 		Restoring 'cpo' and 'ic' added by Bram 2006 May 5
-" Globals:	g:html_indent_tags	   -- indenting tags
-"		g:html_indent_strict       -- inhibit 'O O' elements
-"		g:html_indent_strict_table -- inhibit 'O -' elements
+" Description:        html indenter
+" Author:        Johannes Zellner <johannes@zellner.org>
+" Last Change:        Mo, 05 Jun 2006 22:32:41 CEST
+"                 Restoring 'cpo' and 'ic' added by Bram 2006 May 5
+" Globals:        g:html_indent_tags           -- indenting tags
+"                g:html_indent_strict       -- inhibit 'O O' elements
+"                g:html_indent_strict_table -- inhibit 'O -' elements
 
 " Only load this indent file when no other was loaded.
 if exists("b:did_indent")
@@ -35,9 +35,9 @@ endif
 " [-- helper function to assemble tag list --]
 fun! <SID>HtmlIndentPush(tag)
     if exists('g:html_indent_tags')
-	let g:html_indent_tags = g:html_indent_tags.'\|'.a:tag
+        let g:html_indent_tags = g:html_indent_tags.'\|'.a:tag
     else
-	let g:html_indent_tags = a:tag
+        let g:html_indent_tags = a:tag
     endif
 endfun
 
@@ -79,6 +79,7 @@ call <SID>HtmlIndentPush('ins')
 call <SID>HtmlIndentPush('kbd')
 call <SID>HtmlIndentPush('label')
 call <SID>HtmlIndentPush('legend')
+call <SID>HtmlIndentPush('li')
 call <SID>HtmlIndentPush('map')
 call <SID>HtmlIndentPush('menu')
 call <SID>HtmlIndentPush('noframes')
@@ -86,6 +87,7 @@ call <SID>HtmlIndentPush('noscript')
 call <SID>HtmlIndentPush('object')
 call <SID>HtmlIndentPush('ol')
 call <SID>HtmlIndentPush('optgroup')
+call <SID>HtmlIndentPush('p')
 " call <SID>HtmlIndentPush('pre')
 call <SID>HtmlIndentPush('q')
 call <SID>HtmlIndentPush('s')
@@ -188,21 +190,21 @@ endfun
 " [-- return the sum of indents respecting the syntax of a:lnum --]
 fun! <SID>HtmlIndentSum(lnum, style)
     if a:style == match(getline(a:lnum), '^\s*</')
-	if a:style == match(getline(a:lnum), '^\s*</\<\('.g:html_indent_tags.'\)\>')
-	    let open = <SID>HtmlIndentOpen(a:lnum, g:html_indent_tags)
-	    let close = <SID>HtmlIndentClose(a:lnum, g:html_indent_tags)
-	    if 0 != open || 0 != close
-		return open - close
-	    endif
-	endif
+        if a:style == match(getline(a:lnum), '^\s*</\<\('.g:html_indent_tags.'\)\>')
+            let open = <SID>HtmlIndentOpen(a:lnum, g:html_indent_tags)
+            let close = <SID>HtmlIndentClose(a:lnum, g:html_indent_tags)
+            if 0 != open || 0 != close
+                return open - close
+            endif
+        endif
     endif
     if '' != &syntax &&
-	\ synIDattr(synID(a:lnum, 1, 1), 'name') =~ '\(css\|java\).*' &&
-	\ synIDattr(synID(a:lnum, strlen(getline(a:lnum)), 1), 'name')
-	\ =~ '\(css\|java\).*'
-	if a:style == match(getline(a:lnum), '^\s*}')
-	    return <SID>HtmlIndentOpenAlt(a:lnum) - <SID>HtmlIndentCloseAlt(a:lnum)
-	endif
+        \ synIDattr(synID(a:lnum, 1, 1), 'name') =~ '\(css\|java\).*' &&
+        \ synIDattr(synID(a:lnum, strlen(getline(a:lnum)), 1), 'name')
+        \ =~ '\(css\|java\).*'
+        if a:style == match(getline(a:lnum), '^\s*}')
+            return <SID>HtmlIndentOpenAlt(a:lnum) - <SID>HtmlIndentCloseAlt(a:lnum)
+        endif
     endif
     return 0
 endfun
@@ -213,7 +215,7 @@ fun! HtmlIndentGet(lnum)
 
     " Hit the start of the file, use zero indent.
     if lnum == 0
-	return 0
+        return 0
     endif
 
     let restore_ic = &ic
@@ -221,13 +223,13 @@ fun! HtmlIndentGet(lnum)
 
     " [-- special handling for <pre>: no indenting --]
     if getline(a:lnum) =~ '\c</pre>'
-		\ || 0 < searchpair('\c<pre>', '', '\c</pre>', 'nWb')
-		\ || 0 < searchpair('\c<pre>', '', '\c</pre>', 'nW')
-	" we're in a line with </pre> or inside <pre> ... </pre>
-	if restore_ic == 0
-	  setlocal noic
-	endif
-	return -1
+                \ || 0 < searchpair('\c<pre>', '', '\c</pre>', 'nWb')
+                \ || 0 < searchpair('\c<pre>', '', '\c</pre>', 'nW')
+        " we're in a line with </pre> or inside <pre> ... </pre>
+        if restore_ic == 0
+          setlocal noic
+        endif
+        return -1
     endif
 
     " [-- special handling for <javascript>: use cindent --]
@@ -243,33 +245,33 @@ fun! HtmlIndentGet(lnum)
     "
     if   0 < searchpair(js, '', '</script>', 'nWb')
     \ && 0 < searchpair(js, '', '</script>', 'nW')
-	" we're inside javascript
-	if getline(lnum) !~ js && getline(a:lnum) != '</script>'
-	    if restore_ic == 0
-	      setlocal noic
-	    endif
-	    return cindent(a:lnum)
-	endif
+        " we're inside javascript
+        if getline(lnum) !~ js && getline(a:lnum) != '</script>'
+            if restore_ic == 0
+              setlocal noic
+            endif
+            return cindent(a:lnum)
+        endif
     endif
 
     if getline(lnum) =~ '\c</pre>'
-	" line before the current line a:lnum contains
-	" a closing </pre>. --> search for line before
-	" starting <pre> to restore the indent.
-	let preline = prevnonblank(search('\c<pre>', 'bW') - 1)
-	if preline > 0
-	    if restore_ic == 0
-	      setlocal noic
-	    endif
-	    return indent(preline)
-	endif
+        " line before the current line a:lnum contains
+        " a closing </pre>. --> search for line before
+        " starting <pre> to restore the indent.
+        let preline = prevnonblank(search('\c<pre>', 'bW') - 1)
+        if preline > 0
+            if restore_ic == 0
+              setlocal noic
+            endif
+            return indent(preline)
+        endif
     endif
 
     let ind = <SID>HtmlIndentSum(lnum, -1)
     let ind = ind + <SID>HtmlIndentSum(a:lnum, 0)
 
     if restore_ic == 0
-	setlocal noic
+        setlocal noic
     endif
 
     return indent(lnum) + (&sw * ind)
