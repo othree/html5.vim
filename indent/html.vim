@@ -233,7 +233,7 @@ fun! HtmlIndentGet(lnum)
     endif
 
     " [-- special handling for <javascript>: use cindent --]
-    let js = '<script.*type\s*=\s*.*java'
+    let js = '<script'
 
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     " by Tye Zdrojewski <zdro@yahoo.com>, 05 Jun 2006
