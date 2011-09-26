@@ -270,6 +270,11 @@ fun! HtmlIndentGet(lnum)
     let ind = <SID>HtmlIndentSum(lnum, -1)
     let ind = ind + <SID>HtmlIndentSum(a:lnum, 0)
 
+    " Fix for conditional comment
+    if getline(a:lnum) =~ '\c<!-- .* <\(html\|body\) .* -->'
+        let ind = ind - 1
+    endif
+
     if restore_ic == 0
         setlocal noic
     endif
