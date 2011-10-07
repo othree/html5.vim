@@ -263,7 +263,12 @@ fun! HtmlIndentGet(lnum)
             if restore_ic == 0
               setlocal noic
             endif
-            return indent(preline)
+
+            if 0 == match(getline(a:lnum), '^\s*</')
+                return indent(preline) - (1*&sw)
+            else
+                return indent(preline)
+            endif
         endif
     endif
 
