@@ -66,8 +66,8 @@ let xml_attributes = {'xml:lang': lang_tag, 'xml:space': ['preserve'], 'xml:base
 
 let body_attributes = {}
 let global_attributes = extend(core_attributes, xml_attributes)
-if !exists('g:event_handler_attributes_complete')
-    let g:event_handler_attributes_complete = 1
+if !exists('g:html5_event_handler_attributes_complete')
+    let g:html5_event_handler_attributes_complete = 1
 endif
 
 " http://dev.w3.org/html5/spec/Overview.html#attributes-1
@@ -179,7 +179,7 @@ let attributes_value = {
     \ 'role': ['*Token', '']
 \ }
 
-if g:event_handler_attributes_complete == 1
+if g:html5_event_handler_attributes_complete == 1
     let event_handler_attributes = {'onabort': [], 'onblur': [], 'oncanplay': [], 'oncanplaythrough': [], 'onchange': [], 'onclick': [], 'oncontextmenu': [], 'ondblclick': [], 'ondrag': [], 'ondragend': [], 'ondragenter': [], 'ondragleave': [], 'ondragover': [], 'ondragstart': [], 'ondrop': [], 'ondurationchange': [], 'onemptied': [], 'onended': [], 'onerror': [], 'onfocus': [], 'onformchange': [], 'onforminput': [], 'oninput': [], 'oninvalid': [], 'onkeydown': [], 'onkeypress': [], 'onkeyup': [], 'onload': [], 'onloadeddata': [], 'onloadedmetadata': [], 'onloadstart': [], 'onmousedown': [], 'onmousemove': [], 'onmouseout': [], 'onmouseover': [], 'onmouseup': [], 'onmousewheel': [], 'onpause': [], 'onplay': [], 'onplaying': [], 'onprogress': [], 'onratechange': [], 'onreadystatechange': [], 'onscroll': [], 'onseeked': [], 'onseeking': [], 'onselect': [], 'onshow': [], 'onstalled': [], 'onsubmit': [], 'onsuspend': [], 'ontimeupdate': [], 'onvolumechange': [], 'onwaiting': []}
     let global_attributes = extend(global_attributes, event_handler_attributes)
     
@@ -259,10 +259,10 @@ if g:event_handler_attributes_complete == 1
 
     let attributes_value = extend(attributes_value, event_attributes_value)
 endif
-if !exists('g:rdfa_attributes_complete')
-    let g:rdfa_attributes_complete = 1
+if !exists('g:html5_rdfa_attributes_complete')
+    let g:html5_rdfa_attributes_complete = 1
 endif
-if g:rdfa_attributes_complete == 1
+if g:html5_rdfa_attributes_complete == 1
     " http://www.w3.org/TR/rdfa-syntax/#s_metaAttributes
     " http://www.w3.org/TR/rdfa-core/#s_syntax
     let relrev = ['chapter', 'contents', 'copyright', 'first', 'glossary', 'help', 'icon', 'index', 'last', 'license', 'meta', 'next', 'p3pv1', 'prev', 'role', 'section', 'stylesheet', 'subsection', 'start', 'top', 'up']
@@ -284,10 +284,10 @@ if g:rdfa_attributes_complete == 1
     \ }
     let attributes_value = extend(attributes_value, rdfa_attributes_value)
 endif
-if !exists('g:microdata_attributes_complete')
-    let g:microdata_attributes_complete = 1
+if !exists('g:html5_microdata_attributes_complete')
+    let g:html5_microdata_attributes_complete = 1
 endif
-if g:microdata_attributes_complete == 1
+if g:html5_microdata_attributes_complete == 1
     let microdata_attributes = {'itemid': [], 'itemscope': ['itemscope', ''], 'itemtype': [], 'itemprop': [], 'itemref': []}
     let global_attributes = extend(global_attributes, microdata_attributes)
 
@@ -305,10 +305,10 @@ endif
 " WAI_ARIA: {{{
 " Ref: http://www.w3.org/TR/wai-aria/
 " Version: Draft 15 December 2009
-if !exists('g:aria_attributes_complete')
-    let g:aria_attributes_complete = 1
+if !exists('g:html5_aria_attributes_complete')
+    let g:html5_aria_attributes_complete = 1
 endif
-if g:aria_attributes_complete == 1
+if g:html5_aria_attributes_complete == 1
     " Ref: http://www.w3.org/TR/wai-aria/roles
     " Version: Draft 15 December 2009
     let widget_role = ['alert', 'alertdialog', 'button', 'checkbox', 'combobox', 'dialog', 'gridcell', 'link', 'log', 'marquee', 'menuitem', 'menuitemcheckbox', 'menuitemradio', 'option', 'progressbar', 'radio', 'radiogroup', 'scrollbar', 'slider', 'spinbutton', 'status', 'tab', 'tabpanel', 'textbox', 'timer', 'tooltip', 'treeitem', 'combobox', 'grid', 'listbox', 'menu', 'menubar', 'radiogroup', 'tablist', 'tree', 'treegrid']

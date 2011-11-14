@@ -23,19 +23,19 @@ or
 
 Disable event-handler attributes support:
 
-    let g:event_handler_attributes_complete = 0
+    let g:html5_event_handler_attributes_complete = 0
 
 Disable RDFa attributes support:
 
-    let g:rdfa_attributes_complete = 0
+    let g:html5_rdfa_attributes_complete = 0
 
 Disable microdata attributes support:
 
-    let g:microdata_attributes_complete = 0
+    let g:html5_microdata_attributes_complete = 0
 
 Disable WAI-ARIA attribute support:
 
-    let g:aria_attributes_complete = 0
+    let g:html5_aria_attributes_complete = 0
 
 ## Change Log
 
