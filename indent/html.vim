@@ -144,9 +144,8 @@ if exists('g:html_exclude_tags')
 endif
 if exists('g:html_indent_tags')
     call extend(s:tags, g:html_indent_tags)
-    unlet g:html_indent_tags
 endif
-let g:html_indent_tags = join(s:tags, '\|')
+let s:html_indent_tags = join(s:tags, '\|')
 
 let s:cpo_save = &cpo
 set cpo-=C
@@ -180,9 +179,9 @@ endfun
 " [-- return the sum of indents respecting the syntax of a:lnum --]
 fun! <SID>HtmlIndentSum(lnum, style)
     if a:style == match(getline(a:lnum), '^\s*</')
-        if a:style == match(getline(a:lnum), '^\s*</\<\('.g:html_indent_tags.'\)\>')
-            let open = <SID>HtmlIndentOpen(a:lnum, g:html_indent_tags)
-            let close = <SID>HtmlIndentClose(a:lnum, g:html_indent_tags)
+        if a:style == match(getline(a:lnum), '^\s*</\<\('.s:html_indent_tags.'\)\>')
+            let open = <SID>HtmlIndentOpen(a:lnum, s:html_indent_tags)
+            let close = <SID>HtmlIndentClose(a:lnum, s:html_indent_tags)
             if 0 != open || 0 != close
                 return open - close
             endif
