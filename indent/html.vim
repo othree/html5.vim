@@ -12,9 +12,10 @@
 " Author:        Johannes Zellner <johannes@zellner.org>
 " Last Change:        Mo, 05 Jun 2006 22:32:41 CEST
 "                 Restoring 'cpo' and 'ic' added by Bram 2006 May 5
-" Globals:        g:html_indent_tags           -- indenting tags
-"                g:html_indent_strict       -- inhibit 'O O' elements
-"                g:html_indent_strict_table -- inhibit 'O -' elements
+" Globals:
+" let g:html_indent_tags = ['testag']
+" let g:html_exclude_tags = ['html', 'style', 'script', 'body']
+
 
 " Only load this indent file when no other was loaded.
 if exists("b:did_indent")
@@ -22,141 +23,129 @@ if exists("b:did_indent")
 endif
 let b:did_indent = 1
 
-
 " [-- local settings (must come before aborting the script) --]
 setlocal indentexpr=HtmlIndentGet(v:lnum)
 setlocal indentkeys=o,O,*<Return>,<>>,{,}
 
 
-if exists('g:html_indent_tags')
-    unlet g:html_indent_tags
-endif
-
-" [-- helper function to assemble tag list --]
-fun! <SID>HtmlIndentPush(tag)
-    if exists('g:html_indent_tags')
-        let g:html_indent_tags = g:html_indent_tags.'\|'.a:tag
-    else
-        let g:html_indent_tags = a:tag
-    endif
-endfun
-
+let s:tags = []
 
 " [-- <ELEMENT ? - - ...> --]
-call <SID>HtmlIndentPush('a')
-call <SID>HtmlIndentPush('abbr')
-call <SID>HtmlIndentPush('acronym')
-call <SID>HtmlIndentPush('address')
-call <SID>HtmlIndentPush('b')
-call <SID>HtmlIndentPush('bdo')
-call <SID>HtmlIndentPush('big')
-call <SID>HtmlIndentPush('blockquote')
-call <SID>HtmlIndentPush('button')
-call <SID>HtmlIndentPush('caption')
-call <SID>HtmlIndentPush('center')
-call <SID>HtmlIndentPush('cite')
-call <SID>HtmlIndentPush('code')
-call <SID>HtmlIndentPush('colgroup')
-call <SID>HtmlIndentPush('del')
-call <SID>HtmlIndentPush('dfn')
-call <SID>HtmlIndentPush('dir')
-call <SID>HtmlIndentPush('div')
-call <SID>HtmlIndentPush('dl')
-call <SID>HtmlIndentPush('em')
-call <SID>HtmlIndentPush('fieldset')
-call <SID>HtmlIndentPush('font')
-call <SID>HtmlIndentPush('form')
-call <SID>HtmlIndentPush('frameset')
-call <SID>HtmlIndentPush('h1')
-call <SID>HtmlIndentPush('h2')
-call <SID>HtmlIndentPush('h3')
-call <SID>HtmlIndentPush('h4')
-call <SID>HtmlIndentPush('h5')
-call <SID>HtmlIndentPush('h6')
-call <SID>HtmlIndentPush('i')
-call <SID>HtmlIndentPush('iframe')
-call <SID>HtmlIndentPush('ins')
-call <SID>HtmlIndentPush('kbd')
-call <SID>HtmlIndentPush('label')
-call <SID>HtmlIndentPush('legend')
-call <SID>HtmlIndentPush('li')
-call <SID>HtmlIndentPush('map')
-call <SID>HtmlIndentPush('menu')
-call <SID>HtmlIndentPush('noframes')
-call <SID>HtmlIndentPush('noscript')
-call <SID>HtmlIndentPush('object')
-call <SID>HtmlIndentPush('ol')
-call <SID>HtmlIndentPush('optgroup')
-call <SID>HtmlIndentPush('p')
-" call <SID>HtmlIndentPush('pre')
-call <SID>HtmlIndentPush('q')
-call <SID>HtmlIndentPush('s')
-call <SID>HtmlIndentPush('samp')
-call <SID>HtmlIndentPush('script')
-call <SID>HtmlIndentPush('select')
-call <SID>HtmlIndentPush('small')
-call <SID>HtmlIndentPush('span')
-call <SID>HtmlIndentPush('strong')
-call <SID>HtmlIndentPush('style')
-call <SID>HtmlIndentPush('sub')
-call <SID>HtmlIndentPush('sup')
-call <SID>HtmlIndentPush('table')
-call <SID>HtmlIndentPush('textarea')
-call <SID>HtmlIndentPush('title')
-call <SID>HtmlIndentPush('tt')
-call <SID>HtmlIndentPush('u')
-call <SID>HtmlIndentPush('ul')
-call <SID>HtmlIndentPush('var')
+call add(s:tags, 'a')
+call add(s:tags, 'abbr')
+call add(s:tags, 'acronym')
+call add(s:tags, 'address')
+call add(s:tags, 'b')
+call add(s:tags, 'bdo')
+call add(s:tags, 'big')
+call add(s:tags, 'blockquote')
+call add(s:tags, 'button')
+call add(s:tags, 'caption')
+call add(s:tags, 'center')
+call add(s:tags, 'cite')
+call add(s:tags, 'code')
+call add(s:tags, 'colgroup')
+call add(s:tags, 'del')
+call add(s:tags, 'dfn')
+call add(s:tags, 'dir')
+call add(s:tags, 'div')
+call add(s:tags, 'dl')
+call add(s:tags, 'em')
+call add(s:tags, 'fieldset')
+call add(s:tags, 'font')
+call add(s:tags, 'form')
+call add(s:tags, 'frameset')
+call add(s:tags, 'h1')
+call add(s:tags, 'h2')
+call add(s:tags, 'h3')
+call add(s:tags, 'h4')
+call add(s:tags, 'h5')
+call add(s:tags, 'h6')
+call add(s:tags, 'i')
+call add(s:tags, 'iframe')
+call add(s:tags, 'ins')
+call add(s:tags, 'kbd')
+call add(s:tags, 'label')
+call add(s:tags, 'legend')
+call add(s:tags, 'li')
+call add(s:tags, 'map')
+call add(s:tags, 'menu')
+call add(s:tags, 'noframes')
+call add(s:tags, 'noscript')
+call add(s:tags, 'object')
+call add(s:tags, 'ol')
+call add(s:tags, 'optgroup')
+call add(s:tags, 'p')
+" call add(s:tags, 'pre')
+call add(s:tags, 'q')
+call add(s:tags, 's')
+call add(s:tags, 'samp')
+call add(s:tags, 'script')
+call add(s:tags, 'select')
+call add(s:tags, 'small')
+call add(s:tags, 'span')
+call add(s:tags, 'strong')
+call add(s:tags, 'style')
+call add(s:tags, 'sub')
+call add(s:tags, 'sup')
+call add(s:tags, 'table')
+call add(s:tags, 'textarea')
+call add(s:tags, 'title')
+call add(s:tags, 'tt')
+call add(s:tags, 'u')
+call add(s:tags, 'ul')
+call add(s:tags, 'var')
 
 " New HTML 5 elements
-call <SID>HtmlIndentPush('article')
-call <SID>HtmlIndentPush('aside')
-call <SID>HtmlIndentPush('audio')
-call <SID>HtmlIndentPush('canvas')
-call <SID>HtmlIndentPush('command')
-call <SID>HtmlIndentPush('datalist')
-call <SID>HtmlIndentPush('details')
-call <SID>HtmlIndentPush('embed')
-call <SID>HtmlIndentPush('figcaption')
-call <SID>HtmlIndentPush('figure')
-call <SID>HtmlIndentPush('footer')
-call <SID>HtmlIndentPush('header')
-call <SID>HtmlIndentPush('hgroup')
-call <SID>HtmlIndentPush('keygen')
-call <SID>HtmlIndentPush('mark')
-call <SID>HtmlIndentPush('meter')
-call <SID>HtmlIndentPush('nav')
-call <SID>HtmlIndentPush('output')
-call <SID>HtmlIndentPush('progress')
-call <SID>HtmlIndentPush('rp')
-call <SID>HtmlIndentPush('rt')
-call <SID>HtmlIndentPush('ruby')
-call <SID>HtmlIndentPush('section')
-call <SID>HtmlIndentPush('source')
-call <SID>HtmlIndentPush('summary')
-call <SID>HtmlIndentPush('time')
-call <SID>HtmlIndentPush('video')
-call <SID>HtmlIndentPush('bdi')
+call add(s:tags, 'article')
+call add(s:tags, 'aside')
+call add(s:tags, 'audio')
+call add(s:tags, 'canvas')
+call add(s:tags, 'command')
+call add(s:tags, 'datalist')
+call add(s:tags, 'details')
+call add(s:tags, 'embed')
+call add(s:tags, 'figcaption')
+call add(s:tags, 'figure')
+call add(s:tags, 'footer')
+call add(s:tags, 'header')
+call add(s:tags, 'hgroup')
+call add(s:tags, 'keygen')
+call add(s:tags, 'mark')
+call add(s:tags, 'meter')
+call add(s:tags, 'nav')
+call add(s:tags, 'output')
+call add(s:tags, 'progress')
+call add(s:tags, 'rp')
+call add(s:tags, 'rt')
+call add(s:tags, 'ruby')
+call add(s:tags, 'section')
+call add(s:tags, 'source')
+call add(s:tags, 'summary')
+call add(s:tags, 'time')
+call add(s:tags, 'video')
+call add(s:tags, 'bdi')
 
-" [-- <ELEMENT ? O O ...> --]
-if !exists('g:html_indent_strict')
-    call <SID>HtmlIndentPush('body')
-    call <SID>HtmlIndentPush('head')
-    call <SID>HtmlIndentPush('html')
-    call <SID>HtmlIndentPush('tbody')
+call add(s:tags, 'html')
+call add(s:tags, 'head')
+call add(s:tags, 'body')
+
+call add(s:tags, 'thead')
+call add(s:tags, 'tbody')
+call add(s:tags, 'tfoot')
+call add(s:tags, 'tr')
+call add(s:tags, 'th')
+call add(s:tags, 'td')
+
+if exists('g:html_exclude_tags')
+    for tag in g:html_exclude_tags
+        call remove(s:tags, index(s:tags, tag))
+    endfor
 endif
-
-
-" [-- <ELEMENT ? O - ...> --]
-if !exists('g:html_indent_strict_table')
-    call <SID>HtmlIndentPush('th')
-    call <SID>HtmlIndentPush('td')
-    call <SID>HtmlIndentPush('tr')
-    call <SID>HtmlIndentPush('tfoot')
-    call <SID>HtmlIndentPush('thead')
+if exists('g:html_indent_tags')
+    call extend(s:tags, g:html_indent_tags)
 endif
-
-delfun <SID>HtmlIndentPush
+let s:html_indent_tags = join(s:tags, '\|')
 
 let s:cpo_save = &cpo
 set cpo-=C
@@ -190,9 +179,9 @@ endfun
 " [-- return the sum of indents respecting the syntax of a:lnum --]
 fun! <SID>HtmlIndentSum(lnum, style)
     if a:style == match(getline(a:lnum), '^\s*</')
-        if a:style == match(getline(a:lnum), '^\s*</\<\('.g:html_indent_tags.'\)\>')
-            let open = <SID>HtmlIndentOpen(a:lnum, g:html_indent_tags)
-            let close = <SID>HtmlIndentClose(a:lnum, g:html_indent_tags)
+        if a:style == match(getline(a:lnum), '^\s*</\<\('.s:html_indent_tags.'\)\>')
+            let open = <SID>HtmlIndentOpen(a:lnum, s:html_indent_tags)
+            let close = <SID>HtmlIndentClose(a:lnum, s:html_indent_tags)
             if 0 != open || 0 != close
                 return open - close
             endif
