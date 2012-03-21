@@ -38,3 +38,6 @@ syn keyword javaScriptDomElemFuncs load addTextTrack
 " <video>
 " syn keyword javaScriptDomElemAttrs width height
 syn keyword javaScriptDomElemAttrs videoWidth videoHeight poster
+
+" drag and drop
+syn keyword javaScriptDomElemAttrs onDragStart onDragEnd onDragEnter onDrop
