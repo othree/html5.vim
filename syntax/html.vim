@@ -52,7 +52,7 @@ syn keyword htmlArg contained label icon open datetime pubdate
 
 " Custom Data Attributes
 " http://dev.w3.org/html5/spec/elements.html#embedding-custom-non-visible-data
-syn match   htmlArg "\<\(data(\-[a-z]\+)\+\)=" contained
+syn match   htmlArg "\<\(data\(\-[a-z]\+\)\+\)=" contained
 
 " Microdata
 " http://dev.w3.org/html5/md/
