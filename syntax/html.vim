@@ -27,7 +27,7 @@ syn keyword htmlTagName contained wbr bdi
 syn keyword htmlArg contained accesskey class contenteditable contextmenu dir 
 syn keyword htmlArg contained draggable hidden id lang spellcheck style tabindex title
 " Event-handler Attributes
-syn keyword htmlArg contained onabort onblur oncanplay oncanplaythrough onchange 
+syn keyword htmlArg contained onabort onblur oncanplay oncanplaythrough onchange
 syn keyword htmlArg contained onclick oncontextmenu ondblclick ondrag ondragend ondragenter ondragleave ondragover 
 syn keyword htmlArg contained ondragstart ondrop ondurationchange onemptied onended onerror onfocus onformchange 
 syn keyword htmlArg contained onforminput oninput oninvalid onkeydown onkeypress onkeyup onload onloadeddata 
@@ -36,7 +36,7 @@ syn keyword htmlArg contained onmousewheel onpause onplay onplaying onprogress o
 syn keyword htmlArg contained onscroll onseeked onseeking onselect onshow onstalled onsubmit onsuspend ontimeupdate 
 syn keyword htmlArg contained onvolumechange onwaiting
 " XML Attributes
-syn keyword htmlArg contained xml:lang xml:space xml:base
+syn keyword htmlArg contained xml:lang xml:space xml:base xmlns
 " new features
 " <body>
 syn keyword htmlArg contained onafterprint onbeforeprint onbeforeunload onblur onerror onfocus onhashchange onload 
@@ -52,7 +52,7 @@ syn keyword htmlArg contained label icon open datetime pubdate
 
 " Custom Data Attributes
 " http://dev.w3.org/html5/spec/elements.html#embedding-custom-non-visible-data
-syn match   htmlArg "\<\(data\(\-[a-z]\+\)\+\)=" contained
+syn match   htmlArg "\<\(data\(\-[a-z]\+\)\+\)\=\>" contained
 
 " Microdata
 " http://dev.w3.org/html5/md/
