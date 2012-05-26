@@ -25,7 +25,7 @@ syn keyword htmlTagName contained wbr bdi
 " HTML 5 arguments
 " Core Attributes
 syn keyword htmlArg contained accesskey class contenteditable contextmenu dir 
-syn keyword htmlArg contained draggable hidden id lang spellcheck style tabindex title
+syn keyword htmlArg contained draggable hidden id lang spellcheck style tabindex title translate
 " Event-handler Attributes
 syn keyword htmlArg contained onabort onblur oncanplay oncanplaythrough onchange
 syn keyword htmlArg contained onclick oncontextmenu ondblclick ondrag ondragend ondragenter ondragleave ondragover 
@@ -49,6 +49,8 @@ syn keyword htmlArg contained formaction autofocus formenctype formmethod formta
 syn keyword htmlArg contained required placeholder
 " <command>, <details>, <time>
 syn keyword htmlArg contained label icon open datetime pubdate
+" <script>
+syn keyword htmlArg contained async
 
 " Custom Data Attributes
 " http://dev.w3.org/html5/spec/elements.html#embedding-custom-non-visible-data
