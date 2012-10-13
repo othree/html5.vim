@@ -14,6 +14,8 @@
 "               add complete new attributes
 "               add microdata Attributes
 "               add bdi element
+" Modified:     htdebeer <H.T.de.Beer@gmail.com>
+" Changes:      add common SVG elements and attributes for inline SVG
 
 " HTML 5 tags
 syn keyword htmlTagName contained article aside audio canvas command
@@ -21,6 +23,22 @@ syn keyword htmlTagName contained datalist details dialog embed figcaption figur
 syn keyword htmlTagName contained header hgroup keygen mark meter menu nav output
 syn keyword htmlTagName contained progress time ruby rt rp section source summary time track video
 syn keyword htmlTagName contained wbr bdi
+
+" SVG tags
+" http://www.w3.org/TR/SVG/
+" as found in http://www.w3.org/TR/SVG/eltindex.html
+syn keyword htmlTagName contained svg 
+syn keyword htmlTagName contained altGlyph altGlyphDef altGlyphItem 
+syn keyword htmlTagName contained animate animateColor animateMotion animateTransform 
+syn keyword htmlTagName contained circle ellipse rect line polyline polygon image path
+syn keyword htmlTagName contained clipPath color-profile cursor 
+syn keyword htmlTagName contained defs desc g symbol view use switch foreignObject
+syn keyword htmlTagName contained filter feBlend feColorMatrix feComponentTransfer feComposite feConvolveMatrix feDiffuseLighting feDisplacementMap feDistantLight feFlood feFuncA feFuncB feFuncG feFuncR feGaussianBlur feImage feMerge feMergeNode feMorphology feOffset fePointLight feSpecularLighting feSpotLight feTile feTurbulence 
+syn keyword htmlTagName contained font font-face font-face-format font-face-name font-face-src font-face-uri 
+syn keyword htmlTagName contained glyph glyphRef hkern 
+syn keyword htmlTagName contained linearGradient marker mask pattern radialGradient set stop
+syn keyword htmlTagName contained missing-glyph mpath 
+syn keyword htmlTagName contained text textPath tref tspan vkern
 
 " HTML 5 arguments
 " Core Attributes
@@ -59,3 +77,32 @@ syn match   htmlArg "\<\(data\(\-[a-z]\+\)\+\)\=\>" contained
 " Microdata
 " http://dev.w3.org/html5/md/
 syn keyword htmlArg contained itemid itemscope itemtype itemprop itemref
+
+" SVG
+" http://www.w3.org/TR/SVG/
+" Some common attributes from http://www.w3.org/TR/SVG/attindex.html
+syn keyword htmlArg contained accent-height accumulate additive alphabetic amplitude arabic-form ascent attributeName attributeType azimuth 
+syn keyword htmlArg contained baseFrequency baseProfile bbox begin bias by 
+syn keyword htmlArg contained calcMode cap-height class clipPathUnits contentScriptType contentStyleType cx cy 
+syn keyword htmlArg contained d descent diffuseConstant divisor dur dx dy 
+syn keyword htmlArg contained edgeMode elevation end exponent externalResourcesRequired 
+syn keyword htmlArg contained fill filterRes filterUnits font-family font-size font-stretch font-style font-variant font-weight format format from fx fy 
+syn keyword htmlArg contained g1 g2 glyph-name glyphRef gradientTransform gradientUnits 
+syn keyword htmlArg contained hanging height horiz-adv-x horiz-origin-y 
+syn keyword htmlArg contained id ideographic in in2 intercept 
+syn keyword htmlArg contained k k1 k2 k3 k4 kernelMatrix kernelUnitLength keyPoints keySplines keyTimes 
+syn keyword htmlArg contained lang lengthAdjust limitingConeAngle local 
+syn keyword htmlArg contained markerHeight markerUnits markerWidth maskContentUnits maskUnits mathematical max media method min mode name 
+syn keyword htmlArg contained numOctaves 
+syn keyword htmlArg contained offset offset onabort onactivate onbegin onclick onend onerror onfocusin onfocusout onload onload onmousedown onmousemove onmouseout onmouseover onmouseup onrepeat onresize onscroll onunload onzoom operator order orient orientation origin overline-position overline-thickness 
+syn keyword htmlArg contained panose-1 path pathLength patternContentUnits patternTransform patternUnits points pointsAtX pointsAtY pointsAtZ preserveAlpha preserveAspectRatio primitiveUnits 
+syn keyword htmlArg contained r radius refX refY rendering-intent repeatCount repeatDur requiredExtensions requiredFeatures restart result rotate rx ry 
+syn keyword htmlArg contained scale seed slope spacing specularConstant specularExponent spreadMethod startOffset stdDeviation stemh stemv stitchTiles strikethrough-position strikethrough-thickness string surfaceScale systemLanguage 
+syn keyword htmlArg contained tableValues target targetX targetY textLength title to transform type u
+syn keyword htmlArg contained 1 u2 underline-position underline-thickness unicode unicode-range units-per-em 
+syn keyword htmlArg contained v-alphabetic v-hanging v-ideographic v-mathematical values version vert-adv-y vert-origin-x vert-origin-y viewBox viewTarget 
+syn keyword htmlArg contained width widths 
+syn keyword htmlArg contained x x-height x1 x2 xChannelSelector xlink:actuate xlink:actuate xlink:arcrole xlink:href xlink:role xlink:show xlink:show xlink:title xlink:type xml:base xml:lang xml:space 
+syn keyword htmlArg contained y y1 y2 yChannelSelector 
+syn keyword htmlArg contained z zoomAndPan 
+syn keyword htmlArg contained alignment-baseline baseline-shift clip-path clip-rule clip color-interpolation-filters color-interpolation color-profile color-rendering color cursor direction display dominant-baseline enable-background fill-opacity fill-rule fill filter flood-color flood-opacity font-family font-size-adjust font-size font-stretch font-style font-variant font-weight glyph-orientation-horizontal glyph-orientation-vertical image-rendering kerning letter-spacing lighting-color marker-end marker-mid marker-start mask opacity overflow pointer-events shape-rendering stop-color stop-opacity stroke-dasharray stroke-dashoffset stroke-linecap stroke-linejoin stroke-miterlimit stroke-opacity stroke-width stroke text-anchor text-decoration text-rendering unicode-bidi visibility word-spacing writing-mode
