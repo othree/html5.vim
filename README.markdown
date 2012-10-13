@@ -44,16 +44,6 @@ Disable WAI-ARIA attribute support:
 
 - Support inline SVG
 
-### Version 0.26
-
-- Support multi-value attributes (Most of them are WAI-ARIA attributes)
-- Some old complete function bug fix
-
-### Version 0.25
-
-- WAI-ARIA support bug fix
-- WAI-ARIA complete supports all doctypes now
-
 ## License
 
 Copyright (c) 2010 Wei-Ko Kao, 2012 HT de Beer
@@ -87,7 +77,7 @@ THE SOFTWARE.
 7. [WAI-ARIA][7]
 8. [IANA Language Sub Tags][8]
 9. [IANA Charset][9]
-10. [SCG Spec][10]
+10. [SVG Spec][10]
 
 [html5.vim]:http://www.vim.org/scripts/script.php?script_id=3236
 
