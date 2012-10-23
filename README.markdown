@@ -16,7 +16,7 @@ Based on the default htmlcomplete.vim.
 Goto [get][html5.vim] vimball file. Open it with vim and execute :so%
 or 
 
-    git clone git://github.com/htdebeer/html5.vim.git
+    git clone git://github.com/othree/html5.vim.git
     cd html5.vim
     make install
 
