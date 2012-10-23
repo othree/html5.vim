@@ -2,6 +2,10 @@
 
 ## Change Log
 
+### Version 0.27
+
+- Added inline SVG
+
 ### Version 0.26
 
 - Support multi-value attributes (Most of them are WAI-ARIA attributes)

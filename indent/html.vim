@@ -1,3 +1,9 @@
+" Description:      HTML5 and inline SVG indenter
+" Changed By: HT de Beer <H.T.de.Beer@gmail.com>
+" Last Change: 20121013
+"   Added the SVG elements to the list of indenting element. SVG elements
+"   taken from http://www.w3.org/TR/SVG/eltindex.html
+"   
 " Description:        html5 (and html4) indenter
 " Changed By:        Brian Gershon <brian.five@gmail.com>
 " Last Change:        30 Jan 2011
@@ -121,6 +127,26 @@ call add(s:tags, 'summary')
 call add(s:tags, 'time')
 call add(s:tags, 'video')
 call add(s:tags, 'bdi')
+
+" Common inline used SVG elements
+call add(s:tags, 'clipPath')
+call add(s:tags, 'defs')
+call add(s:tags, 'desc')
+call add(s:tags, 'filter')
+call add(s:tags, 'foreignObject')
+call add(s:tags, 'g')
+call add(s:tags, 'linearGradient')
+call add(s:tags, 'marker')
+call add(s:tags, 'mask')
+call add(s:tags, 'pattern')
+call add(s:tags, 'radialGradient')
+call add(s:tags, 'svg')
+call add(s:tags, 'switch')
+call add(s:tags, 'symbol')
+call add(s:tags, 'text')
+call add(s:tags, 'textPath')
+call add(s:tags, 'tref')
+call add(s:tags, 'tspan')
 
 call add(s:tags, 'html')
 call add(s:tags, 'head')
