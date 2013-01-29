@@ -257,7 +257,8 @@ fun! HtmlIndentGet(lnum)
     if   0 < searchpair(js, '', '</script>', 'nWb')
     \ && 0 < searchpair(js, '', '</script>', 'nW')
         " we're inside javascript
-        if getline(lnum) !~ js && getline(a:lnum) != '</script>'
+        if getline(searchpair(js, '', '</script>', 'nWb')) !~ '<script [^>]*type=["'']\?text\/\(html\|template\)'
+        \ && getline(lnum) !~ js && getline(a:lnum) != '</script>'
             if restore_ic == 0
               setlocal noic
             endif
