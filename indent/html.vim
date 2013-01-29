@@ -19,7 +19,7 @@
 " Last Change:        Mo, 05 Jun 2006 22:32:41 CEST
 "                 Restoring 'cpo' and 'ic' added by Bram 2006 May 5
 " Globals:
-" let g:html_indent_tags = ['testag']
+" let g:html_indent_tags = 'html\|p\|time'
 " let g:html_exclude_tags = ['html', 'style', 'script', 'body']
 
 
