@@ -19,7 +19,7 @@
 " Last Change:        Mo, 05 Jun 2006 22:32:41 CEST
 "                 Restoring 'cpo' and 'ic' added by Bram 2006 May 5
 " Globals:
-" let g:html_indent_tags = ['testag']
+" let g:html_indent_tags = 'html\|p\|time'
 " let g:html_exclude_tags = ['html', 'style', 'script', 'body']
 
 
@@ -169,10 +169,10 @@ if exists('g:html_exclude_tags')
         call remove(s:tags, index(s:tags, tag))
     endfor
 endif
-if exists('g:html_indent_tags')
-    call extend(s:tags, g:html_indent_tags)
-endif
 let s:html_indent_tags = join(s:tags, '\|')
+if exists('g:html_indent_tags')
+    let s:html_indent_tags = s:html_indent_tags.'\|'.g:html_indent_tags
+endif
 
 let s:cpo_save = &cpo
 set cpo-=C
@@ -264,7 +264,8 @@ fun! HtmlIndentGet(lnum)
     if   0 < searchpair(js, '', jse, 'nWb')
     \ && 0 < searchpair(js, '', jse, 'nW')
         " we're inside javascript
-        if getline(lnum) !~ js && getline(a:lnum) !~ jse
+        if getline(searchpair(js, '', '</script>', 'nWb')) !~ '<script [^>]*type=["'']\?text\/\(html\|template\)'
+        \ && getline(lnum) !~ js && getline(a:lnum) !~ jse
             if restore_ic == 0
               setlocal noic
             endif
