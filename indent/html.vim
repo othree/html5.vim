@@ -27,6 +27,11 @@
 if exists("b:did_indent")
     finish
 endif
+runtime! indent/javascript.vim
+let s:jsindent = &indentexpr
+unlet b:did_indent
+runtime! indent/css.vim
+let s:cssindent = &indentexpr
 let b:did_indent = 1
 
 " [-- local settings (must come before aborting the script) --]
@@ -209,6 +214,7 @@ fun! <SID>HtmlIndentSum(lnum, style)
             endif
         endif
     endif
+
     if '' != &syntax &&
         \ synIDattr(synID(a:lnum, 1, 1), 'name') =~ '\(css\|java\).*' &&
         \ synIDattr(synID(a:lnum, strlen(getline(a:lnum)), 1), 'name')
@@ -245,6 +251,7 @@ fun! HtmlIndentGet(lnum)
 
     " [-- special handling for <javascript>: use cindent --]
     let js = '<script'
+    let jse = '</script>'
 
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     " by Tye Zdrojewski <zdro@yahoo.com>, 05 Jun 2006
@@ -254,14 +261,43 @@ fun! HtmlIndentGet(lnum)
     "      the pair will still match if we are before the beginning of the
     "      pair.
     "
-    if   0 < searchpair(js, '', '</script>', 'nWb')
-    \ && 0 < searchpair(js, '', '</script>', 'nW')
+    if   0 < searchpair(js, '', jse, 'nWb')
+    \ && 0 < searchpair(js, '', jse, 'nW')
         " we're inside javascript
-        if getline(lnum) !~ js && getline(a:lnum) != '</script>'
+        if getline(lnum) !~ js && getline(a:lnum) !~ jse
             if restore_ic == 0
               setlocal noic
             endif
-            return cindent(a:lnum)
+            if s:jsindent == ''
+              return cindent(a:lnum)
+            else
+              execute 'let ind = ' . s:jsindent
+              return ind
+            endif
+        endif
+        if getline(a:lnum) =~ jse
+          return indent(searchpair(js, '', jse, 'nWb'))
+        endif
+    endif
+
+    let css = '<style'
+    let csse = '</style>'
+    if   0 < searchpair(css, '', csse, 'nWb')
+    \ && 0 < searchpair(css, '', csse, 'nW')
+        " we're inside style
+        if getline(lnum) !~ css && getline(a:lnum) !~ csse
+            if restore_ic == 0
+              setlocal noic
+            endif
+            if s:cssindent == ''
+              return cindent(a:lnum)
+            else
+              execute 'let ind = ' . s:cssindent
+              return ind
+            endif
+        endif
+        if getline(a:lnum) =~ csse
+          return indent(searchpair(css, '', csse, 'nWb'))
         endif
     endif
 
