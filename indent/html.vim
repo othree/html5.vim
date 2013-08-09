@@ -133,6 +133,7 @@ call add(s:tags, 'summary')
 call add(s:tags, 'time')
 call add(s:tags, 'video')
 call add(s:tags, 'bdi')
+call add(s:tags, 'data')
 
 " Common inline used SVG elements
 call add(s:tags, 'clipPath')
