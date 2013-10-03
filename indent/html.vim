@@ -172,7 +172,6 @@ call add(s:tags, 'td')
 let s:omittable = [ 
   \  ['address', 'article', 'aside', 'blockquote', 'dir', 'div', 'dl', 'fieldset', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'header', 'hr', 'menu', 'nav', 'ol', 'p', 'pre', 'section', 'table', 'ul'],
   \  ['dt', 'dd'],
-  \  ['option'],
   \  ['li'],
   \  ['thead', 'tbody', 'tfoot'],
   \  ['th', 'td'],
