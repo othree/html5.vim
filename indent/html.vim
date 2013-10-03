@@ -341,11 +341,13 @@ fun! HtmlIndentGet(lnum)
         let ind = ind - 1
     endif
 
+    let lind = indent(lnum)
+
     for tags in s:omittable
       let tags_exp = '<\(' . join(tags, '\|') . '\)>'
       let close_tags_exp = '</\(' . join(tags, '\|') . '\)>'
       if getline(a:lnum) =~ tags_exp
-        let block_start = search('^'.repeat(' ', ind * &sw).'\S'  , 'bnW')
+        let block_start = search('^'.repeat(' ', lind + (&sw * ind - 1)).'\S'  , 'bnW')
         let prev_tag = search(tags_exp, 'bW', block_start)
         let prev_closetag = search(close_tags_exp, 'W', a:lnum)
         if prev_tag && !prev_closetag
@@ -354,7 +356,7 @@ fun! HtmlIndentGet(lnum)
       endif
 
       if getline(a:lnum) =~ '</\w\+>'
-        let block_start = search('^'.repeat(' ', ind * &sw).'\S'  , 'bnW')
+        let block_start = search('^'.repeat(' ', lind + (&sw * ind - 1)).'\S'  , 'bnW')
         let prev_tag = search(tags_exp, 'bW', block_start)
         let prev_closetag = search(close_tags_exp, 'W', a:lnum)
         if prev_tag && !prev_closetag
@@ -367,7 +369,7 @@ fun! HtmlIndentGet(lnum)
         setlocal noic
     endif
 
-    return indent(lnum) + (&sw * ind)
+    return lind + (&sw * ind)
 endfun
 
 let &cpo = s:cpo_save
