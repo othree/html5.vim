@@ -152,6 +152,7 @@ let attributes_value = {
     \ 'scope': ['Token', ''],
     \ 'scoped': ['Bool', ''],
     \ 'seamless': ['Bool', ''],
+    \ 'select': ['Text', ''],
     \ 'selected': ['Bool', ''],
     \ 'shape': ['Token', ''],
     \ 'size': ['Int', ''],
@@ -322,7 +323,7 @@ endif
 
 " Ref: http://dev.w3.org/html5/markup/
 " Version: Draft 05 April 2011
-let phrasing_elements = ['a', 'em', 'strong', 'small', 'mark', 'abbr', 'dfn', 'i', 'b', 'u', 'code', 'var', 'samp', 'kbd', 'sup', 'sub', 'q', 'cite', 'span', 'bdo', 'bdi', 'br', 'wbr', 'ins', 'del', 'img', 'embed', 'object', 'iframe', 'map', 'area', 'script', 'noscript', 'ruby', 'video', 'audio', 'input', 'textarea', 'select', 'button', 'label', 'output', 'datalist', 'keygen', 'progress', 'command', 'canvas', 'time', 'meter', 'data']
+let phrasing_elements = ['a', 'em', 'strong', 'small', 'mark', 'abbr', 'dfn', 'i', 'b', 'u', 'code', 'var', 'samp', 'kbd', 'sup', 'sub', 'q', 'cite', 'span', 'bdo', 'bdi', 'br', 'wbr', 'ins', 'del', 'img', 'embed', 'object', 'iframe', 'map', 'area', 'script', 'noscript', 'ruby', 'video', 'audio', 'input', 'textarea', 'select', 'button', 'label', 'output', 'datalist', 'keygen', 'progress', 'command', 'canvas', 'time', 'meter', 'data', 'content']
 
 let metadata_elements = ['link', 'style', 'meta', 'script', 'noscript', 'command']
 
@@ -424,6 +425,10 @@ let g:xmldata_html5 = {
 \ 'colgroup': [
     \ [],
     \ extend(copy(global_attributes), {'span': []})
+\ ],
+\ 'content': [
+    \ [],
+    \ extend(copy(global_attributes), {'select': []})
 \ ],
 \ 'command': [
     \ ['col'],
