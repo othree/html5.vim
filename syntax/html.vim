@@ -21,7 +21,8 @@
 syn keyword htmlTagName contained article aside audio canvas command
 syn keyword htmlTagName contained datalist details dialog embed figcaption figure footer
 syn keyword htmlTagName contained header hgroup keygen main mark meter menu nav output
-syn keyword htmlTagName contained progress ruby rt rp section source summary template time track video data
+syn keyword htmlTagName contained progress ruby rt rp section source summary time track video data
+syn keyword htmlTagName contained element template
 syn keyword htmlTagName contained wbr bdi
 
 " SVG tags
