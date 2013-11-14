@@ -101,6 +101,7 @@ let attributes_value = {
     \ 'disabled': ['Bool', ''],
     \ 'draggable': ['true/false', ''],
     \ 'enctype': ['Token', ''],
+    \ 'extends': ['Text', ''],
     \ 'for': ['ID', ''],
     \ 'form': ['ID', ''],
     \ 'formaction': ['URL', ''],
@@ -468,7 +469,7 @@ let g:xmldata_html5 = {
 \ ],
 \ 'element': [
     \ flow_elements + ['style'],
-    \ global_attributes
+    \ extend(copy(global_attributes), {'name': [], 'extends': []})
 \ ],
 \ 'em': [
     \ phrasing_elements,
