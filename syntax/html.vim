@@ -41,6 +41,8 @@ syn keyword htmlTagName contained linearGradient marker mask pattern radialGradi
 syn keyword htmlTagName contained missing-glyph mpath 
 syn keyword htmlTagName contained text textPath tref tspan vkern
 
+syn match htmlTagName contained "\<[a-z_]\+\(\-[a-z_]\+\)\+\>"
+
 " HTML 5 arguments
 " Core Attributes
 syn keyword htmlArg contained accesskey class contenteditable contextmenu dir 
