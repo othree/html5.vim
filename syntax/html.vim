@@ -70,6 +70,8 @@ syn keyword htmlArg contained required placeholder
 syn keyword htmlArg contained label icon open datetime pubdate
 " <script>
 syn keyword htmlArg contained async
+" <content>
+syn keyword htmlArg contained select
 
 " Custom Data Attributes
 " http://dev.w3.org/html5/spec/elements.html#embedding-custom-non-visible-data
