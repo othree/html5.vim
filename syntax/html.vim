@@ -44,7 +44,7 @@ syn keyword htmlTagName contained text textPath tref tspan vkern
 " HTML 5 arguments
 " Core Attributes
 syn keyword htmlArg contained accesskey class contenteditable contextmenu dir 
-syn keyword htmlArg contained draggable hidden id lang spellcheck style tabindex title translate
+syn keyword htmlArg contained draggable hidden id is lang spellcheck style tabindex title translate
 " Event-handler Attributes
 syn keyword htmlArg contained onabort onblur oncanplay oncanplaythrough onchange
 syn keyword htmlArg contained onclick oncontextmenu ondblclick ondrag ondragend ondragenter ondragleave ondragover 
