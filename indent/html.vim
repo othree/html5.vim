@@ -136,7 +136,6 @@ call add(s:tags, 'bdi')
 call add(s:tags, 'data')
 
 " Web Component
-call add(s:tags, 'element')
 call add(s:tags, 'template')
 
 " Common inline used SVG elements
