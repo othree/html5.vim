@@ -20,7 +20,7 @@ Use [Vundle][] or [pathogen.vim][] is recommended.
 
 For Vundle:
 
-    Bundle 'othree/html5.vim'
+    Plugin 'othree/html5.vim'
 
 ## Configure
 
