@@ -18,6 +18,10 @@ Use [Vundle][] or [pathogen.vim][] is recommended.
 [Vundle]:https://github.com/gmarik/vundle
 [pathogen.vim]:https://github.com/tpope/vim-pathogen
 
+For Vundle:
+
+    Plugin 'othree/html5.vim'
+
 ## Configure
 
 Disable event-handler attributes support:
