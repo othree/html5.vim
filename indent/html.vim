@@ -187,6 +187,7 @@ if exists('g:html_exclude_tags')
     endfor
 endif
 let s:html_indent_tags = join(s:tags, '\|')
+let s:html_indent_tags = s:html_indent_tags.'\|\w\+\(-\w\+\)\+'
 if exists('g:html_indent_tags')
     let s:html_indent_tags = s:html_indent_tags.'\|'.g:html_indent_tags
 endif
