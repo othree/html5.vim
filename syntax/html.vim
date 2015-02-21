@@ -75,6 +75,8 @@ syn keyword htmlArg contained label icon open datetime pubdate
 syn keyword htmlArg contained async
 " <content>
 syn keyword htmlArg contained select
+" <iframe>
+syn keyword htmlArg contained seamless srcdoc sandbox
 
 " Custom Data Attributes
 " http://dev.w3.org/html5/spec/elements.html#embedding-custom-non-visible-data
