@@ -83,7 +83,7 @@ syn keyword htmlArg contained srcset sizes
 
 " Custom Data Attributes
 " http://dev.w3.org/html5/spec/elements.html#embedding-custom-non-visible-data
-syn match   htmlArg "\<\(data\(\-[a-z0-9]\+\)\+\)\=\>" contained
+syn match   htmlArg "\<\(data\-\([a-z_][a-z0-9_.\-]*\)\+\)\=\>" contained
 
 " Microdata
 " http://dev.w3.org/html5/md/
