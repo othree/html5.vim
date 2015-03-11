@@ -1,6 +1,6 @@
 # html5.vim
 
-HTML5 + inline SVG omnicomplete funtion, indent and syntax for Vim.
+HTML5 + inline SVG omnicomplete function, indent and syntax for Vim.
 Based on the default htmlcomplete.vim.
 
 ## Feature
