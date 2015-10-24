@@ -3,6 +3,8 @@
 HTML5 + inline SVG omnicomplete function, indent and syntax for Vim.
 Based on the default htmlcomplete.vim.
 
+This plugin contributes to [vim-polyglot](https://github.com/sheerun/vim-polyglot) language pack.
+
 ## Feature
 
 - Support all new elements and attribute.
