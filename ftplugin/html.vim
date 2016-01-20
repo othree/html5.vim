@@ -5,3 +5,5 @@
 " Changes:      Add - to keyword
 
 " setlocal iskeyword+=-
+
+setlocal commentstring=<!--%s-->

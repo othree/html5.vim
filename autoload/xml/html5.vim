@@ -596,8 +596,12 @@ let g:xmldata_html5 = {
     \ global_attributes
 \ ],
 \ 'menu': [
-    \ flow_elements + ['li'],
+    \ flow_elements + ['menuitem'],
     \ extend(copy(global_attributes), {'type': ['toolbar', 'context'], 'label': []})
+\ ],
+\ 'menuitem': [
+    \ flow_elements + ['li'],
+    \ extend(copy(global_attributes), {'type': ['toolbar', 'context'], 'label': [], 'icon': [], 'disabled': [], 'checked': [], 'radiogroup': [], 'default': [], 'command': []})
 \ ],
 \ 'meta': [
     \ [],
