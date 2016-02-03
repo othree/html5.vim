@@ -209,7 +209,7 @@ if exists('g:html_exclude_tags')
     for tag in g:html_exclude_tags
         call remove(s:tags, index(s:tags, tag))
     endfor
-    let s:html_noindent_tags = s:html_noindent_tags.'\|'.g:html_exclude_tags
+    let s:html_noindent_tags = s:html_noindent_tags.'\|'.join(g:html_exclude_tags, '\|')
 endif
 
 " let s:html_indent_tags = join(s:tags, '\|')
