@@ -88,8 +88,12 @@ syn keyword htmlArg contained nonce
 syn keyword htmlArg contained referrerpolicy
 
 " Custom Data Attributes
-" http://dev.w3.org/html5/spec/elements.html#embedding-custom-non-visible-data
-syn match   htmlArg "\<\(data\-\([a-z_][a-z0-9_.\-]*\)\+\)\=\>" contained
+" http://w3c.github.io/html/single-page.html#embedding-custom-non-visible-data-with-the-data-attributes
+syn match   htmlArg "\<\(data\-\([a-z_][a-z0-9_.\-]*\)\+\)\{1,}\>" contained
+
+" Vendor Extension Attributes
+" http://w3c.github.io/html/single-page.html#conformance-requirements-extensibility
+syn match   htmlArg "\<\(x\-\([a-z_][a-z0-9_.\-]*\)\+\)\{2,}\>" contained
 
 " Microdata
 " http://dev.w3.org/html5/md/
