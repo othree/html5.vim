@@ -82,6 +82,7 @@ THE SOFTWARE.
 8. [IANA Language Sub Tags][8]
 9. [IANA Charset][9]
 10. [SVG Spec][10]
+11. [SVG2 Spec][11]
 
 [html5.vim]:http://www.vim.org/scripts/script.php?script_id=3236
 
@@ -89,13 +90,14 @@ THE SOFTWARE.
 [RDFa]:http://www.w3.org/TR/rdfa-syntax/
 [aria]:http://www.w3.org/TR/wai-aria/
 
-[1]:http://dev.w3.org/html5/spec/
+[1]:http://w3c.github.io/html/
 [2]:http://dev.w3.org/html5/markup/
-[3]:http://dev.w3.org/html5/spec/Overview.html#custom-data-attribute
-[4]:http://dev.w3.org/html5/md/
-[5]:http://www.w3.org/TR/rdfa-syntax/#a_xhtmlrdfa_dtd
+[3]:http://w3c.github.io/html/dom.html#embedding-custom-non-visible-data-with-the-data-attributes
+[4]:https://www.w3.org/TR/microdata/
+[5]:https://www.w3.org/TR/rdfa-syntax/#s_syntax
 [6]:http://www.w3.org/TR/rdfa-core/
 [7]:http://www.w3.org/TR/wai-aria/
 [8]:http://www.iana.org/assignments/language-subtag-registry
 [9]:http://www.iana.org/assignments/character-sets 
 [10]:http://www.w3.org/TR/SVG/
+[11]:https://www.w3.org/TR/SVG2/
