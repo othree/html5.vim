@@ -82,6 +82,8 @@ syn keyword htmlArg contained seamless srcdoc sandbox
 syn keyword htmlArg contained srcset sizes
 " <a>
 syn keyword htmlArg contained download media
+" <script>, <style>
+syn keyword htmlArg contained nonce
 
 " Custom Data Attributes
 " http://dev.w3.org/html5/spec/elements.html#embedding-custom-non-visible-data

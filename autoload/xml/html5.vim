@@ -691,7 +691,7 @@ let g:xmldata_html5 = {
 \ ],
 \ 'script': [
     \ [],
-    \ extend(copy(global_attributes), {'src': [], 'defer': ['defer', ''], 'async': ['async', ''], 'type': [], 'charset': charset})
+    \ extend(copy(global_attributes), {'src': [], 'defer': ['defer', ''], 'async': ['async', ''], 'type': [], 'charset': charset, 'nonce': []})
 \ ],
 \ 'section': [
     \ flow_elements + ['style'],
@@ -723,7 +723,7 @@ let g:xmldata_html5 = {
 \ ],
 \ 'style': [
     \ [],
-    \ extend(copy(global_attributes), {'type': [], 'media': [], 'scoped': ['scoped', '']})
+    \ extend(copy(global_attributes), {'type': [], 'media': [], 'scoped': ['scoped', ''], 'nonce': []})
 \ ],
 \ 'sub': [
     \ phrasing_elements,
