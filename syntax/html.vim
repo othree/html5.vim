@@ -84,6 +84,8 @@ syn keyword htmlArg contained srcset sizes
 syn keyword htmlArg contained download media
 " <script>, <style>
 syn keyword htmlArg contained nonce
+" <area>, <a>, <img>, <iframe>, <link>
+syn keyword htmlArg contained referrerpolicy
 
 " Custom Data Attributes
 " http://dev.w3.org/html5/spec/elements.html#embedding-custom-non-visible-data
