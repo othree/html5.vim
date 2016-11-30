@@ -40,6 +40,7 @@ setlocal indentkeys=o,O,*<Return>,<>>,{,},!^F
 
 
 let s:tags = []
+let s:no_tags = []
 
 " [-- <ELEMENT ? - - ...> --]
 call add(s:tags, 'a')
@@ -212,8 +213,6 @@ call add(s:tags, 'tfoot')
 call add(s:tags, 'tr')
 call add(s:tags, 'th')
 call add(s:tags, 'td')
-
-let s:no_tags = []
 
 call add(s:no_tags, 'base')
 call add(s:no_tags, 'link')
