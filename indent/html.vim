@@ -193,6 +193,7 @@ call add(s:no_tags, 'col')
 call add(s:no_tags, 'input')
 call add(s:no_tags, 'keygen')
 call add(s:no_tags, 'menuitem')
+call add(s:no_tags, 'use')
 
 let s:omittable = [ 
   \  ['address', 'article', 'aside', 'blockquote', 'dir', 'div', 'dl', 'fieldset', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'header', 'hr', 'menu', 'nav', 'ol', 'p', 'pre', 'section', 'table', 'ul'],
