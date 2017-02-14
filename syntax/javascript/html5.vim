@@ -41,3 +41,6 @@ syn keyword javascriptDomElemAttrs videoWidth videoHeight poster
 
 " drag and drop
 syn keyword javascriptDomElemAttrs onDragStart onDragEnd onDragEnter onDragLeave onDragOver onDrag onDrop draggable dropzone
+
+" <checkbox>
+syn keyword javascriptDomElemAttrs indeterminate
