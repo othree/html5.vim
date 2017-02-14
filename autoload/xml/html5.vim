@@ -549,7 +549,7 @@ let g:xmldata_html5 = {
 \ ],
 \ 'iframe': [
     \ [],
-    \ extend(copy(global_attributes), {'src': [], 'srcdoc': [], 'name': [], 'width': [], 'height': [], 'sandbox': ['allow-same-origin', 'allow-forms', 'allow-scripts'], 'seamless': ['seamless', ''], 'referrerpolicy': ['no-referrer', 'no-referrer-when-downgrade', 'origin', 'origin-when-cross-origin', 'unsafe-url']})
+    \ extend(copy(global_attributes), {'src': [], 'srcdoc': [], 'name': [], 'width': [], 'height': [], 'sandbox': ['allow-same-origin', 'allow-forms', 'allow-scripts'], 'seamless': ['seamless', ''], 'referrerpolicy': ['no-referrer', 'no-referrer-when-downgrade', 'origin', 'origin-when-cross-origin', 'unsafe-url'], 'allowfullscreen': [], 'allowpaymentrequest': [], 'allowusermedia': []})
 \ ],
 \ 'img': [
     \ [],
