@@ -345,6 +345,10 @@ let linkreltypes = linkreltypes + ['manifest']
 let linkreltypes = linkreltypes + ['canonical']
 " http://w3c.github.io/webcomponents/spec/imports/
 let linkreltypes = linkreltypes + ['import']
+" https://www.w3.org/TR/webmention/#sender-discovers-receiver-webmention-endpoint
+let linkreltypes = linkreltypes + ['webmention']
+" http://www.opensearch.org/Specifications/OpenSearch/1.1#Autodiscovery_in_HTML.2FXHTML
+let linkreltypes = linkreltypes + ['search']
 " http://microformats.org/wiki/rel-sitemap
 let linkreltypes = linkreltypes + ['sitemap']
 " https://www.ampproject.org/docs/get_started/create/prepare_for_discovery
