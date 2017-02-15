@@ -88,7 +88,7 @@ syn keyword htmlArg contained xml:lang xml:space xml:base xmlns
 syn keyword htmlArg contained onafterprint onbeforeprint onbeforeunload onblur onerror onfocus onhashchange onload 
 syn keyword htmlArg contained onmessage onoffline ononline onpopstate onredo onresize onstorage onundo onunload
 " <video>, <audio>, <source>, <track>
-syn keyword htmlArg contained autoplay preload controls loop poster media kind charset srclang track
+syn keyword htmlArg contained autoplay preload controls loop poster media kind charset srclang track playsinline
 " <form>, <input>, <button>
 syn keyword htmlArg contained form autocomplete autofocus list min max step
 syn keyword htmlArg contained formaction autofocus formenctype formmethod formtarget formnovalidate

@@ -140,6 +140,7 @@ let attributes_value = {
     \ 'optimum': ['Number', ''],
     \ 'pattern': ['Pattern', ''],
     \ 'placeholder': ['Text', ''],
+    \ 'playsinline': ['Bool', ''],
     \ 'poster': ['URL', ''],
     \ 'preload': ['Token', ''],
     \ 'pubdate': ['Bool', ''],
@@ -828,7 +829,7 @@ let g:xmldata_html5 = {
 \ ],
 \ 'video': [
     \ flow_elements + ['source', 'track'],
-    \ extend(copy(global_attributes), {'autoplay': ['autoplay', ''], 'preload': ['none', 'metadata', 'auto', ''], 'controls': ['controls', ''], 'loop': ['loop', ''], 'poster': [], 'height': [], 'width': [], 'src': []})
+    \ extend(copy(global_attributes), {'autoplay': ['autoplay', ''], 'preload': ['none', 'metadata', 'auto', ''], 'controls': ['controls', ''], 'loop': ['loop', ''], 'playsinline': ['playsinline', ''], 'poster': [], 'height': [], 'width': [], 'src': []})
 \ ],
 \ 'wbr': [
     \ [],
