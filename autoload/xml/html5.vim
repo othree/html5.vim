@@ -334,10 +334,29 @@ let metadata_elements = ['link', 'style', 'meta', 'script', 'noscript', 'command
 
 let flow_elements = phrasing_elements + ['p', 'hr', 'pre', 'ul', 'ol', 'dl', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hgroup', 'address', 'blockquote', 'ins', 'del', 'element', 'object', 'main', 'map', 'noscript', 'section', 'nav', 'article', 'aside', 'header', 'footer', 'video', 'audio', 'figure', 'table', 'template', 'form', 'fieldset', 'menu', 'canvas', 'details']
 
-" http://dev.w3.org/html5/spec/Overview.html#linkTypes
-let linktypes = ['alternate', 'author', 'bookmark', 'external', 'help', 'icon', 'license', 'next', 'nofollow', 'noreferrer', 'pingback', 'prefetch', 'prev', 'search', 'stylesheet', 'sidebar', 'tag']
+" https://html.spec.whatwg.org/#linkTypes
+let linktypes = ['alternate', 'author', 'bookmark', 'dns-prefetch', 'external', 'help', 'icon', 'license', 'next', 'nofollow', 'noreferrer', 'noopener', 'pingback', 'preconnect', 'prefetch', 'preload', 'prerender', 'prev', 'search', 'stylesheet', 'tag']
+" https://w3c.github.io/manifest/
+let linkreltypes = linktypes
+let linkreltypes = linkreltypes + ['manifest']
 " http://googlewebmastercentral.blogspot.com/2009/02/specify-your-canonical.html
-let linkreltypes = linktypes + ['canonical', 'import']
+" http://www.ysearchblog.com/2009/02/12/fighting-duplication-adding-more-arrows-to-your-quiver/
+" http://blogs.bing.com/webmaster/2009/02/12/partnering-to-help-solve-duplicate-content-issues
+let linkreltypes = linkreltypes + ['canonical']
+" http://w3c.github.io/webcomponents/spec/imports/
+let linkreltypes = linkreltypes + ['import']
+" http://microformats.org/wiki/rel-sitemap
+let linkreltypes = linkreltypes + ['sitemap']
+" https://www.ampproject.org/docs/get_started/create/prepare_for_discovery
+let linkreltypes = linkreltypes + ['amphtml']
+" https://developer.apple.com/library/content/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html
+let linkreltypes = linkreltypes + ['apple-touch-icon', 'apple-touch-icon-precomposed', 'apple-touch-startup-image']
+" https://developer.chrome.com/webstore/inline_installation
+let linkreltypes = linkreltypes + ['chrome-webstore-item']
+" http://pubsubhubbub.github.io/PubSubHubbub/pubsubhubbub-core-0.4.html#rfc.section.4
+let linkreltypes = linkreltypes + ['hub']
+" https://golem.ph.utexas.edu/~distler/blog/archives/000320.html
+let linkreltypes = linkreltypes + ['pgpkey']
 
 " a and button are special elements for interactive, some element can't be its descendent
 let abutton_dec = 'details\\|embed\\|iframe\\|keygen\\|label\\|menu\\|select\\|textarea'
