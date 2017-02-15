@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language:     HTML (version 5.1)
 "               SVG (SVG 1.1 (Second Edition) )
-" Last Change:  2016 Jan 20
+" Last Change:  2017 Feb 15
 " License:      Public domain
 "               (but let me know if you like :) )
 "
