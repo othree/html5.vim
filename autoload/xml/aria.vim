@@ -1,7 +1,7 @@
 " Vim completion for WAI-ARIA data file
 " Language:       HTML + WAI-ARIA
 " Maintainer:     othree <othree@gmail.com>
-" Last Change:    2010 Sep 09
+" Last Change:    2017 Mar 07
 
 " WAI_ARIA: {{{
 " Ref: https://www.w3.org/TR/wai-aria-1.1/

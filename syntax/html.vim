@@ -1,7 +1,8 @@
 " Vim syntax file
 " Language:     HTML (version 5.1)
-"               SVG (SVG 1.1 (Second Edition) )
-" Last Change:  2017 Feb 15
+"               SVG (SVG 1.1 Second Edition)
+"               MathML (MathML 3.0 Second Edition)
+" Last Change:  2017 Mar 07
 " License:      Public domain
 "               (but let me know if you like :) )
 "
