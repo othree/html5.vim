@@ -16,6 +16,15 @@
 " Modified:     htdebeer <H.T.de.Beer@gmail.com>
 " Changes:      add common SVG elements and attributes for inline SVG
 
+" Patch 7.4.1142
+if has("patch-7.4-1142")
+  if has("win32")
+    syn iskeyword @,48-57,_,128-167,224-235,-
+  else
+    syn iskeyword @,48-57,_,192-255,-
+  endif
+endif
+
 " HTML 5 tags
 syn keyword htmlTagName contained article aside audio canvas command
 syn keyword htmlTagName contained datalist details dialog embed figcaption figure footer
