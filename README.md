@@ -12,6 +12,7 @@ This plugin contributes to [vim-polyglot](https://github.com/sheerun/vim-polyglo
 - Support [microdata][microdata].
 - Support [RDFa][RDFa].
 - Support [WAI-ARIA][aria].
+- Support [Electron webview](https://electron.atom.io/docs/api/webview-tag/).
 
 ## Install
 
