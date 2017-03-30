@@ -369,6 +369,7 @@ let linkreltypes = linkreltypes + ['pgpkey']
 " a and button are special elements for interactive, some element can't be its descendent
 let abutton_dec = 'details\\|embed\\|iframe\\|keygen\\|label\\|menu\\|select\\|textarea'
 
+let crossorigin = ['anonymous', 'use-credentials']
 
 
 let g:xmldata_html5 = {
@@ -580,7 +581,7 @@ let g:xmldata_html5 = {
 \ ],
 \ 'img': [
     \ [],
-    \ extend(copy(global_attributes), {'src': [], 'alt': [], 'height': [], 'width': [], 'usemap': [], 'ismap': ['ismap', ''], 'referrerpolicy': ['no-referrer', 'no-referrer-when-downgrade', 'origin', 'origin-when-cross-origin', 'unsafe-url']})
+    \ extend(copy(global_attributes), {'src': [], 'alt': [], 'height': [], 'width': [], 'usemap': [], 'ismap': ['ismap', ''], 'referrerpolicy': ['no-referrer', 'no-referrer-when-downgrade', 'origin', 'origin-when-cross-origin', 'unsafe-url'], 'crossorigin': ['anonymous', 'use-credentials']})
 \ ],
 \ 'input': [
     \ [],
@@ -612,7 +613,7 @@ let g:xmldata_html5 = {
 \ ],
 \ 'link': [
     \ [],
-    \ extend(copy(global_attributes), {'href': [], 'rel': linkreltypes, 'hreflang': lang_tag, 'media': [], 'type': [], 'sizes': ['any'], 'referrerpolicy': ['no-referrer', 'no-referrer-when-downgrade', 'origin', 'origin-when-cross-origin', 'unsafe-url']})
+    \ extend(copy(global_attributes), {'href': [], 'rel': linkreltypes, 'hreflang': lang_tag, 'media': [], 'type': [], 'sizes': ['any'], 'referrerpolicy': ['no-referrer', 'no-referrer-when-downgrade', 'origin', 'origin-when-cross-origin', 'unsafe-url'], 'crossorigin': crossorigin})
 \ ],
 \ 'main': [
     \ flow_elements + ['style'],
@@ -720,7 +721,7 @@ let g:xmldata_html5 = {
 \ ],
 \ 'script': [
     \ [],
-    \ extend(copy(global_attributes), {'src': [], 'defer': ['defer', ''], 'async': ['async', ''], 'type': [], 'charset': charset, 'nonce': []})
+    \ extend(copy(global_attributes), {'src': [], 'defer': ['defer', ''], 'async': ['async', ''], 'type': [], 'charset': charset, 'nonce': [], 'crossorigin': crossorigin})
 \ ],
 \ 'section': [
     \ flow_elements + ['style'],
@@ -832,7 +833,7 @@ let g:xmldata_html5 = {
 \ ],
 \ 'video': [
     \ flow_elements + ['source', 'track'],
-    \ extend(copy(global_attributes), {'autoplay': ['autoplay', ''], 'preload': ['none', 'metadata', 'auto', ''], 'controls': ['controls', ''], 'loop': ['loop', ''], 'playsinline': ['playsinline', ''], 'poster': [], 'height': [], 'width': [], 'src': []})
+    \ extend(copy(global_attributes), {'autoplay': ['autoplay', ''], 'preload': ['none', 'metadata', 'auto', ''], 'controls': ['controls', ''], 'loop': ['loop', ''], 'playsinline': ['playsinline', ''], 'poster': [], 'height': [], 'width': [], 'src': [], 'crossorigin': crossorigin})
 \ ],
 \ 'wbr': [
     \ [],
