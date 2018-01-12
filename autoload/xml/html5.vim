@@ -614,7 +614,7 @@ let g:xmldata_html5 = {
 \ ],
 \ 'link': [
     \ [],
-    \ extend(copy(global_attributes), {'href': [], 'rel': linkreltypes, 'hreflang': lang_tag, 'media': [], 'type': [], 'sizes': ['any'], 'referrerpolicy': ['no-referrer', 'no-referrer-when-downgrade', 'origin', 'origin-when-cross-origin', 'unsafe-url'], 'crossorigin': crossorigin, 'preload': ['preload', ''], 'prefetch': ['prefetch', '']})
+    \ extend(copy(global_attributes), {'href': [], 'rel': linkreltypes, 'hreflang': lang_tag, 'media': [], 'type': [], 'sizes': ['any'], 'referrerpolicy': ['no-referrer', 'no-referrer-when-downgrade', 'origin', 'origin-when-cross-origin', 'unsafe-url'], 'crossorigin': crossorigin, 'preload': ['preload', ''], 'prefetch': ['prefetch', ''], 'as': ['report', 'document', 'document', 'object', 'embed', 'audio', 'font', 'image', 'audioworklet', 'paintworklet', 'script', 'serviceworker', 'sharedworker', 'worker', 'style', 'track', 'video', 'image', 'manifest', 'xslt', 'fetch', '']})
 \ ],
 \ 'main': [
     \ flow_elements + ['style'],
