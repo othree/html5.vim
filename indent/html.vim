@@ -267,13 +267,13 @@ endfun
 " [-- count indent-increasing tags of line a:lnum --]
 fun! <SID>HtmlIndentOpen(lnum, pattern)
     return <SID>HtmlIndentPatternCount(getline(a:lnum),
-    \ '.\{-}\(\(<\)\('.a:pattern.'\)\>\)')
+    \ '.\{-}\(\(<\)\('.a:pattern.'\)\_[ >]\)')
 endfun
 
 " [-- count indent-decreasing tags of line a:lnum --]
 fun! <SID>HtmlIndentClose(lnum, pattern)
     return <SID>HtmlIndentPatternCount(getline(a:lnum),
-    \ '.\{-}\(\(<\)/\('.a:pattern.'\)\>>\)')
+    \ '.\{-}\(\(<\)/\('.a:pattern.'\)\_[ >]\)')
 endfun
 
 " [-- count self close tags of line a:lnum --]
