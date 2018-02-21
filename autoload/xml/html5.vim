@@ -490,6 +490,10 @@ let g:xmldata_html5 = {
     \ filter(copy(phrasing_elements), "!(v:val =~ 'dfn')"),
     \ global_attributes
 \ ],
+\ 'dialog': [
+    \ flow_elements,
+    \ extend(copy(global_attributes), {'open': []})
+\ ],
 \ 'div': [
     \ flow_elements + ['style'],
     \ global_attributes
