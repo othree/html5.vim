@@ -73,9 +73,9 @@ THE SOFTWARE.
 
 ## References
  
-1. [HTML5.2 Spec][1]
+1. [HTML5.2 Spec](https://www.w3.org/TR/html52/)
 2. [HTML5 Markup][2]
-3. [Custom Data Attributes][3]
+3. [Custom Data Attributes](https://www.w3.org/TR/html52/dom.html#embedding-custom-non-visible-data-with-the-data-attributes)
 4. [microdata][4]
 5. [RDFa 1.0 Rec][5]
 6. [RDFa 1.1 Core WD][6]
@@ -96,9 +96,7 @@ THE SOFTWARE.
 [RDFa]:https://www.w3.org/TR/rdfa-syntax/
 [aria]:https://www.w3.org/TR/wai-aria-1.1/
 
-[1]:http://w3c.github.io/html/
 [2]:http://dev.w3.org/html5/markup/
-[3]:http://w3c.github.io/html/dom.html#embedding-custom-non-visible-data-with-the-data-attributes
 [4]:https://www.w3.org/TR/microdata/
 [5]:https://www.w3.org/TR/rdfa-syntax/#s_syntax
 [6]:https://www.w3.org/TR/rdfa-core/
