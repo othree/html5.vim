@@ -85,6 +85,7 @@ THE SOFTWARE.
 10. [SVG 1.0 Spec][10]
 11. [SVG 2.0 Spec][11]
 12. [MathML 3.0 Spec][12]
+13. [DPUB WAI-ARIA 1.0][13]
 
 
 <a href='https://ko-fi.com/H2H3782K' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi4.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
@@ -107,3 +108,4 @@ THE SOFTWARE.
 [10]:http://www.w3.org/TR/SVG/
 [11]:https://www.w3.org/TR/SVG2/
 [12]:https://www.w3.org/TR/MathML3/
+[13]:https://www.w3.org/TR/dpub-aria-1.0/
