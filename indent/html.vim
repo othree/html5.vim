@@ -921,6 +921,12 @@ func! s:InsideTag(foundHtmlString)
     else
       let idx = match(text, '\s\zs[_a-zA-Z0-9-]\+="')
     endif
+    if idx == -1
+      let idx = match(text, '<\w\+\(-\w\+\)*')
+      if idx >= 0
+        let idx = idx + shiftwidth()
+      endif
+    endif
     if idx > 0
       " Found the attribute.  TODO: assumes spaces, no Tabs.
       return idx
