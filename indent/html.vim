@@ -922,6 +922,9 @@ func! s:InsideTag(foundHtmlString)
       let idx = match(text, '\s\zs[_a-zA-Z0-9-]\+="')
     endif
     if idx == -1
+      let idx = match(text, '<\w\+\(-\w\+\)*\s\zs\w')
+    endif
+    if idx == -1
       let idx = match(text, '<\w\+\(-\w\+\)*')
       if idx >= 0
         let idx = idx + shiftwidth()
