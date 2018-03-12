@@ -229,8 +229,8 @@ call s:AddITags(s:indent_tags, [
 " New HTML5 elements:
 call s:AddITags(s:indent_tags, [
     \ 'area', 'article', 'aside', 'audio', 'bdi', 'canvas',
-    \ 'command', 'data', 'datalist', 'details', 'embed', 'figcaption',
-    \ 'figure', 'footer', 'header', 'keygen', 'mark', 'meter', 'nav', 'output',
+    \ 'command', 'data', 'datalist', 'details', 'dislog', 'embed', 'figcaption',
+    \ 'figure', 'footer', 'header', 'keygen', 'main', 'mark', 'meter', 'nav', 'output',
     \ 'progress', 'rp', 'rt', 'ruby', 'section', 'source', 'summary', 'svg', 
     \ 'time', 'track', 'video', 'wbr'])
 
