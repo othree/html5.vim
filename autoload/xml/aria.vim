@@ -135,9 +135,18 @@ let dpub_role = [
     \ 'doc-toc'
 \ ]
 
+" Ref: https://www.w3.org/TR/graphics-aria-1.0/
+" Version: W3C Candidate Recommendation 29 March 2018
+let graphic_role = [
+    \ 'graphics-document',
+    \ 'graphics-object',
+    \ 'graphics-symbol'
+\ ]
+
 let role = extend(widget_role, document_structure)
 let role = extend(role, landmark_role)
 let role = extend(role, dpub_role)
+let role = extend(role, graphic_role)
 
 " https://www.w3.org/TR/wai-aria-1.1/#states_and_properties
 let global_states_and_properties = {
