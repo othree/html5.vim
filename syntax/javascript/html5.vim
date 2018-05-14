@@ -44,3 +44,6 @@ syn keyword javascriptDomElemAttrs onDragStart onDragEnd onDragEnter onDragLeave
 
 " <checkbox>
 syn keyword javascriptDomElemAttrs indeterminate
+
+" select https://w3c.github.io/selection-api/#extensions-to-globaleventhandlers
+syn keyword javascriptDomElemAttrs onselectstart onselectchange
