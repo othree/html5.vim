@@ -744,6 +744,10 @@ let g:xmldata_html5 = {
     \ [],
     \ global_attributes
 \ ],
+\ 'slot': [
+    \ [],
+    \ extend(copy(global_attributes), {'name': []})
+\ ],
 \ 'small': [
     \ phrasing_elements,
     \ global_attributes
